@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="x">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width">
+
+  <title>UI.Layout : holy grail demo</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+  <link rel="stylesheet" href="https://rawgithub.com/angular-ui/ui-layout/v1.0.5/ui-layout.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div ui-layout  >
+      
+      <div ui-layout-container> 
+        <div ui-layout="{flow : 'column'}" >
+          <div ui-layout-container size="200px" class=" html-back" ></div>
+          <div ui-layout-container class=" js-back" ></div>
+        </div>
+      </div>
+    
+    </div>
+    
+  <!-- Le javascript -->
+  <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+  <script type="application/javascript" src="https://rawgithub.com/angular-ui/ui-layout/v1.0.5/ui-layout.min.js"></script>
+  <script>
+    angular.module('x', ['ui.layout']);
+  </script>
+</body>
+
+</html>
