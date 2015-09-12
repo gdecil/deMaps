@@ -7,14 +7,16 @@
     <link href="css/main.css" rel="stylesheet" />
   	<link href="css/style.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://rawgithub.com/angular-ui/ui-layout/v1.0.5/ui-layout.css">
+  <link rel="stylesheet" href="css/angular-ui-tree.min.css">
+  <link rel="stylesheet" href="css/treeview.css">
 
 		<script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
 
 		<script src="js/vendor/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>
-		
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>		
 		<script type="application/javascript" src="https://rawgithub.com/angular-ui/ui-layout/v1.0.5/ui-layout.min.js"></script>
+		<script src="js/vendor/angular-ui-tree203.js"></script>
 		
     <script src="js/vendor/leaflet.js"></script>
     <script src="js/vendor/google.js"></script>
@@ -57,13 +59,50 @@
 											<li><a href="" ng-click="changeLocation('34.0078:-118.8060:14')">Malibu</a>
 											<li><a href="" ng-click="changeLocation('33.7717:-117.9458:12')">Garden Grove</a>
 											<li><a href="" ng-click="changeLocation('32.5290:-117.0442:13')">Tijuana</a>
-										</ul>											
+										</ul>	
+								
+									<div class="container">
+										tree
+										<div class="row">
+											<div class="col-md-12">
+													<div class="row" >
+														<div class="col-lg-6">
+															<!-- Nested list template -->
+															<script type="text/ng-template" id="items_renderer.html">
+																<div ui-tree-handle>
+																	<a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+
+																	<a class="btn btn-success btn-xs" data-nodrag ng-click='changeLocation(item.coord)'>
+																		<span class="glyphicon">
+																		</span>
+																	</a>
+																	
+																	<a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
+																	<a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
+																	<a data-nodrag href="{{item.url}}">{{item.title}}</a>
+																</div>
+																<ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
+																	<li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true">
+																	</li>
+																</ol>
+															</script>
+															<div ui-tree="options" id="tree-root">
+																<ol ui-tree-nodes ng-model="list" >
+																	<li ng-repeat="item in list" ui-tree-node collapsed="true" ng-include="'items_renderer.html'">
+																	</li>
+																</ol>
+															</div>
+														</div>
+													</div>
+												</div>
+										 </div>
+									</div>
+								
+								
+								
 								</accordion-group>
 							</accordion>
-						</div>
-						
-						
-						
+						</div>																		
 					</div>
           <div ui-layout-container class=" js-back" >
 						<div class="main">

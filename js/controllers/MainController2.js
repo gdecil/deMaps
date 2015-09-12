@@ -120,5 +120,91 @@ app.controller('MainController', ['$scope', 'places', '$location', function($sco
                     }									
                 }		
 	});
+	
+	//treeview
+	$scope.list = 
+			[
+				{
+					"id": 1,
+					"title": "1. Rifugi",
+					"items": []
+    		}, 
+				{
+					"id": 2,
+					"title": "2. Cime",
+					"items": [
+										{
+											"id": 21,
+											"title": "Grignone",
+											"coord" : "10:-10:4",
+											"items": 
+												[
+													{
+														"id": 211,
+														"title": "Partenza",
+														"items": []
+													}, 
+													{
+														"id": 212,
+														"title": "Altezza",
+														"items": []
+													},
+													{
+														"id": 213,
+														"title": "Link",
+														"url": "https://it.wikipedia.org/wiki/Grigna_settentrionale",
+														"items": []
+													}, 
+												],
+      							}, 
+										{
+											"id": 22,
+											"title": "Monte Cazzola",
+											"items": []
+										}
+									],
+    		}, 
+				{
+					"id": 3,
+					"title": "3. Altopiani",
+					"items": []
+				}, 
+				{
+					"id": 4,
+					"title": "4. Valli",
+					"items": []
+				}
+			];
+
+    $scope.selectedItem = {};
+
+    $scope.options = {
+    };
+
+    $scope.remove = function(scope) {
+      scope.remove();
+    };
+
+    $scope.toggle = function(scope) {
+      scope.toggle();
+    };
+
+    $scope.newSubItem = function(scope) {
+      var nodeData = scope.$modelValue;
+      nodeData.items.push({
+        id: nodeData.id * 10 + nodeData.items.length,
+        title: nodeData.title + '.' + (nodeData.items.length + 1),
+        items: []
+      });
+    };
+		var getRootNodesScope = function() {
+      return angular.element(document.getElementById("tree-root")).scope();
+    };
+
+		$scope.collapseAll = function() {
+      var scope = getRootNodesScope();
+      scope.collapseAll();
+    };
+
 
 }]);
