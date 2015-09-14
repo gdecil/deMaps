@@ -17,6 +17,8 @@
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>		
 		<script type="application/javascript" src="https://rawgithub.com/angular-ui/ui-layout/v1.0.5/ui-layout.min.js"></script>
 		<script src="js/vendor/angular-ui-tree203.js"></script>
+		<script src="js/vendor/angular-ui-utils/highlight.min.js"></script>
+		<script src="js/vendor/angular-ui-tree-filter.js"></script>
 		
     <script src="js/vendor/leaflet.js"></script>
     <script src="js/vendor/google.js"></script>
@@ -30,7 +32,7 @@
 		<script src= 'js/services/places.js'></script>
   </head>
 
-  <body ng-controller="MainController">
+  <body ng-controller="MainController" ng-init="dim=true; highlight=true">
 		
 		<div class="header">
       <div class="container-fluid">
@@ -54,15 +56,48 @@
 								<accordion-group is-open="status.open">
 									<accordion-heading>Direct locations</i>
 									</accordion-heading>
+<!--
 										<ul>
 											<li><a href="" ng-click="changeLocation('36.8899:-121.8008:12')">Watsonville</a>
 											<li><a href="" ng-click="changeLocation('34.0078:-118.8060:14')">Malibu</a>
 											<li><a href="" ng-click="changeLocation('33.7717:-117.9458:12')">Garden Grove</a>
 											<li><a href="" ng-click="changeLocation('32.5290:-117.0442:13')">Tijuana</a>
 										</ul>	
+-->
+								
+        <div class="col-md-6">
+          <a href="" class="btn btn-default pull-right" ng-click="collapseAll()">Collapse all</a>
+          <a href="" class="btn btn-default pull-right" ng-click="expandAll()">Expand all</a>					
+					
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon">Filter</span>
+                <input type="search" class="form-control" placeholder="Type a part of any nodes name..."  ng-model="pattern">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-unstyled">
+                <!--<li>
+                    <input type="checkbox" ng-model="highlight">
+                    <small> Use
+                       <a href=">http://angular-ui.github.io/ui-utils/#/highlight">UI.Utils highlight</a> for exact matches</small>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="dim"> <small>Dim filtered out (instead of hiding)</small>
+                </li>-->
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-unstyled">
+                <li ng-repeat="field in availableFields">
+                    <input type="checkbox" ng-click="toggleSupport(field)" ng-checked="supportedFields.indexOf(field) > -1">
+                    <!--<small>Match <code>{{ field }}</code></small>-->
+                </li>
+            </ul>
+        </div>
+								
 								
 									<div class="container">
-										tree
+										
 										<div class="row">
 											<div class="col-md-12">
 													<div class="row" >
@@ -71,24 +106,33 @@
 															<script type="text/ng-template" id="items_renderer.html">
 																<div ui-tree-handle>
 																	<a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
-
-																	<a class="btn btn-success btn-xs" data-nodrag ng-click='changeLocation(item.coord)'>
-																		<span class="glyphicon">
-																		</span>
-																	</a>
 																	
+<!--
 																	<a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
 																	<a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
+-->
 																	<a data-nodrag href="{{item.url}}">{{item.title}}</a>
+																	<small>{{item.description}}</small>
+																
+																	<a class="{{item.class}}" data-nodrag ng-click='changeLocation(item.coord)'>
+																		<span class="glyphicon">
+																			View
+																		</span>
+																	</a>
+																
 																</div>
 																<ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
-																	<li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true">
+																	<li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" 
+                        ng-hide="!treeFilter(item, pattern, supportedFields) && dim"
+                        ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}"																			>
 																	</li>
 																</ol>
 															</script>
 															<div ui-tree="options" id="tree-root">
 																<ol ui-tree-nodes ng-model="list" >
-																	<li ng-repeat="item in list" ui-tree-node collapsed="true" ng-include="'items_renderer.html'">
+																	<li ng-repeat="item in list" ui-tree-node collapsed="true" ng-include="'items_renderer.html'"
+																		ng-hide="!treeFilter(item, pattern, supportedFields) && dim"
+																		ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
 																	</li>
 																</ol>
 															</div>

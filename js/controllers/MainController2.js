@@ -1,10 +1,22 @@
-app.controller('MainController', ['$scope', 'places', '$location', function($scope, places, $location){
+app
+	.controller('MainController', ['$filter','$scope', 'places', '$location', function($filter, $scope, places, $location){
 	
-	places.success(function(data){
+	//tree filter
+	$scope.treeFilter = $filter('uiTreeFilter');
+
+	$scope.availableFields = ['title', 'description'];
+	$scope.supportedFields = ['title', 'description'];
+	$scope.toggleSupport = function (propertyName) {
+			return $scope.supportedFields.indexOf(propertyName) > -1 ?
+					$scope.supportedFields.splice($scope.supportedFields.indexOf(propertyName), 1) :
+					$scope.supportedFields.push(propertyName);
+	};
+	
+	/*places.success(function(data){
         $scope.geodata = data;
      $scope.mapMarkers = geodataToMarkers($scope.geodata);
 
-  });
+  });*/
 	
 	if($location.$$url!=""){
 		var coord = $location.$$url.replace("?c=", "").split(":")
@@ -18,9 +30,14 @@ app.controller('MainController', ['$scope', 'places', '$location', function($sco
 	else {
 		$scope.mapCenter = 
 				{
+				lat: 45.953333,
+				lng: 9.387509,
+				zoom: 8
+/*
 				lat: 40.741934,
 				lng: -74.004897,
 				zoom: 17
+*/
 			}		
 	}
 	
@@ -109,7 +126,7 @@ app.controller('MainController', ['$scope', 'places', '$location', function($sco
                         wms: {
                             name: 'EEUU States (WMS)',
                             type: 'wms',
-                            visible: true,
+                            visible: false,
                             url: 'http://suite.opengeo.org/geoserver/usa/wms',
                             layerParams: {
                                 layers: 'usa:states',
@@ -120,46 +137,95 @@ app.controller('MainController', ['$scope', 'places', '$location', function($sco
                     }									
                 }		
 	});
+		
+	$scope.collapseAll = function() {
+      var scope = getRootNodesScope();
+      scope.collapseAll();
+    };
+
+	$scope.expandAll = function() {
+		var scope = getRootNodesScope();
+		scope.expandAll();
+	};
+		
+	//markers
+	$scope.mapMarkers = 
+		[
+			{
+				"lat" : 45.953333,
+				"lng": 9.387509,
+				"message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Grigna_settentrionale'>Grignone</a>",				
+			}
+		]
 	
 	//treeview
-	$scope.list = 
+	$scope.list0 = 
 			[
 				{
 					"id": 1,
 					"title": "1. Rifugi",
+					"class": "hide",
 					"items": []
     		}, 
 				{
 					"id": 2,
 					"title": "2. Cime",
+					"class": "hide",
 					"items": [
 										{
 											"id": 21,
-											"title": "Grignone",
-											"coord" : "10:-10:4",
+											"title": "Grignone",											
+											"coord" : "45.953333:9.387509:15",
+											"lat" : 45.953333,
+											"lng": 9.387509,
+											"message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Grigna_settentrionale'>Grignone</a>",
+											"class": "showCoord",
 											"items": 
 												[
 													{
 														"id": 211,
 														"title": "Partenza",
+														"description": 'Grignone',
+														"class": "hide",
 														"items": []
 													}, 
 													{
 														"id": 212,
 														"title": "Altezza",
+														"description": 'Grignone',
+														"class": "hide",
 														"items": []
 													},
 													{
 														"id": 213,
-														"title": "Link",
+														"title": "Wikipedia",
+														"description": 'Grignone',
 														"url": "https://it.wikipedia.org/wiki/Grigna_settentrionale",
+														"class": "hide",
 														"items": []
 													}, 
+													{
+														"id": 213,
+														"title": "Descrizione",
+														"description": 'Grignone',
+														"url": "https://workflowy.com/#/7c4964938b5b",
+														"class": "hide",
+														"items": []
+													}, 
+													{
+														"id": 214,
+														"title": "Photo",
+														"description": 'Grignone',
+														"url": "https://2.own",
+														"class": "hide",
+														"items": []
+													}
 												],
       							}, 
 										{
 											"id": 22,
 											"title": "Monte Cazzola",
+											"class": "hide",
 											"items": []
 										}
 									],
@@ -167,11 +233,13 @@ app.controller('MainController', ['$scope', 'places', '$location', function($sco
 				{
 					"id": 3,
 					"title": "3. Altopiani",
+					"class": "hide",
 					"items": []
 				}, 
 				{
 					"id": 4,
 					"title": "4. Valli",
+					"class": "hide",
 					"items": []
 				}
 			];
@@ -207,4 +275,13 @@ app.controller('MainController', ['$scope', 'places', '$location', function($sco
     };
 
 
-}]);
+		
+	var retrievedObject = localStorage.getItem('mymaps');
+	$scope.list =	eval(retrievedObject)
+}])
+	.filter('trust', function ($sce) {
+			return function (val) {
+					return $sce.trustAsHtml(val);
+			};
+	});
+;

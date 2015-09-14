@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="formCtrl">
+  <form novalidate>
+    Tipo: es Rifugi, Cime, Altopiani, Valli<br>
+    <input type="text" ng-model="mymaps.tipo"><br>
+    Nome:<br>
+    <input type="text" ng-model="mymaps.Nome">
+		<br>
+		    Partenza:<br>
+    <input type="text" ng-model="mymaps.Partenza">
+		<br>
+
+		    Altezza:<br>
+    <input type="text" ng-model="mymaps.Altezza">
+		<br>
+
+		    Wikipedia:<br>
+    <input type="text" ng-model="mymaps.Wikipedia">
+		<br>
+
+		    Descrizione:<br>
+    <input type="text" ng-model="mymaps.Descrizione">
+		<br>
+		
+    Photo:<br>		
+    <input type="text" ng-model="mymaps.Photo">
+		<br>
+    Latitudine:<br>
+    <input type="text" ng-model="mymaps.Latitudine">
+		<br>
+    Longitudine:<br>
+    <input type="text" ng-model="mymaps.Longitudine">
+		<br>
+    Messaggio marker:<br>
+    <input type="text" ng-model="mymaps.Messaggio">
+		
+    <br><br>
+    <button ng-click="reset()">RESET</button>
+    <button ng-click="saveDataLocal()">Save</button>
+    <button ng-click="loadDataLocal()">Load</button>
+  </form>
+  <p>form = {{user }}</p>
+  <p>master = {{master}}</p>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('formCtrl', function($scope) {
+    $scope.master = {
+			tipo:"Cime", 
+			Nome:"Grignone", 
+			Partenza: "Esino Lario m 1450", 
+			Altezza: "m 2540", 
+			Wikipedia: "https://it.wikipedia.org/wiki/Grigna_settentrionale",
+			Descrizione: "https://workflowy.com/#/7c4964938b5b", 
+			Photo:"https://2.own",
+			Latitudine:"45.953333",
+			Longitudine:"9.387509",
+			Messaggio:"https://it.wikipedia.org/wiki/Grigna_settentrionale"
+		};
+    $scope.reset = function() {
+        $scope.mymaps = angular.copy($scope.master);
+    };
+    $scope.reset();
+		$scope.saveDataLocal = function(){
+			var treev = [
+				{
+					"id": 1,
+					"title": "1. Rifugi",
+					"class": "hide",
+					"items": []
+				},				
+				{
+					"id": 1,
+					"title": "1. Cime",
+					"class": "hide",
+					"items": []
+				},				
+				{
+					"id": 1,
+					"title": "1. Altopiani",
+					"class": "hide",
+					"items": []
+				},				
+				{
+					"id": 1,
+					"title": "1. Valli",
+					"class": "hide",
+					"items": []
+				}				
+			];
+			
+			var loc = {
+				"title" : $scope.mymaps.Nome,
+				"coord" : $scope.mymaps.Latitudine + ":" + $scope.mymaps.Longitudine + ":15",
+				"lat" : $scope.mymaps.Latitudine,
+				"lng" : $scope.mymaps.Longitudine,
+				"message" : "<a target='_blank' href='" + $scope.mymaps.Messaggio + "'>" + $scope.mymaps.Nome + "</a>",
+				"class": "showCoord",
+				"items": [
+					{
+						"title": "Partenza",
+						"description": $scope.mymaps.Nome,
+						"class": "hide",
+						"items": []
+					},
+					{
+						"title": "Altezza",
+						"description": $scope.mymaps.Nome,
+						"class": "hide",
+						"items": []
+					},
+					{
+						"title": "Wikipedia",
+						"description": $scope.mymaps.Nome,
+						"url": $scope.mymaps.Wikipedia,
+						"class": "hide",
+						"items": []					
+					},
+					{
+						"title": "Descrizione",
+						"description": $scope.mymaps.Nome,
+						"url": $scope.mymaps.Descrizione,
+						"class": "hide",
+						"items": []					
+					},
+					{
+						"title": "Photo",
+						"description": $scope.mymaps.Nome,
+						"url": $scope.mymaps.Photo,
+						"class": "hide",
+						"items": []					
+					}				
+				]
+			}	
+
+			switch ($scope.mymaps.tipo) {
+			case "Rifugi":
+					treev[0].items.push(loc) 
+					break;
+			case "Cime":
+					treev[1].items.push(loc) 
+					break;
+			case "Altopiani":
+					treev[2].items.push(loc) 
+					break;
+			case "Valli":
+					treev[3].items.push(loc) 
+					break;
+			}
+
+			localStorage.setItem('mymaps', JSON.stringify(treev));
+		}
+		
+		$scope.loadDataLocal = function(){
+			var retrievedObject = localStorage.getItem('mymaps');
+			var mymaps = eval(retrievedObject);
+		}
+			
+		$scope.saveDataAjax = function() {
+			var obj = {};
+
+			obj.name = 'x';
+			obj.id = 4
+
+			$.ajax({
+					url: 'json.php',
+					data: {
+							json: JSON.stringify(obj)
+					},
+					dataType: "json",
+					type: "POST"
+			});
+		}
+		$scope.loadDataAjax = function() {
+			var json = (function () {
+					var json = null;
+					$.ajax({
+							'async': false,
+							'global': false,
+							'url': "jsondata.txt",
+							'dataType': "json",
+							'success': function (data) {
+									json = data;
+							}
+					});
+					return json;
+			})(); 			
+		}
+});
+</script>
+
+</body>
+</html>
