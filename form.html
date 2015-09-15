@@ -1,50 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
 <body>
 
 <div ng-app="myApp" ng-controller="formCtrl">
   <form novalidate>
     Tipo: es Rifugi, Cime, Altopiani, Valli<br>
-    <input type="text" ng-model="mymaps.tipo"><br>
+    <input type="text" ng-model="mymaps.tipo" size="80"><br>
     Nome:<br>
-    <input type="text" ng-model="mymaps.Nome">
+    <input type="text" ng-model="mymaps.Nome" size="80">
 		<br>
 		    Partenza:<br>
-    <input type="text" ng-model="mymaps.Partenza">
+    <input type="text" ng-model="mymaps.Partenza" size="80">
 		<br>
 
 		    Altezza:<br>
-    <input type="text" ng-model="mymaps.Altezza">
+    <input type="text" ng-model="mymaps.Altezza" size="80">
 		<br>
 
 		    Wikipedia:<br>
-    <input type="text" ng-model="mymaps.Wikipedia">
+    <input type="text" ng-model="mymaps.Wikipedia" size="80">
 		<br>
 
 		    Descrizione:<br>
-    <input type="text" ng-model="mymaps.Descrizione">
+    <input type="text" ng-model="mymaps.Descrizione" size="80">
 		<br>
 		
     Photo:<br>		
-    <input type="text" ng-model="mymaps.Photo">
+    <input type="text" ng-model="mymaps.Photo" size="80">
 		<br>
     Latitudine:<br>
-    <input type="text" ng-model="mymaps.Latitudine">
+    <input type="text" ng-model="mymaps.Latitudine"size="80">
 		<br>
     Longitudine:<br>
-    <input type="text" ng-model="mymaps.Longitudine">
+    <input type="text" ng-model="mymaps.Longitudine"size="80">
 		<br>
     Messaggio marker:<br>
-    <input type="text" ng-model="mymaps.Messaggio">
+    <input type="text" ng-model="mymaps.Messaggio"size="80">
 		
     <br><br>
     <button ng-click="reset()">RESET</button>
     <button ng-click="saveDataLocal()">Save</button>
-    <button ng-click="loadDataLocal()">Load</button>
+    <button ng-click="loadDataAjax()">Load</button>
   </form>
-  <p>form = {{user }}</p>
   <p>master = {{master}}</p>
+  <p>form = {{mymaps }}</p>
 </div>
 
 <script>
@@ -67,6 +68,11 @@ app.controller('formCtrl', function($scope) {
     };
     $scope.reset();
 		$scope.saveDataLocal = function(){
+			
+			var retrievedObject = localStorage.getItem('mymaps');
+			var treev = eval(retrievedObject);
+			
+/*
 			var treev = [
 				{
 					"id": 1,
@@ -93,6 +99,7 @@ app.controller('formCtrl', function($scope) {
 					"items": []
 				}				
 			];
+*/
 			
 			var loc = {
 				"title" : $scope.mymaps.Nome,
@@ -154,6 +161,8 @@ app.controller('formCtrl', function($scope) {
 			}
 
 			localStorage.setItem('mymaps', JSON.stringify(treev));
+			
+			$scope.mymaps = JSON.stringify(treev);
 		}
 		
 		$scope.loadDataLocal = function(){
@@ -182,10 +191,10 @@ app.controller('formCtrl', function($scope) {
 					$.ajax({
 							'async': false,
 							'global': false,
-							'url': "jsondata.txt",
+							'url': "mymaps.txt",
 							'dataType': "json",
 							'success': function (data) {
-									json = data;
+									$scope.mymaps = data;
 							}
 					});
 					return json;

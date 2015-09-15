@@ -157,8 +157,43 @@ app
 				"message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Grigna_settentrionale'>Grignone</a>",				
 			}
 		]
-	
+		$scope.loadDataAjax = function() {
+			var json = (function () {
+					var json = null;
+					$.ajax({
+							'async': false,
+							'global': false,
+							'url': "mymaps.txt",
+							'dataType': "json",
+							'success': function (data) {
+								var markers = []
+								$scope.list = data;
+								$.each(data, function( index, value ) {
+									var lat = value.items.map(function(a) {return a.lat;});
+									var lng = value.items.map(function(a) {return a.lng;});
+									var message = value.items.map(function(a) {return a.message;});
+									var title = value.items.map(function(a) {return a.title;});
+									
+									if(lat.length>0){
+										$.each(lat, function( index, value ) {
+											var mark = {}
+											mark.lat = Number(lat[index])
+											mark.lng = Number(lng[index])
+											mark.message = message[index]
+											markers.push(mark);
+										});
+									}
+								});
+								
+								$scope.mapMarkers = markers;
+								$scope.$apply
+							}
+					});
+					return json;
+			})(); 			
+		}
 	//treeview
+/*
 	$scope.list0 = 
 			[
 				{
@@ -278,6 +313,8 @@ app
 		
 	var retrievedObject = localStorage.getItem('mymaps');
 	$scope.list =	eval(retrievedObject)
+*/
+	$scope.loadDataAjax()
 }])
 	.filter('trust', function ($sce) {
 			return function (val) {
