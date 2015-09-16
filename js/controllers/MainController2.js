@@ -300,6 +300,12 @@ app
         items: []
       });
     };
+
+
+		
+	var retrievedObject = localStorage.getItem('mymaps');
+	$scope.list =	eval(retrievedObject)
+*/
 		var getRootNodesScope = function() {
       return angular.element(document.getElementById("tree-root")).scope();
     };
@@ -309,12 +315,7 @@ app
       scope.collapseAll();
     };
 
-
-		
-	var retrievedObject = localStorage.getItem('mymaps');
-	$scope.list =	eval(retrievedObject)
-*/
-	$scope.loadDataAjax()
+		$scope.loadDataAjax()
 }])
 	.filter('trust', function ($sce) {
 			return function (val) {

@@ -1,0 +1,43 @@
+      {
+        "title": "",
+        "coord": "::15",
+        "lat": "",
+        "lng": "",
+        "message": "<a target='_blank' href=''>title</a>",
+        "class": "showCoord",
+        "items": [
+          {
+            "title": "Partenza",
+            "description": "title",
+            "class": "hide",
+            "items": []
+          },
+          {
+            "title": "Altezza",
+            "description": "title",
+            "class": "hide",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "title",
+            "url": "",
+            "class": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "title",
+            "url": "https://workflowy.com/#/",
+            "class": "hide",
+            "items": []
+          },
+          {
+            "title": "Photo",
+            "description": "title",
+            "url": "https://2.own",
+            "class": "hide",
+            "items": []
+          }
+        ]
+      },
