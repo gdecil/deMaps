@@ -1,5 +1,5 @@
 app
-	.controller('MainController', ['$filter','$scope', 'places', '$location', function($filter, $scope, places, $location){
+	.controller('MainController', ['$filter','$scope', 'places', '$location', 'leafletData', function($filter, $scope, places, $location, leafletData){
 	
 	//tree filter
 	$scope.treeFilter = $filter('uiTreeFilter');
@@ -17,9 +17,9 @@ app
      $scope.mapMarkers = geodataToMarkers($scope.geodata);
 
   });*/
-	
-	if($location.$$url!=""){
-		var coord = $location.$$url.replace("?c=", "").split(":")
+	if($location.$$absUrl.indexOf("c=") > -1){
+		var c = $location.$$absUrl.split("?")
+		var coord = c[1].replace("c=", "").split(":")
 		$scope.mapCenter = 
 			{
 			lat: Number(coord[0]),
@@ -50,7 +50,57 @@ app
 			zoom: Number(coord[2])
 		}		
 	}
-
+	
+	// layer track
+	
+	var addLayer = function(url){
+		var type = url.split(".")
+			leafletData.getMap().then(function(map) {
+				switch (type[1]) {
+					case "kml":
+						$scope[type[0]] = omnivore.kml(url).addTo(map);
+						break;
+					case "gpx":
+						$scope[type[0]] = omnivore.gpx(url).addTo(map);
+							break;
+					case "csv":
+						$scope[type[0]] = omnivore.csv(url).addTo(map);
+							break;
+					case "wkt":
+						$scope[type[0]] = omnivore.wkt(url).addTo(map);
+							break;
+					case "topojson":
+						$scope[type[0]] = omnivore.topojson(url).addTo(map);
+							break;
+					case "geojson":
+						$scope[type[0]] = omnivore.geojson(url).addTo(map);
+							break;
+					case "txt":
+						$scope[type[0]] = omnivore.polyline(url).addTo(map);
+							break;
+				}
+			});		
+	}
+	var removeLayer = function(url){
+		var type = url.split(".")
+		leafletData.getMap().then(function(map) {
+			map.removeLayer($scope[type[0]]);
+		});	
+	}
+		
+	$scope.viewTrack = function(chkInfo) {		
+		var chk = chkInfo.split(":")
+		if($('input#chkGrignone.showGps').is(':checked'))
+		{
+			addLayer(chk[1])
+		}
+		else {
+			removeLayer(chk[1])			
+		}
+	}
+	
+	
+	//providers
 	angular.extend($scope, {
                 layers: {
                     baselayers: {
@@ -79,6 +129,11 @@ app
 													}
 												}
 											},
+											OpenTopoMap: {
+													name: 'OpenTopoMap',
+													url: 'http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+													type: 'xyz'
+											},
 											mapbox_light: {
 													name: 'Mapbox Light',
 													url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
@@ -106,6 +161,46 @@ app
 													url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 													type: 'xyz'
 											},
+											osmBlackAndWhite: {
+												name: 'osmBlackAndWhite',
+												url: 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png',
+												type: 'xyz',
+												options: {
+													maxZoom: 18,
+													attribution:
+														'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+												}
+											},											
+											osmDE: {
+												name: 'osmDE',
+												url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
+												type: 'xyz',
+												options: {
+													maxZoom: 18,
+													attribution:
+														'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+												}
+											},											
+											osmDE: {
+												name: 'osmDE',
+												url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
+												type: 'xyz',
+												options: {
+													maxZoom: 18,
+													attribution:
+														'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+												}
+											},
+											EsriWorldTopoMap: {
+												name: 'Esri WorldTopoMap',
+												type: 'xyz',
+												url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+												options: {
+													attribution:
+														'{attribution.Esri} &mdash; ' +
+														'Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+												}
+											},
 											googleTerrain: {
                             name: 'Google Terrain',
                             layerType: 'TERRAIN',
@@ -116,11 +211,11 @@ app
 	                        layerType: 'HYBRID',
 	                        type: 'google'
 	                    },
-                        googleRoadmap: {
-                            name: 'Google Streets',
-                            layerType: 'ROADMAP',
-                            type: 'google'
-                        }
+											googleRoadmap: {
+													name: 'Google Streets',
+													layerType: 'ROADMAP',
+													type: 'google'
+											}
                     },
                     overlays: {
                         wms: {
@@ -133,7 +228,25 @@ app
                                 format: 'image/png',
                                 transparent: true
                             }
-                        }
+                        },
+												OpenSeaMap: {
+													name: 'OpenSeaMap',
+													type: 'wms',
+													url: 'http://tiles.openseamaOpenSeaMapp.org/seamark/{z}/{x}/{y}.png',
+													options: {
+														attribution: 'Map data: &copy; <a href="http://www.openseamap.org">OpenSeaMap</a> contributors'
+													}
+												},
+												OpenTopoMap: {
+													name: 'OpenTopoMap',
+													type: 'wms',
+													url: '//{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+													options: {
+														maxZoom: 16,
+														attribution: 'Map data: {attribution.OpenStreetMap}, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+													}
+												}
+		
                     }									
                 }		
 	});
@@ -173,13 +286,36 @@ app
 									var lng = value.items.map(function(a) {return a.lng;});
 									var message = value.items.map(function(a) {return a.message;});
 									var title = value.items.map(function(a) {return a.title;});
+									switch (value.title) {
+											case "1. Rifugi":
+													icon = "home";
+													color = "red";
+													break;
+											case "2. Cime":
+													icon = "star";
+													color = "purple";
+													break;
+											case "3. Alpeggi":
+													icon = "heart";
+													color = "blue"
+													break;
+											case "4. Valli":
+													icon = "cog";
+													color = "green"
+													break;
+									}
 									
 									if(lat.length>0){
-										$.each(lat, function( index, value ) {
+										$.each(lat, function( index1, value1 ) {
 											var mark = {}
-											mark.lat = Number(lat[index])
-											mark.lng = Number(lng[index])
-											mark.message = message[index]
+											mark.lat = Number(lat[index1])
+											mark.lng = Number(lng[index1])									
+											mark.message = message[index1]
+											mark.icon = {
+												type: 'awesomeMarker',
+												icon: icon,						//tag, home, star, heart
+												markerColor: color												
+											},
 											markers.push(mark);
 										});
 									}
@@ -193,119 +329,6 @@ app
 			})(); 			
 		}
 	//treeview
-/*
-	$scope.list0 = 
-			[
-				{
-					"id": 1,
-					"title": "1. Rifugi",
-					"class": "hide",
-					"items": []
-    		}, 
-				{
-					"id": 2,
-					"title": "2. Cime",
-					"class": "hide",
-					"items": [
-										{
-											"id": 21,
-											"title": "Grignone",											
-											"coord" : "45.953333:9.387509:15",
-											"lat" : 45.953333,
-											"lng": 9.387509,
-											"message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Grigna_settentrionale'>Grignone</a>",
-											"class": "showCoord",
-											"items": 
-												[
-													{
-														"id": 211,
-														"title": "Partenza",
-														"description": 'Grignone',
-														"class": "hide",
-														"items": []
-													}, 
-													{
-														"id": 212,
-														"title": "Altezza",
-														"description": 'Grignone',
-														"class": "hide",
-														"items": []
-													},
-													{
-														"id": 213,
-														"title": "Wikipedia",
-														"description": 'Grignone',
-														"url": "https://it.wikipedia.org/wiki/Grigna_settentrionale",
-														"class": "hide",
-														"items": []
-													}, 
-													{
-														"id": 213,
-														"title": "Descrizione",
-														"description": 'Grignone',
-														"url": "https://workflowy.com/#/7c4964938b5b",
-														"class": "hide",
-														"items": []
-													}, 
-													{
-														"id": 214,
-														"title": "Photo",
-														"description": 'Grignone',
-														"url": "https://2.own",
-														"class": "hide",
-														"items": []
-													}
-												],
-      							}, 
-										{
-											"id": 22,
-											"title": "Monte Cazzola",
-											"class": "hide",
-											"items": []
-										}
-									],
-    		}, 
-				{
-					"id": 3,
-					"title": "3. Altopiani",
-					"class": "hide",
-					"items": []
-				}, 
-				{
-					"id": 4,
-					"title": "4. Valli",
-					"class": "hide",
-					"items": []
-				}
-			];
-
-    $scope.selectedItem = {};
-
-    $scope.options = {
-    };
-
-    $scope.remove = function(scope) {
-      scope.remove();
-    };
-
-    $scope.toggle = function(scope) {
-      scope.toggle();
-    };
-
-    $scope.newSubItem = function(scope) {
-      var nodeData = scope.$modelValue;
-      nodeData.items.push({
-        id: nodeData.id * 10 + nodeData.items.length,
-        title: nodeData.title + '.' + (nodeData.items.length + 1),
-        items: []
-      });
-    };
-
-
-		
-	var retrievedObject = localStorage.getItem('mymaps');
-	$scope.list =	eval(retrievedObject)
-*/
 		var getRootNodesScope = function() {
       return angular.element(document.getElementById("tree-root")).scope();
     };
