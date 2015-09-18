@@ -1,42 +1,58 @@
       {
-        "title": "",
-        "coord": "::15",
+        "title": "title",
+        "coord": "::",
         "lat": "",
         "lng": "",
         "message": "<a target='_blank' href=''>title</a>",
-        "class": "showCoord",
+        "viewCoord": "showCoord",
+				"viewGps": "hide",
         "items": [
           {
             "title": "Partenza",
             "description": "title",
-            "class": "hide",
+            "viewCoord": "hide",
+						"viewGps": "hide",
             "items": []
           },
           {
             "title": "Altezza",
             "description": "title",
-            "class": "hide",
+            "viewCoord": "hide",
+						"viewGps": "hide",
             "items": []
           },
           {
             "title": "Wikipedia",
             "description": "title",
-            "url": "",
-            "class": "hide",
+            "url": "http://",
+            "viewCoord": "hide",
+						"viewGps": "hide",
             "items": []
           },
           {
             "title": "Descrizione",
             "description": "title",
-            "url": "https://workflowy.com/#/",
-            "class": "hide",
+            "url": "https://workflowy.com/",
+            "viewCoord": "hide",
+						"viewGps": "hide",
             "items": []
           },
           {
             "title": "Photo",
             "description": "title",
             "url": "https://2.own",
-            "class": "hide",
+            "viewCoord": "hide",
+						"viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "GPS",
+            "description": "title",
+						"info" : " da ",
+            "url": "",
+						"gpsFile": "gps/filename",
+            "viewCoord": "hide",
+            "viewGps": "showGps",
             "items": []
           }
         ]

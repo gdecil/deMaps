@@ -220,8 +220,66 @@
             "items": []
           }
         ]
-      }
-    ]
+      },
+      {
+        "title": "Benfit",
+        "coord": "45.96967:9.99045:15",
+        "lat": "45.96967",
+        "lng": "9.99045",
+        "message": "<a target='_blank' href=''>Benfit</a>",
+        "viewCoord": "showCoord",
+				"viewGps": "hide",
+        "items": [
+          {
+            "title": "Partenza",
+            "description": "Benfit",
+            "viewCoord": "hide",
+						"viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Altezza",
+            "description": "Benfit",
+            "viewCoord": "hide",
+						"viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Benfit",
+            "url": "http://",
+            "viewCoord": "hide",
+						"viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "Benfit",
+            "url": "https://workflowy.com/",
+            "viewCoord": "hide",
+						"viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Photo",
+            "description": "Benfit",
+            "url": "https://2.own",
+            "viewCoord": "hide",
+						"viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "GPS",
+            "description": "Benfit",
+						"info" : " da Spiazzi di Gromo",
+            "url": "",
+						"gpsFile": "gps/spiazzi.kml",
+            "viewCoord": "hide",
+            "viewGps": "showGps",
+            "items": []
+          }
+        ]
+      }    ]
   },
   {
     "id": 3,

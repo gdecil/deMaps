@@ -90,7 +90,7 @@ app
 		
 	$scope.viewTrack = function(chkInfo) {		
 		var chk = chkInfo.split(":")
-		if($('input#chkGrignone.showGps').is(':checked'))
+		if($('input#'+ chk[0] +'.showGps').is(':checked'))
 		{
 			addLayer(chk[1])
 		}
