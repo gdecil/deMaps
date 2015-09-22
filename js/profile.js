@@ -53,13 +53,13 @@ var filename = "track/pippo.xml";
 */
       }
     
-		function initialize() {
+function initialize() {
       myLatLng = new google.maps.LatLng(37.422104808,-122.0838851);
       // these set the initial center, zoom and maptype for the map 
       // if it is not specified in the query string
       var lat = 37.422104808;
       var lng = -122.0838851;
-      var zoom = 18;
+      var zoom = 10;
       var maptype = google.maps.MapTypeId.ROADMAP;
 
       // If there are any parameters at eh end of the URL, they will be in  location.search
