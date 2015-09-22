@@ -33,14 +33,12 @@ app
 				lat: 45.953333,
 				lng: 9.387509,
 				zoom: 8
-/*
-				lat: 40.741934,
-				lng: -74.004897,
-				zoom: 17
-*/
 			}		
 	}
-	
+	$scope.address =
+			{
+				name: "Milano"
+			}		;
 	$scope.changeLocation = function(centerHash) {
 		var coord = centerHash.split(":")
 		$scope.mapCenter = 
@@ -251,10 +249,38 @@ app
                 }		
 	});
 		
+	$scope.drawProfile = function() {
+		initialize();
+	}	
+	
+	$scope.searchGoogle = function() {
+		var geocoder = new google.maps.Geocoder();
+		geocoder.geocode( {'address': $scope.address.name}, function(results,status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+						$scope.mapCenter = 
+							{
+							lat: results[0].geometry.location.G,
+							lng: results[0].geometry.location.K,
+							zoom: 10
+						}							
+						$scope.mapMarkers = 
+							[
+								{
+									"lat" :  results[0].geometry.location.G,
+									"lng":results[0].geometry.location.K,
+									"message": $scope.address.name,				
+								}
+							]
+				} else {
+						alert("Problema nella ricerca dell'indirizzo: " + status);
+				}
+    });	
+	};
+		
 	$scope.collapseAll = function() {
-      var scope = getRootNodesScope();
-      scope.collapseAll();
-    };
+		var scope = getRootNodesScope();
+		scope.collapseAll();
+	};
 
 	$scope.expandAll = function() {
 		var scope = getRootNodesScope();
@@ -276,7 +302,7 @@ app
 					$.ajax({
 							'async': false,
 							'global': false,
-							'url': "mymaps.txt",
+							'url': "mymaps.json",
 							'dataType': "json",
 							'success': function (data) {
 								var markers = []

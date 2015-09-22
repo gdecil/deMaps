@@ -24,3 +24,22 @@
 	position: absolute;
 	top: 50px;
 }
+
+.ui-tabs .ui-tabs-panel {
+	width: 100%;	
+	height: 900px;
+	padding: 0px;
+}
+#mappe {
+	position: absolute;
+	top: 50px;
+	width: 100%;
+	height: 900px;
+}
+
+#map_canvas {
+	width:   600px;
+	height:  450px;
+	margin:  0;
+	padding: 0;
+}

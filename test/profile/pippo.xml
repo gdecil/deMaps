@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+    <name>test.kml</name>
+    <Style id="inline10">
+        <LineStyle>
+            <color>ff0000ff</color>
+            <width>2</width>
+        </LineStyle>
+        <PolyStyle>
+            <fill>0</fill>
+        </PolyStyle>
+    </Style>
+    <Style id="inline00">
+        <LineStyle>
+            <color>ff0000ff</color>
+            <width>2</width>
+        </LineStyle>
+        <PolyStyle>
+            <fill>0</fill>
+        </PolyStyle>
+    </Style>
+    <StyleMap id="inline">
+        <Pair>
+            <key>normal</key>
+            <styleUrl>#inline00</styleUrl>
+        </Pair>
+        <Pair>
+            <key>highlight</key>
+            <styleUrl>#inline10</styleUrl>
+        </Pair>
+    </StyleMap>
+    <Placemark>
+        <name>4.6m run</name>
+        <styleUrl>#inline</styleUrl>
+        <LineString>
+            <tessellate>1</tessellate>
+            <coordinates>
+                -118.3701083851859,33.86613514741887,0 -118.3835891373556,33.86595745112309,0 -118.3837603618944,33.86620604860725,0 -118.3860197295395,33.865106678845,0 -118.3853630075581,33.86344608835453,0 -118.392210401906,33.86235962069966,0 -118.3930072160544,33.86482879105449,0 -118.3952920372758,33.86473719683653,0 -118.3955064755973,33.86544254118038,0 -118.3978346563853,33.87119781418026,0 -118.4006823491955,33.8746256060688,0 -118.395927369356,33.8729025811578,0 -118.3929679702478,33.87284041135064,0 -118.3912963149097,33.87280457074664,0 -118.3873145130551,33.86670833356382,0 -118.3845601044409,33.86794790820593,0 -118.3840431481755,33.86710880429249,0 -118.3704571100188,33.86705385780814,0 
+            </coordinates>
+        </LineString>
+    </Placemark>
+</Document>
+</kml>

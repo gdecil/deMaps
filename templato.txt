@@ -1,6 +1,6 @@
       {
         "title": "title",
-        "coord": "::",
+        "coord": "::15",
         "lat": "",
         "lng": "",
         "message": "<a target='_blank' href=''>title</a>",
