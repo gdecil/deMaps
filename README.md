@@ -31,3 +31,6 @@ maps web app with angularjs and leaflet
 
 5. Profile
 	1. Add a chart from kml (GPS checkbox)
+
+6. Photo
+    1. visualize in tab photo (Photo checkbox)
