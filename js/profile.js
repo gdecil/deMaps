@@ -1,4 +1,4 @@
-  // Load the Visualization API and the piechart package.
+// Load the Visualization API and the piechart package.
 google.load("visualization", "1", {packages: ["columnchart"]});
 // Set a callback to run when the Google Visualization API is loaded.
 //google.setOnLoadCallback(initialize);
