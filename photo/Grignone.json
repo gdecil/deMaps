@@ -1,0 +1,16 @@
+[
+	{
+		"lat": "45.953333",
+		"lng": "9.387509",
+		"url": "photo/Grignone1.jpg",
+		"caption": "Grignone 1",
+		"thumbnail": "photo/Grignone1t.jpg"
+	},
+	{
+		"lat": "45.8",
+		"lng": "9.4",
+		"url": "photo/Grignone2.jpg",
+		"caption": "Grignone 2",
+		"thumbnail": "photo/Grignone2t.jpg"
+	}	
+]

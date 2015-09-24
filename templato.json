@@ -41,8 +41,9 @@
             "title": "Photo",
             "description": "title",
             "url": "https://2.own",
+						"gpsFile": "photo/filename.json",
             "viewCoord": "hide",
-						"viewGps": "hide",
+						"viewGps": "showGps",
             "items": []
           },
           {
@@ -50,7 +51,7 @@
             "description": "title",
 						"info" : " da ",
             "url": "",
-						"gpsFile": "gps/filename",
+						"gpsFile": "gps/filename.kml",
             "viewCoord": "hide",
             "viewGps": "showGps",
             "items": []

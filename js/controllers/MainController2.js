@@ -17,9 +17,11 @@ app
      $scope.mapMarkers = geodataToMarkers($scope.geodata);
 
   });*/
+		
+	//centratura mappa
 	if($location.$$absUrl.indexOf("c=") > -1){
 		var c = $location.$$absUrl.split("?")
-		var coord = c[1].replace("c=", "").split(":")
+		var coord = c[1].replace("c=", "").split(":")				
 		$scope.mapCenter = 
 			{
 			lat: Number(coord[0]),
@@ -35,10 +37,7 @@ app
 				zoom: 8
 			}		
 	}
-	$scope.address =
-			{
-				name: "Milano"
-			}		;
+		
 	$scope.changeLocation = function(centerHash) {
 		var coord = centerHash.split(":")
 		$scope.mapCenter = 
@@ -46,39 +45,51 @@ app
 			lat: Number(coord[0]),
 			lng: Number(coord[1]),
 			zoom: Number(coord[2])
-		}		
-	}
+		}	
+	};
 	
-	// layer track
-	
+	//geocoding
+	$scope.address =
+			{
+				name: "Milano"
+			}	
+		
+	// layer track e profile e photo		
 	var addLayer = function(url){
-		var type = url.split(".")
-			leafletData.getMap().then(function(map) {
-				switch (type[1]) {
-					case "kml":
-						$scope[type[0]] = omnivore.kml(url).addTo(map);
-						initialize(url,$scope.mapCenter); //view profile
-						break;
-					case "gpx":
-						$scope[type[0]] = omnivore.gpx(url).addTo(map);
+		var func = url.split("/")
+		if (func[0]=="photo")
+		{
+			openPhoto(url)
+		}
+		else {
+			var type = url.split(".")
+				leafletData.getMap().then(function(map) {
+					switch (type[1]) {
+						case "kml":
+							$scope[type[0]] = omnivore.kml(url).addTo(map);
+							initialize(url,$scope.mapCenter); //view profile
 							break;
-					case "csv":
-						$scope[type[0]] = omnivore.csv(url).addTo(map);
-							break;
-					case "wkt":
-						$scope[type[0]] = omnivore.wkt(url).addTo(map);
-							break;
-					case "topojson":
-						$scope[type[0]] = omnivore.topojson(url).addTo(map);
-							break;
-					case "geojson":
-						$scope[type[0]] = omnivore.geojson(url).addTo(map);
-							break;
-					case "txt":
-						$scope[type[0]] = omnivore.polyline(url).addTo(map);
-							break;
-				}
-			});		
+						case "gpx":
+							$scope[type[0]] = omnivore.gpx(url).addTo(map);
+								break;
+						case "csv":
+							$scope[type[0]] = omnivore.csv(url).addTo(map);
+								break;
+						case "wkt":
+							$scope[type[0]] = omnivore.wkt(url).addTo(map);
+								break;
+						case "topojson":
+							$scope[type[0]] = omnivore.topojson(url).addTo(map);
+								break;
+						case "geojson":
+							$scope[type[0]] = omnivore.geojson(url).addTo(map);
+								break;
+						case "txt":
+							$scope[type[0]] = omnivore.polyline(url).addTo(map);
+								break;
+					}
+				});				
+		}							
 	}
 	
 	var removeLayer = function(url){
@@ -101,7 +112,7 @@ app
 			removeLayer(chk[1])			
 		}
 	}
-	
+	// layer track e profile
 	
 	//providers
 	angular.extend($scope, {

@@ -51,6 +51,14 @@
 		<script src= 'js/profile.js'></script>
   	<link href="css/style.css" rel="stylesheet" />
 
+		<script src= 'js/photo.js'></script>
+		<link rel="stylesheet" href="js/vendor/cluster/MarkerCluster.css" />
+		<link rel="stylesheet" href="js/vendor/Leaflet.Photo/Leaflet.Photo.css" />
+		<link rel="stylesheet" href="css/map.css" />
+		<script src= 'js/vendor/reqwest.min.js'></script>
+		<script src= 'js/vendor/cluster/leaflet.markercluster.js'></script>
+		<script src= 'js/vendor/Leaflet.Photo/Leaflet.Photo.js'></script>
+		
   </head>
 
   <body ng-controller="MainController" ng-init="dim=true; highlight=true">
@@ -67,9 +75,11 @@
           <div ui-layout-container size="200px" class=" html-back1" >
 						<div class="accord">
 							<accordion close-others="oneAtATime">
+<!--
 								<accordion-group heading="Test" panel-class="panel-danger">
 									<a href="" class="btn btn-default pull-left"  ng-click="drawProfile()">Profile</a>
 								</accordion-group>
+-->
 								<accordion-group heading="Coordinate" panel-class="panel-danger">
 									<ul>
 											<li><input type="number" step="any" ng-model="mapCenter.lat" /> Latitude</li>
@@ -151,6 +161,7 @@
 							<ul>
 								<li><a href="#tabs-1">Mappe</a></li>
 								<li><a href="#tabs-2">Profili</a></li>
+								<li><a href="#tabs-3">Photo</a></li>
 							</ul>
 							<div id="tabs-1">
 								<div id="mappe">
@@ -165,6 +176,10 @@
 									<div id="sidebar" style="width:800;height:450x; overflow:auto"></div>
 									<div id="elevation_chart" style="width:800; height:200px; "></div>
 									<div id="chart_div" style="width:800; height:200px"></div>
+							</div>
+							<div id="tabs-3">
+									<div id="map_canvas_photo">
+									</div>
 							</div>
 						</div>						
 <!--

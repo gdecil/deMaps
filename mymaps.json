@@ -105,8 +105,9 @@
             "title": "Photo",
             "description": "Grignone",
             "url": "https://2.own",
+						"gpsFile": "photo/Grignone.json",
             "viewCoord": "hide",
-						"viewGps": "hide",
+						"viewGps": "showGps",
             "items": []
           },
           {
