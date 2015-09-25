@@ -5,7 +5,7 @@ var openPhoto = function (url) {
         });
     }
     else {
-        mapPhoto.remove();
+        //mapPhoto.remove();
         mapPhoto = L.map('map_canvas_photo', {
             maxZoom: 17
         });
@@ -30,3 +30,7 @@ var openPhoto = function (url) {
 		}
 	});
 }	
+
+var closePhoto = function () {
+    mapPhoto.remove();
+}

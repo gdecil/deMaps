@@ -69,20 +69,20 @@
         "lng": "9.387509",
         "message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Grigna_settentrionale'>Grignone</a>",
         "viewCoord": "showCoord",
-				"viewGps": "hide",
+        "viewGps": "hide",
         "items": [
           {
             "title": "Partenza",
             "description": "Grignone",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {
             "title": "Altezza",
             "description": "Grignone",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {
@@ -90,7 +90,7 @@
             "description": "Grignone",
             "url": "https://it.wikipedia.org/wiki/Grigna_settentrionale",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {
@@ -98,24 +98,24 @@
             "description": "Grignone",
             "url": "https://workflowy.com/#/7c4964938b5b",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {
             "title": "Photo",
             "description": "Grignone",
             "url": "https://2.own",
-						"gpsFile": "photo/Grignone.json",
+            "gpsFile": "photo/Grignone.json",
             "viewCoord": "hide",
-						"viewGps": "showGps",
+            "viewGps": "showPhoto",
             "items": []
           },
           {
             "title": "GPS",
             "description": "Grignone",
-						"info" : " da Balisio",
+            "info" : " da Balisio",
             "url": "",
-						"gpsFile": "gps/Grignone.kml",
+            "gpsFile": "gps/Grignone.kml",
             "viewCoord": "hide",
             "viewGps": "showGps",
             "items": []
@@ -129,20 +129,20 @@
         "lng": "8.23725",
         "message": "<a target='_blank' href='http://www.montagnapertutti.it/escursionismo/lepontine/cazzola.php'>Monte Cazzola</a>",
         "viewCoord": "showCoord",
-				"viewGps": "hide",
+        "viewGps": "hide",
         "items": [
           {
             "title": "Partenza",
             "description": "Monte Cazzola",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {
             "title": "Altezza",
             "description": "Monte Cazzola",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {
@@ -150,7 +150,7 @@
             "description": "Monte Cazzola",
             "url": "http://www.montagnapertutti.it/escursionismo/lepontine/cazzola.php",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {
@@ -158,7 +158,7 @@
             "description": "Monte Cazzola",
             "url": "https://workflowy.com/#/9a2e14a8fa9b",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {
@@ -166,7 +166,7 @@
             "description": "Monte Cazzola",
             "url": "https://2.own",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           }
         ]
@@ -178,14 +178,14 @@
         "lng": "10.88873",
         "message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Monte_Altissimo_(Lombardia)'>Monte Altissimo</a>",
         "viewCoord": "showCoord",
-				"viewGps": "hide",
+        "viewGps": "hide",
         "items": [
           {
             "title": "Partenza da San Valentino",
             "description": "Monte Altissimo",
             "url": "http://www.rifugioaltissimo.it/it/17/21/al-rifugio-altissimo-partendo-da-san-valentino-di-brentonico-trekking",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {

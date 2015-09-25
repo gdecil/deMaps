@@ -13,7 +13,7 @@ var elevationReqActive = false;
 var path;
 var geoXml = null;
 var geoXmlDoc = null;
-var map = null;
+var mapProfile = null;
 var myLatLng = null;
 var myGeoXml3Zoom = true;
 var sidebarHtml = "";
@@ -44,10 +44,10 @@ function makeLink() {
 /*
         var url = window.location.pathname;
         var a = url.substring(url.lastIndexOf('/')+1)
-           + "?lat=" + map.getCenter().lat().toFixed(6)
-           + "&lng=" + map.getCenter().lng().toFixed(6)
-           + "&zoom=" + map.getZoom()
-           + "&type=" + MapTypeId2UrlValue(map.getMapTypeId());
+           + "?lat=" + mapProfile.getCenter().lat().toFixed(6)
+           + "&lng=" + mapProfile.getCenter().lng().toFixed(6)
+           + "&zoom=" + mapProfile.getZoom()
+           + "&type=" + MapTypeId2UrlValue(mapProfile.getMapTypeId());
         if (filename != "FlightAware_JBU670_KLAX_KJFK_20120229_kml.xml") a += "&filename="+filename;
         document.getElementById("link").innerHTML = '<a href="' +a+ '">Link to this page<\/a>';
 */
@@ -112,7 +112,7 @@ function initialize(url, mapcenter) {
 			mapTypeId: maptype
 	};
 	
-	map = new google.maps.Map(document.getElementById("map_canvas"),
+	mapProfile = new google.maps.Map(document.getElementById("map_canvas"),
 				myOptions);
 			// Create a new chart in the elevation_chart DIV.
 	chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
@@ -123,7 +123,7 @@ function initialize(url, mapcenter) {
 		if (mousemarker == null) {
 			mousemarker = new google.maps.Marker({
 				position: elevations[e.row].location,
-				map: map,
+				map: mapProfile,
 				icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
 			});
 			var contentStr = "elevation="+elevations[e.row].elevation+"<br>location="+elevations[e.row].location.toUrlValue(6);
@@ -131,7 +131,7 @@ function initialize(url, mapcenter) {
 			google.maps.event.addListener(mousemarker, 'click', function(evt) {
 				mm_infowindow_open = true;
 				infowindow.setContent(this.contentStr);
-				infowindow.open(map,mousemarker);
+				infowindow.open(mapProfile,mousemarker);
 			});
 		} 
 		else 
@@ -140,13 +140,13 @@ function initialize(url, mapcenter) {
 			mousemarker.contentStr = contentStr;
 			infowindow.setContent(contentStr);
 			mousemarker.setPosition(elevations[e.row].location);
-			// if (mm_infowindow_open) infowindow.open(map,mousemarker);
+			// if (mm_infowindow_open) infowindow.open(mapProfile,mousemarker);
 		}
 	});
 
 
  geoXml = new geoXML3.parser({
-									map: map,
+									map: mapProfile,
 									infoWindow: infowindow,
 									singleInfoWindow: true,
 			zoom: myGeoXml3Zoom,
@@ -158,10 +158,10 @@ function initialize(url, mapcenter) {
 
       // Make the link again whenever the map changes
 /*
-	google.maps.event.addListener(map, 'maptypeid_changed', makeLink);
-	google.maps.event.addListener(map, 'center_changed', makeLink);
-	google.maps.event.addListener(map, 'bounds_changed', makeLink);
-	google.maps.event.addListener(map, 'zoom_changed', makeLink);
+	google.maps.event.addListener(mapProfile, 'maptypeid_changed', makeLink);
+	google.maps.event.addListener(mapProfile, 'center_changed', makeLink);
+	google.maps.event.addListener(mapProfile, 'bounds_changed', makeLink);
+	google.maps.event.addListener(mapProfile, 'zoom_changed', makeLink);
 */
 };
 
