@@ -93,6 +93,11 @@ app
 	}
 	
 	var removeLayer = function(url){
+		var func = url.split("/")
+		if (func[0]=="photo")
+		{
+			return
+		}
 		var type = url.split(".")
 		leafletData.getMap().then(function(map) {
 			map.removeLayer($scope[type[0]]);
