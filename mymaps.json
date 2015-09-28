@@ -15,14 +15,8 @@
 				"viewGps": "hide",
         "items": [
           {
-            "title": "Partenza",
-            "description": "Rifugio V Alpini Bertarelli G.",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Altezza 2877 mt",
+            "title": "Altezza",
+            "value": "2877 m",
             "description": "Rifugio V Alpini Bertarelli G.",
             "viewCoord": "hide",
 						"viewGps": "hide",
@@ -32,14 +26,6 @@
             "title": "Wikipedia",
             "description": "Rifugio V Alpini Bertarelli G.",
             "url": "http://www.rifugioquintoalpini.it/",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Descrizione",
-            "description": "Rifugio V Alpini Bertarelli G.",
-            "url": "https://workflowy.com/#/",
             "viewCoord": "hide",
 						"viewGps": "hide",
             "items": []
@@ -73,6 +59,7 @@
         "items": [
           {
             "title": "Partenza",
+            "value": "da Esino Lario m 1450",
             "description": "Grignone",
             "viewCoord": "hide",
             "viewGps": "hide",
@@ -80,6 +67,7 @@
           },
           {
             "title": "Altezza",
+            "value": "2410 m",
             "description": "Grignone",
             "viewCoord": "hide",
             "viewGps": "hide",
@@ -132,20 +120,6 @@
         "viewGps": "hide",
         "items": [
           {
-            "title": "Partenza",
-            "description": "Monte Cazzola",
-            "viewCoord": "hide",
-            "viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Altezza",
-            "description": "Monte Cazzola",
-            "viewCoord": "hide",
-            "viewGps": "hide",
-            "items": []
-          },
-          {
             "title": "Wikipedia",
             "description": "Monte Cazzola",
             "url": "http://www.montagnapertutti.it/escursionismo/lepontine/cazzola.php",
@@ -181,7 +155,8 @@
         "viewGps": "hide",
         "items": [
           {
-            "title": "Partenza da San Valentino",
+            "title": "Partenza",
+            "value": "da San Valentino",
             "description": "Monte Altissimo",
             "url": "http://www.rifugioaltissimo.it/it/17/21/al-rifugio-altissimo-partendo-da-san-valentino-di-brentonico-trekking",
             "viewCoord": "hide",
@@ -189,19 +164,12 @@
             "items": []
           },
           {
-            "title": "Partenza da San Giacomo",
-            "description": "Monte Altissimo",
-            "url": "http://www.rifugioaltissimo.it/it/17/21/al-rifugio-altissimo-partendo-da-san-valentino-di-brentonico-trekking",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Altezza 1703 m",
+            "title": "Altezza",
+            "value": "1703 m",
             "description": "Monte Altissimo",
             "url": "",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {
@@ -209,7 +177,7 @@
             "description": "Monte Altissimo",
             "url": "https://it.wikipedia.org/wiki/Monte_Altissimo_(Lombardia)#Itinerari_di_salita",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           },
           {
@@ -217,7 +185,7 @@
             "description": "Monte Altissimo",
             "url": "https://workflowy.com/#/0f1961eb5921",
             "viewCoord": "hide",
-						"viewGps": "hide",
+            "viewGps": "hide",
             "items": []
           }
         ]
@@ -232,49 +200,11 @@
 				"viewGps": "hide",
         "items": [
           {
-            "title": "Partenza",
-            "description": "Benfit",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Altezza",
-            "description": "Benfit",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Wikipedia",
-            "description": "Benfit",
-            "url": "http://",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Descrizione",
-            "description": "Benfit",
-            "url": "https://workflowy.com/",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Photo",
-            "description": "Benfit",
-            "url": "https://2.own",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
             "title": "GPS",
             "description": "Benfit",
-						"info" : " da Spiazzi di Gromo",
+            "info" : " da Spiazzi di Gromo",
             "url": "",
-						"gpsFile": "gps/spiazzi.kml",
+            "gpsFile": "gps/spiazzi.kml",
             "viewCoord": "hide",
             "viewGps": "showGps",
             "items": []
@@ -287,8 +217,8 @@
     "id": 3,
     "title": "3. Alpeggi",
     "viewCoord": "hide",
-		"viewGps": "hide",
-		"viewGps": "hide",
+    "viewGps": "hide",
+    "viewGps": "hide",
     "items": [
       {
         "title": "Alpe Lendine",
@@ -297,46 +227,8 @@
         "lng": "9.33099",
         "message": "<a target='_blank' href=''>Alpe Lendine</a>",
         "viewCoord": "showCoord",
-				"viewGps": "hide",
+        "viewGps": "hide",
         "items": [
-          {
-            "title": "Partenza",
-            "description": "Alpe Lendine",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Altezza",
-            "description": "Alpe Lendine",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Wikipedia",
-            "description": "Alpe Lendine",
-            "url": "",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Descrizione",
-            "description": "Alpe Lendine",
-            "url": "https://workflowy.com/#/",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Photo",
-            "description": "Alpe Lendine",
-            "url": "https://2.own",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          }
         ]
       }		
 		]
@@ -345,57 +237,19 @@
     "id": 4,
     "title": "4. Valli",
     "viewCoord": "hide",
-		"viewGps": "hide",
+    "viewGps": "hide",
     "items": [
-      {
-        "title": "Valle del Drogo",
-        "coord": "46.34796:9.3349:15",
-        "lat": "46.34796",
-        "lng": "9.3349",
-        "message": "<a target='_blank' href=''>Valle del Drogo</a>",
-        "viewCoord": "showCoord",
-				"viewGps": "hide",
-        "items": [
           {
-            "title": "Partenza",
-            "description": "Valle del Drogo",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Altezza",
-            "description": "Valle del Drogo",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Wikipedia",
-            "description": "Valle del Drogo",
-            "url": "",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Descrizione",
-            "description": "Valle del Drogo",
-            "url": "https://workflowy.com/#/",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          },
-          {
-            "title": "Photo",
-            "description": "Valle del Drogo",
-            "url": "https://2.own",
-            "viewCoord": "hide",
-						"viewGps": "hide",
-            "items": []
-          }
+            "title": "Valle del Drogo",
+            "coord": "46.34796:9.3349:15",
+            "lat": "46.34796",
+            "lng": "9.3349",
+            "message": "<a target='_blank' href=''>Valle del Drogo</a>",
+            "viewCoord": "showCoord",
+            "viewGps": "hide",
+            "items": [
+            ]
+          }		
         ]
-      }		
-		]
   }
 ]

@@ -67,40 +67,11 @@ app.controller('formCtrl', function($scope) {
         $scope.mymaps = angular.copy($scope.master);
     };
     $scope.reset();
+    
 		$scope.saveDataLocal = function(){
 			
 			var retrievedObject = localStorage.getItem('mymaps');
-			var treev = eval(retrievedObject);
-			
-/*
-			var treev = [
-				{
-					"id": 1,
-					"title": "1. Rifugi",
-					"class": "hide",
-					"items": []
-				},				
-				{
-					"id": 1,
-					"title": "1. Cime",
-					"class": "hide",
-					"items": []
-				},				
-				{
-					"id": 1,
-					"title": "1. Altopiani",
-					"class": "hide",
-					"items": []
-				},				
-				{
-					"id": 1,
-					"title": "1. Valli",
-					"class": "hide",
-					"items": []
-				}				
-			];
-*/
-			
+			var treev = eval(retrievedObject);			
 			var loc = {
 				"title" : $scope.mymaps.Nome,
 				"coord" : $scope.mymaps.Latitudine + ":" + $scope.mymaps.Longitudine + ":15",

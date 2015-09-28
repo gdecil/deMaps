@@ -43,3 +43,8 @@
 	margin:  0;
 	padding: 0;
 }
+
+#tabs-1 input {
+	font: 20px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+	}

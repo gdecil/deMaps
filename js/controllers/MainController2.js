@@ -1,6 +1,41 @@
 app
 	.controller('MainController', ['$filter','$scope', 'places', '$location', 'leafletData', function($filter, $scope, places, $location, leafletData){
-	
+    //form
+	$scope.master = {
+        tipo:"Cime", 
+        Nome:"Grignone", 
+        Partenza: "Esino Lario m 1450", 
+        Altezza: "m 2540", 
+        Wikipedia: "https://it.wikipedia.org/wiki/Grigna_settentrionale",
+        Descrizione: "https://workflowy.com/#/7c4964938b5b", 
+        Photo:"https://2.own",
+        Latitudine:"45.953333",
+        Longitudine:"9.387509",
+        Messaggio:"https://it.wikipedia.org/wiki/Grigna_settentrionale"
+    };
+    $scope.reset = function() {
+        $scope.mymaps = angular.copy($scope.master);
+    };
+    $scope.clear = function() {
+        $scope.master = {
+            tipo:"", 
+            Nome:"", 
+            Partenza: "", 
+            Altezza: "", 
+            Wikipedia: "",
+            Descrizione: "", 
+            Photo:"",
+            Photo:"",
+            GPSinfo:"",
+            GPSFile:"",
+            Latitudine:"",
+            Longitudine:"",
+            Messaggio:""
+        };
+        $scope.reset();
+    };
+    //form end
+        
 	//tree filter
 	$scope.treeFilter = $filter('uiTreeFilter');
 
@@ -37,17 +72,86 @@ app
 				zoom: 8
 			}		
 	}
-		
+		 //form update   
 	$scope.changeLocation = function(centerHash) {
-		var coord = centerHash.split(":")
-		$scope.mapCenter = 
-			{
-			lat: Number(coord[0]),
-			lng: Number(coord[1]),
-			zoom: Number(coord[2])
-		}	
+        if(window.location.href.indexOf("insert.html")>0){   
+            Partenza = "";
+            Altezza = "";
+            Wikipedia = "";
+            Descrizione = "";
+            PhotoUrl = "";
+            PhotoFile = "";
+            GPSinfo = "";
+            GPSFile = "";
+
+            var loc
+            for (var i=0; i < $scope.list.length; i++) {
+                var objf = $scope.list[i].items.filter(function ( obj ) {
+                    if(obj.title == centerHash){
+                        return obj;
+                    }
+                    
+                });    
+                if(objf.length>0){
+                    loc = objf
+                    tipo =$scope.list[i].title
+                    $.each(objf[0].items, function( index, value ) {
+                        switch (value.title) {
+                                case "Partenza":
+                                    Partenza = value.value;
+                                        break;
+                                case "Altezza":
+                                    Altezza = value.value;
+                                        break;
+                                case "Wikipedia":
+                                    Wikipedia = value.url;
+                                        break;
+                                case "Descrizione":
+                                    Descrizione = value.url;
+                                        break;
+                                case "Photo":
+                                    PhotoUrl = value.url;
+                                    PhotoFile = value.gpsFile;
+                                        break;
+                                case "GPS":
+                                    GPSinfo = value.info;
+                                    GPSFile = value.gpsFile;
+                                        break;
+                        }
+                    });                    
+                }
+            }
+            $scope.clear();
+            
+            $scope.master = {
+                tipo:tipo, 
+                Nome:loc[0].title, 
+                Partenza: Partenza, 
+                Altezza: Altezza, 
+                Wikipedia: Wikipedia,
+                Descrizione: Descrizione, 
+                Photo:PhotoUrl,
+                Photo:PhotoFile,
+                GPSinfo:GPSinfo,
+                GPSFile:GPSFile,
+                Latitudine:loc[0].lat,
+                Longitudine:loc[0].lng,
+                Messaggio:loc[0].message
+            };
+            $scope.reset();
+        }
+        else {
+            var coord = centerHash.split(":")
+            $scope.mapCenter = 
+                {
+                lat: Number(coord[0]),
+                lng: Number(coord[1]),
+                zoom: Number(coord[2])
+            }	
+        }
 	};
-	
+	//end centratura mappa
+        
 	//geocoding
 	$scope.address =
 			{
@@ -313,7 +417,110 @@ app
 				"message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Grigna_settentrionale'>Grignone</a>",				
 			}
 		]
-		$scope.loadDataAjax = function() {
+    
+    //load and save
+    $scope.saveDataLocal = function(){
+        var loc =       {
+            "title": $scope.mymaps.Nome,
+            "coord": $scope.mymaps.Latitudine  + ":" + $scope.mymaps.Longitudine + ":15",
+            "lat": $scope.mymaps.Latitudine,
+            "lng": $scope.mymaps.Longitudine,
+            "message": "<a target='_blank' href='" + $scope.mymaps.Messaggio + "'>" + $scope.mymaps.Nome +"</a>",
+            "viewCoord": "showCoord",
+            "viewGps": "hide",
+            "items": [
+
+            ]
+          }
+        
+         var Partenza = {
+            "title": "Partenza",
+            "value": $scope.mymaps.Partenza,
+            "description": $scope.mymaps.Nome,
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+          var Altezza ={
+            "title": "Altezza",
+            "value": $scope.mymaps.Altezza,
+            "description": $scope.mymaps.Nome,
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+          var Wikipedia ={
+            "title": "Wikipedia",
+            "description": $scope.mymaps.Nome,
+            "url": $scope.mymaps.Wikipedia,
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+          var Descrizione= {
+            "title": "Descrizione",
+            "description": $scope.mymaps.Nome,
+            "url": $scope.mymaps.Descrizione,
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+          var Photo = {
+            "title": "Photo",
+            "description": $scope.mymaps.Nome,
+            "url": $scope.mymaps.Photo,
+            "gpsFile": "photo/" + $scope.mymaps.Nome + ".json",
+            "viewCoord": "hide",
+            "viewGps": "showPhoto",
+            "items": []
+          }
+          var GPS={
+            "title": "GPS",
+            "description": $scope.mymaps.Nome,
+            "info" : $scope.mymaps.GPSinfo,
+            "url": "",
+            "gpsFile": "gps/" + $scope.mymaps.Nome + ".kml",
+            "viewCoord": "hide",
+            "viewGps": "showGps",
+            "items": []
+          }
+        if($scope.mymaps.Partenza!=""){
+            loc.items.push(Partenza)
+        }
+        if($scope.mymaps.Altezza!=""){
+            loc.items.push(Altezza)
+        }
+        if($scope.mymaps.Wikipedia!=""){
+            loc.items.push(Wikipedia)
+        }
+        if($scope.mymaps.Descrizione!=""){
+            loc.items.push(Descrizione)
+        }
+        if($scope.mymaps.Photo!=""){
+            loc.items.push(Photo)
+        }
+        if($scope.mymaps.GPSinfo!=""){
+            loc.items.push(GPS)
+        }
+        switch ($scope.mymaps.tipo) {
+            case "Cime":
+                $scope.list[0].items.push(loc)
+                    break;
+            case "Rifugi":
+                $scope.list[1].items.push(loc)
+                    break;
+            case "Alpeggi":
+                $scope.list[2].items.push(loc)
+                    break;
+            case "Valli":
+                $scope.list[3].items.push(loc)
+                    break;
+        }
+
+        //alert($scope.mymaps.Nome)
+        $('#tabs-2').html(JSON.stringify($scope.list))
+    }
+    $scope.loadDataAjax = function() {
 			var json = (function () {
 					var json = null;
 					$.ajax({
@@ -371,17 +578,18 @@ app
 					return json;
 			})(); 			
 		}
+    
 	//treeview
-		var getRootNodesScope = function() {
-      return angular.element(document.getElementById("tree-root")).scope();
+    var getRootNodesScope = function() {
+        return angular.element(document.getElementById("tree-root")).scope();
     };
 
-		$scope.collapseAll = function() {
+    $scope.collapseAll = function() {
       var scope = getRootNodesScope();
       scope.collapseAll();
     };
 
-		$scope.loadDataAjax()
+    $scope.loadDataAjax()
 }])
 	.filter('trust', function ($sce) {
 			return function (val) {

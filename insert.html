@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html ng-app="NearMeApp">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="js/vendor/jquery-ui/themes/smoothness/jquery-ui.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="js/vendor/angular-ui-utils/ui-layout.css">
+    <link rel="stylesheet" href="css/angular-ui-tree.min.css">
+    <link rel="stylesheet" href="css/treeview.css">
+    <link rel="stylesheet" href="js/vendor/leaflet.awesome-marker/leaflet.awesome-markers.css">
+    <link rel="stylesheet" href="css/font-awesome/font-awesome.min.css">
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="js/vendor/cluster/MarkerCluster.css" />
+    <link rel="stylesheet" href="js/vendor/Leaflet.Photo/Leaflet.Photo.css" />
+    <link rel="stylesheet" href="css/map.css" />
+
+<!--
+		<script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
+-->
+
+    <script src="js/vendor/angular.min.js"></script>
+    <script src="js/vendor/angular-ui-utils/angular-animate.js"></script>
+    <script src="js/vendor/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>		
+    <script type="application/javascript" src="js/vendor/angular-ui-utils/ui-layout.js"></script>
+    <script src="js/vendor/angular-ui-tree203.js"></script>
+    <script src="js/vendor/angular-ui-utils/highlight.min.js"></script>
+    <script src="js/vendor/angular-ui-tree-filter.js"></script>
+
+    <script src="js/vendor/leaflet/leaflet-src.js"></script>
+    <script src="js/vendor/leaflet.awesome-marker/leaflet.awesome-markers.js"></script>
+    <script src="js/vendor/leaflet/leaflet-omnivore.js"></script>
+    <script src="js/vendor/topojson/topojson.js"></script>
+
+    <script src="js/vendor/google/google.js"></script>
+
+    <script src="js/vendor/angular-leaflet-directive.min.js"></script>
+
+    <script src="js/vendor/jquery-1.9.0.js"></script>
+    <script src="js/vendor/jquery-ui/jquery-ui.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers/MainController2.js"></script>    
+    <script src = 'js/vendor/helpers.js'></script>
+    <script src= 'js/services/places.js'></script>
+
+
+    <script type="text/javascript" src="js/vendor/google/jsapi.js"></script>
+    <script type="text/javascript" src="js/vendor/google/js?sensor=false&amp;v=3.7"></script>
+    <script type="text/javascript" src="js/vendor/google/geoxml3.js"></script>
+    <script type="text/javascript" src="js/vendor/google/ProjectedOverlay.js"></script>
+
+    <script src= 'js/profile.js'></script>
+
+    <script src= 'js/photo.js'></script>
+    <script src= 'js/vendor/reqwest.min.js'></script>
+    <script src= 'js/vendor/cluster/leaflet.markercluster.js'></script>
+    <script src= 'js/vendor/Leaflet.Photo/Leaflet.Photo.js'></script>
+		
+  </head>
+
+  <body ng-controller="MainController" ng-init="dim=true; highlight=true">
+		
+		<!--<div class="header">
+      <div class="container-fluid">
+        <h1 class="pull-left">deMaps</h1>
+      </div>
+		</div>-->
+		
+    <div ui-layout  >      
+      <div ui-layout-container> 
+        <div ui-layout="{flow : 'column'}" >
+            <div ui-layout-container size="200px" class=" html-back1" >
+                <div class="accord">
+                    <accordion close-others="oneAtATime">
+                        <accordion-group is-open="status.open">
+                            <accordion-heading>Direct locations</i>
+                            </accordion-heading>
+                                <div class="col-md-6">
+                                    <a href="" class="btn btn-default pull-right" ng-click="collapseAll()">Collapse all</a>
+                                    <a href="" class="btn btn-default pull-right" ng-click="expandAll()">Expand all</a>				
+                                        <div class="input-group input-group-lg">
+                                                <span class="input-group-addon">Filter</span>
+                                                <input type="search" class="form-control" placeholder="Type a part of any nodes name..."  ng-model="pattern">
+                                        </div>
+                                </div>
+                                <div class="col-md-3">
+                                        <ul class="list-unstyled">
+                                        </ul>
+                                </div>
+                                <div class="col-md-3">
+                                        <ul class="list-unstyled">
+                                                <li ng-repeat="field in availableFields">
+                                                        <input type="checkbox" ng-click="toggleSupport(field)" ng-checked="supportedFields.indexOf(field) > -1">
+                                                        <!--<small>Match <code>{{ field }}</code></small>-->
+                                                </li>
+                                        </ul>
+                                </div>																
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                                <div class="row" >
+                                                    <div class="col-lg-6">
+                                                        <!-- Nested list template -->
+                                                        <script type="text/ng-template" id="items_renderer.html">
+                                                            <div ui-tree-handle>
+                                                                <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+                                                                <a data-nodrag href="{{item.url}}">{{item.title}}</a>
+                                                                <small class ="pull-right">{{item.description}}</small>
+                                                                <small>{{item.info}}</small>
+                                                                <small>{{item.value}}</small>
+                                                                <a class="{{item.viewCoord}}" data-nodrag ng-click='changeLocation(item.title)'>
+                                                                    <span class="glyphicon">
+                                                                        View
+                                                                    </span>
+                                                                </a>
+                                                                <input id="chk{{item.description}}" type="checkbox" data-toggle="toggle" class="{{item.viewGps}}" data-nodrag ng-click='viewTrack("chk" + item.description + ":" + item.gpsFile)'>
+                                                            </div>
+                                                            <ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
+                                                                <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
+                                                                </li>
+                                                            </ol>
+                                                        </script>
+                                                        <div ui-tree="options" id="tree-root">
+                                                            <ol ui-tree-nodes ng-model="list" >
+                                                                <li ng-repeat="item in list" ui-tree-node collapsed="true" ng-include="'items_renderer.html'"
+                                                                    ng-hide="!treeFilter(item, pattern, supportedFields) && dim"
+                                                                    ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
+                                                                </li>
+                                                            </ol>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                     </div>
+                                </div>																								
+                        </accordion-group>
+                    </accordion>
+                </div>																		
+            </div>
+            <div ui-layout-container class=" js-back" >
+                <div id="tabs">
+                    <ul>
+                        <li><a href="#tabs-1">Location</a></li>
+                        <li><a href="#tabs-2">File</a></li>
+                    </ul>
+                    <div id="tabs-1">
+                      <form novalidate>
+                        Tipo: es Rifugi, Cime, Altopiani, Valli<br>
+                        <input type="text" ng-model="mymaps.tipo" size="80"><br>
+                        Nome:<br>
+                        <input type="text" ng-model="mymaps.Nome" size="80">
+                            <br>
+                                Partenza:<br>
+                        <input type="text" ng-model="mymaps.Partenza" size="80">
+                            <br>
+
+                                Altezza:<br>
+                        <input type="text" ng-model="mymaps.Altezza" size="80">
+                            <br>
+
+                                Wikipedia:<br>
+                        <input type="text" ng-model="mymaps.Wikipedia" size="80">
+                            <br>
+
+                                Descrizione:<br>
+                        <input type="text" ng-model="mymaps.Descrizione" size="80">
+                            <br>
+
+                        Photo:<br>		
+                        <input type="text" ng-model="mymaps.Photo" size="80">
+                            <br>
+                        Latitudine:<br>
+                        <input type="text" ng-model="mymaps.Latitudine"size="80">
+                            <br>
+                        Longitudine:<br>
+                        <input type="text" ng-model="mymaps.Longitudine"size="80">
+                            <br>
+                        Messaggio marker:<br>
+                        <input type="text" ng-model="mymaps.Messaggio"size="80">
+
+                        <br><br>
+                        <button ng-click="clear()">Clear</button>
+                        <button ng-click="saveDataLocal()">Save</button>
+                        <button ng-click="loadDataAjax()">Load</button>
+                      </form>
+                      <p>master = {{master}}</p>
+                      <p>form = {{mymaps }}</p>
+                        
+                    </div>
+                    <div id="tabs-2"></div>
+                </div>						
+            </div>
+        </div>
+      </div>    
+    </div>
+	</body>
+</html>
