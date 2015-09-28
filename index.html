@@ -81,8 +81,44 @@
 									<ul>
 											<li><input type="string" step="any" ng-model="address.name" /></li>
 									</ul>
-									<a href="" class="btn btn-default pull-left"  ng-click="searchGoogle()">Search</a>
-								</accordion-group>
+									<a href="" class="btn btn-default pull-left"  ng-click="searchGoogle()">Search</a>                                                                 
+										<div class="container">
+											<div class="row">
+												<div class="col-md-12">
+														<div class="row" >
+															<div class="col-lg-6">
+																<!-- Nested list template -->
+																<script type="text/ng-template" id="items_renderer1.html">
+																	<div ui-tree-handle>
+																		<a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+                                                                         
+																		<a data-nodrag >{{item.properties.name}}</a>
+																		<small>{{item.properties.city}}</small>
+																		<a class="{{item.geometry.coordinates}}" data-nodrag ng-click='changeLocation(item.geometry.coordinates)'>
+																			<span class="glyphicon">
+																				View
+																			</span>
+																		</a>
+																	</div>
+																	<ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
+																		<li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
+																		</li>
+																	</ol>
+																</script>
+																<div ui-tree="options" id="tree-root">
+																	<ol ui-tree-nodes ng-model="listSearch" >
+																		<li ng-repeat="item in listSearch" ui-tree-node collapsed="true" ng-include="'items_renderer1.html'"
+																			ng-hide="!treeFilter(item, pattern, supportedFields) && dim"
+																			ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
+																		</li>
+																	</ol>
+																</div>
+															</div>
+														</div>
+													</div>
+											 </div>
+										</div>																						                                    
+                                </accordion-group>
 								<accordion-group is-open="status.open">
 									<accordion-heading>Direct locations</i>
 									</accordion-heading>
@@ -94,18 +130,6 @@
 														<input type="search" class="form-control" placeholder="Type a part of any nodes name..."  ng-model="pattern">
 												</div>
 										</div>
-										<div class="col-md-3">
-												<ul class="list-unstyled">
-												</ul>
-										</div>
-										<div class="col-md-3">
-												<ul class="list-unstyled">
-														<li ng-repeat="field in availableFields">
-																<input type="checkbox" ng-click="toggleSupport(field)" ng-checked="supportedFields.indexOf(field) > -1">
-																<!--<small>Match <code>{{ field }}</code></small>-->
-														</li>
-												</ul>
-										</div>																
 										<div class="container">
 											<div class="row">
 												<div class="col-md-12">

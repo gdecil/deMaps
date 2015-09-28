@@ -141,13 +141,23 @@ app
             $scope.reset();
         }
         else {
+            if(centerHash.length == 2){
+                $scope.mapCenter = 
+                    {
+                    lat: Number(centerHash[1]),
+                    lng: Number(centerHash[0]),
+                    zoom: Number(10)
+                }	                
+            }
+            else {
             var coord = centerHash.split(":")
-            $scope.mapCenter = 
-                {
-                lat: Number(coord[0]),
-                lng: Number(coord[1]),
-                zoom: Number(coord[2])
-            }	
+                $scope.mapCenter = 
+                    {
+                    lat: Number(coord[0]),
+                    lng: Number(coord[1]),
+                    zoom: Number(coord[2])
+                }	                
+            }
         }
 	};
 	//end centratura mappa
@@ -509,6 +519,22 @@ app
 					return json;
 			})(); 			
 		}
+    $scope.loadTestAjax = function() {
+			var json = (function () {
+					var json = null;
+					$.ajax({
+							'async': false,
+							'global': false,
+							'url': "mytest.json",
+							'dataType': "json",
+							'success': function (data) {
+								var markers = []
+								$scope.listSearch = data.features;
+							}
+					});
+					return json;
+			})(); 			
+		}
     
 	//treeview
     var getRootNodesScope = function() {
@@ -521,6 +547,7 @@ app
     };
 
     $scope.loadDataAjax()
+    $scope.loadTestAjax()
     
     var getLocation = function(){
         var href
@@ -648,7 +675,6 @@ app
             }
         }    
     };    
-
 
 }])
 	.filter('trust', function ($sce) {

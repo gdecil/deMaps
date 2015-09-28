@@ -1,0 +1,392 @@
+{
+  "features": [
+    {
+      "properties": {
+        "osm_key": "natural",
+        "name": "Cippo Comici",
+        "state": "Friuli-Venezia Giulia",
+        "osm_id": 289307318,
+        "osm_type": "N",
+        "osm_value": "peak",
+        "city": "San Dorligo della Valle / Dolina",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8766876,
+          45.6155387
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "natural",
+        "name": "Torrione Comici",
+        "state": "Friuli-Venezia Giulia",
+        "osm_id": 1962473130,
+        "osm_type": "N",
+        "osm_value": "peak",
+        "city": "Forni di Sopra",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.5517496,
+          46.3772042
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "highway",
+        "extent": [
+          13.4920196,
+          46.4922909,
+          13.4920688,
+          46.4920627
+        ],
+        "name": "Via Comici",
+        "state": "Friuli-Venezia Giulia",
+        "osm_id": 185529571,
+        "osm_type": "W",
+        "osm_value": "residential",
+        "city": "Malborghetto Valbruna",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4920688,
+          46.4920627
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "highway",
+        "extent": [
+          13.4918801,
+          46.4926807,
+          13.4919827,
+          46.492675
+        ],
+        "name": "Via Comici",
+        "state": "Friuli-Venezia Giulia",
+        "osm_id": 185445687,
+        "osm_type": "W",
+        "osm_value": "residential",
+        "city": "Malborghetto Valbruna",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4919827,
+          46.492675
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "highway",
+        "extent": [
+          13.4913399,
+          46.492973,
+          13.4919958,
+          46.4924013
+        ],
+        "name": "Via Comici",
+        "state": "Friuli-Venezia Giulia",
+        "osm_id": 185529600,
+        "osm_type": "W",
+        "osm_value": "residential",
+        "city": "Malborghetto Valbruna",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.491809,
+          46.4927209
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "tourism",
+        "extent": [
+          11.7479273,
+          46.5287602,
+          11.7482495,
+          46.5285254
+        ],
+        "street": "Sentiero Giro del Sasso Lungo",
+        "name": "Rifugio Emilio Comici",
+        "state": "Trentino-Alto Adige/Südtirol",
+        "osm_id": 41964731,
+        "osm_type": "W",
+        "postcode": "39048",
+        "osm_value": "alpine_hut",
+        "city": "Sëlva - Wolkenstein - Selva di Val Gardena",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.748118446668098,
+          46.5286428
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "highway",
+        "extent": [
+          11.4200814,
+          45.5047849,
+          11.4204848,
+          45.5045215
+        ],
+        "name": "Via Comici Emilio",
+        "state": "Veneto",
+        "osm_id": 31238227,
+        "osm_type": "W",
+        "postcode": "36075",
+        "osm_value": "residential",
+        "city": "Montecchio Maggiore",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.4200814,
+          45.5045215
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "highway",
+        "extent": [
+          10.4099585,
+          44.4316814,
+          10.4127209,
+          44.4296458
+        ],
+        "name": "Via E. Comici",
+        "state": "Emilia-Romagna",
+        "osm_id": 184018495,
+        "osm_type": "W",
+        "postcode": "42035",
+        "osm_value": "residential",
+        "city": "Castelnovo ne' Monti",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.4113977,
+          44.4309011
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "highway",
+        "extent": [
+          13.4922676,
+          46.4925819,
+          13.492511,
+          46.4924634
+        ],
+        "name": "Via Emilio Comici",
+        "state": "Friuli-Venezia Giulia",
+        "osm_id": 185445074,
+        "osm_type": "W",
+        "osm_value": "residential",
+        "city": "Malborghetto Valbruna",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4923649,
+          46.4925799
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "highway",
+        "extent": [
+          13.8079526,
+          45.6535149,
+          13.8105584,
+          45.6520975
+        ],
+        "name": "Via Emilio Comici",
+        "state": "Friuli-Venezia Giulia",
+        "osm_id": 70006303,
+        "osm_type": "W",
+        "postcode": "34128",
+        "osm_value": "unclassified",
+        "city": "Triest",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.8096891,
+          45.6523697
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "highway",
+        "extent": [
+          13.4921952,
+          46.4924634,
+          13.4922676,
+          46.4924005
+        ],
+        "name": "Via Emilio Comici",
+        "state": "Friuli-Venezia Giulia",
+        "osm_id": 185445073,
+        "osm_type": "W",
+        "osm_value": "residential",
+        "city": "Malborghetto Valbruna",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4922386,
+          46.4924376
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "highway",
+        "extent": [
+          12.5289722,
+          46.1103354,
+          12.5315548,
+          46.1088501
+        ],
+        "name": "Via Emilio Comici",
+        "state": "Friuli-Venezia Giulia",
+        "osm_id": 138950856,
+        "osm_type": "W",
+        "postcode": "33081",
+        "osm_value": "residential",
+        "city": "Aviano",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.5303852,
+          46.1094293
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "highway",
+        "extent": [
+          11.3531969,
+          45.7083957,
+          11.3548257,
+          45.7075075
+        ],
+        "name": "Vicolo Emilio Comici",
+        "state": "Veneto",
+        "osm_id": 30676490,
+        "osm_type": "W",
+        "postcode": "36015",
+        "osm_value": "residential",
+        "city": "Schio",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3542592,
+          45.7078164
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "tourism",
+        "extent": [
+          12.2462566,
+          46.5225843,
+          12.2462871,
+          46.5225637
+        ],
+        "street": "277",
+        "name": "Biv. Comici",
+        "state": "Veneto",
+        "osm_id": 152273223,
+        "osm_type": "W",
+        "osm_value": "wilderness_hut",
+        "city": "Cortina d'Ampezzo",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.246271848547659,
+          46.522574
+        ]
+      }
+    },
+    {
+      "properties": {
+        "osm_key": "aerialway",
+        "extent": [
+          11.7477715,
+          46.5284067,
+          11.7588367,
+          46.5265103
+        ],
+        "name": "Comici 1",
+        "state": "Trentino-Alto Adige/Südtirol",
+        "osm_id": 28461148,
+        "osm_type": "W",
+        "postcode": "39048",
+        "osm_value": "chair_lift",
+        "city": "Sëlva - Wolkenstein - Selva di Val Gardena",
+        "country": "Italy"
+      },
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.7588367,
+          46.5265103
+        ]
+      }
+    }
+  ],
+  "type": "FeatureCollection"
+}
