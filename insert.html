@@ -178,16 +178,21 @@
                         Longitudine:<br>
                         <input type="text" ng-model="mymaps.Longitudine"size="80">
                             <br>
+<!--
                         Messaggio marker:<br>
                         <input type="text" ng-model="mymaps.Messaggio"size="80">
+-->
 
                         <br><br>
                         <button ng-click="clear()">Clear</button>
-                        <button ng-click="saveDataLocal()">Save</button>
-                        <button ng-click="loadDataAjax()">Load</button>
+                        <button ng-click="saveDataLocal()">Add</button>
+                        <button ng-click="updateDataLocal()">Update</button>
+                        <button ng-click="deleteDataLocal()">Delete</button>
                       </form>
+<!--
                       <p>master = {{master}}</p>
                       <p>form = {{mymaps }}</p>
+-->
                         
                     </div>
                     <div id="tabs-2"></div>

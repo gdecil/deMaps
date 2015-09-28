@@ -53,7 +53,7 @@ app
 
   });*/
 		
-	//centratura mappa
+	//centratura mappa form update
 	if($location.$$absUrl.indexOf("c=") > -1){
 		var c = $location.$$absUrl.split("?")
 		var coord = c[1].replace("c=", "").split(":")				
@@ -420,99 +420,19 @@ app
     
     //load and save
     $scope.saveDataLocal = function(){
-        var loc =       {
-            "title": $scope.mymaps.Nome,
-            "coord": $scope.mymaps.Latitudine  + ":" + $scope.mymaps.Longitudine + ":15",
-            "lat": $scope.mymaps.Latitudine,
-            "lng": $scope.mymaps.Longitudine,
-            "message": "<a target='_blank' href='" + $scope.mymaps.Messaggio + "'>" + $scope.mymaps.Nome +"</a>",
-            "viewCoord": "showCoord",
-            "viewGps": "hide",
-            "items": [
-
-            ]
-          }
-        
-         var Partenza = {
-            "title": "Partenza",
-            "value": $scope.mymaps.Partenza,
-            "description": $scope.mymaps.Nome,
-            "viewCoord": "hide",
-            "viewGps": "hide",
-            "items": []
-          }
-          var Altezza ={
-            "title": "Altezza",
-            "value": $scope.mymaps.Altezza,
-            "description": $scope.mymaps.Nome,
-            "viewCoord": "hide",
-            "viewGps": "hide",
-            "items": []
-          }
-          var Wikipedia ={
-            "title": "Wikipedia",
-            "description": $scope.mymaps.Nome,
-            "url": $scope.mymaps.Wikipedia,
-            "viewCoord": "hide",
-            "viewGps": "hide",
-            "items": []
-          }
-          var Descrizione= {
-            "title": "Descrizione",
-            "description": $scope.mymaps.Nome,
-            "url": $scope.mymaps.Descrizione,
-            "viewCoord": "hide",
-            "viewGps": "hide",
-            "items": []
-          }
-          var Photo = {
-            "title": "Photo",
-            "description": $scope.mymaps.Nome,
-            "url": $scope.mymaps.Photo,
-            "gpsFile": "photo/" + $scope.mymaps.Nome + ".json",
-            "viewCoord": "hide",
-            "viewGps": "showPhoto",
-            "items": []
-          }
-          var GPS={
-            "title": "GPS",
-            "description": $scope.mymaps.Nome,
-            "info" : $scope.mymaps.GPSinfo,
-            "url": "",
-            "gpsFile": "gps/" + $scope.mymaps.Nome + ".kml",
-            "viewCoord": "hide",
-            "viewGps": "showGps",
-            "items": []
-          }
-        if($scope.mymaps.Partenza!=""){
-            loc.items.push(Partenza)
-        }
-        if($scope.mymaps.Altezza!=""){
-            loc.items.push(Altezza)
-        }
-        if($scope.mymaps.Wikipedia!=""){
-            loc.items.push(Wikipedia)
-        }
-        if($scope.mymaps.Descrizione!=""){
-            loc.items.push(Descrizione)
-        }
-        if($scope.mymaps.Photo!=""){
-            loc.items.push(Photo)
-        }
-        if($scope.mymaps.GPSinfo!=""){
-            loc.items.push(GPS)
-        }
+        if (checkExistLocation($scope.mymaps.Nome)){return}
+        var loc = getLocation();
         switch ($scope.mymaps.tipo) {
-            case "Cime":
-                $scope.list[0].items.push(loc)
-                    break;
-            case "Rifugi":
+            case "2. Cime":
                 $scope.list[1].items.push(loc)
                     break;
-            case "Alpeggi":
+            case "1. Rifugi":
+                $scope.list[0].items.push(loc)
+                    break;
+            case "3. Alpeggi":
                 $scope.list[2].items.push(loc)
                     break;
-            case "Valli":
+            case "4. Valli":
                 $scope.list[3].items.push(loc)
                     break;
         }
@@ -520,6 +440,17 @@ app
         //alert($scope.mymaps.Nome)
         $('#tabs-2').html(JSON.stringify($scope.list))
     }
+    
+    $scope.updateDataLocal = function(){
+        deleteLocation($scope.mymaps.Nome);     
+        $scope.saveDataLocal()
+    }
+    
+    $scope.deleteDataLocal = function(){
+        deleteLocation($scope.mymaps.Nome)
+        $('#tabs-2').html(JSON.stringify($scope.list))
+    }
+
     $scope.loadDataAjax = function() {
 			var json = (function () {
 					var json = null;
@@ -590,6 +521,135 @@ app
     };
 
     $scope.loadDataAjax()
+    
+    var getLocation = function(){
+        var href
+        if($scope.mymaps.Wikipedia!=""){
+            href=$scope.mymaps.Wikipedia
+        }
+        else {
+            href=$scope.mymaps.Descrizione
+        }
+        var loc =       {
+        "title": $scope.mymaps.Nome,
+        "coord": $scope.mymaps.Latitudine  + ":" + $scope.mymaps.Longitudine + ":15",
+        "lat": $scope.mymaps.Latitudine,
+        "lng": $scope.mymaps.Longitudine,
+        "message": "<a target='_blank' href='" + href + "'>" + $scope.mymaps.Nome +"</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+
+        ]
+        }
+
+        var Partenza = {
+        "title": "Partenza",
+        "value": $scope.mymaps.Partenza,
+        "description": $scope.mymaps.Nome,
+        "viewCoord": "hide",
+        "viewGps": "hide",
+        "items": []
+        }
+        var Altezza ={
+        "title": "Altezza",
+        "value": $scope.mymaps.Altezza,
+        "description": $scope.mymaps.Nome,
+        "viewCoord": "hide",
+        "viewGps": "hide",
+        "items": []
+        }
+        var Wikipedia ={
+        "title": "Wikipedia",
+        "description": $scope.mymaps.Nome,
+        "url": $scope.mymaps.Wikipedia,
+        "viewCoord": "hide",
+        "viewGps": "hide",
+        "items": []
+        }
+        var Descrizione= {
+        "title": "Descrizione",
+        "description": $scope.mymaps.Nome,
+        "url": $scope.mymaps.Descrizione,
+        "viewCoord": "hide",
+        "viewGps": "hide",
+        "items": []
+        }
+        var Photo = {
+        "title": "Photo",
+        "description": $scope.mymaps.Nome,
+        "url": $scope.mymaps.Photo,
+        "gpsFile": "photo/" + $scope.mymaps.Nome + ".json",
+        "viewCoord": "hide",
+        "viewGps": "showPhoto",
+        "items": []
+        }
+        var GPS={
+        "title": "GPS",
+        "description": $scope.mymaps.Nome,
+        "info" : $scope.mymaps.GPSinfo,
+        "url": "",
+        "gpsFile": "gps/" + $scope.mymaps.Nome + ".kml",
+        "viewCoord": "hide",
+        "viewGps": "showGps",
+        "items": []
+        }
+          
+        if($scope.mymaps.Partenza!=""){
+            loc.items.push(Partenza)
+        }
+        if($scope.mymaps.Altezza!=""){
+            loc.items.push(Altezza)
+        }
+        if($scope.mymaps.Wikipedia!=""){
+            loc.items.push(Wikipedia)
+        }
+        if($scope.mymaps.Descrizione!=""){
+            loc.items.push(Descrizione)
+        }
+        if($scope.mymaps.Photo!=""){
+            loc.items.push(Photo)
+        }
+        if($scope.mymaps.GPSinfo!=""){
+            loc.items.push(GPS)
+        }    
+        return loc
+    }
+        
+    var checkExistLocation = function(location) {
+        for (var i=0; i < $scope.list.length; i++) {
+            var objf = $scope.list[i].items.filter(function ( obj ) {
+                if(obj.title == location){
+                    return obj;
+                }
+
+            });    
+            if(objf.length>0){
+                alert(objf[0].title + " alredy exist")
+                return true
+            }
+        }    
+        return false
+    };   
+        
+    var deleteLocation = function(location) {
+        for (var i=0; i < $scope.list.length; i++) {
+            var objf = $scope.list[i].items.filter(function ( obj ) {
+                if(obj.title == location){
+                    return obj;
+                }
+            });    
+            if(objf.length>0){
+                var index = $scope.list[i].items.indexOf(objf[0]);
+                if (index > -1) {
+                    $scope.list[i].items.splice(index, 1);
+                    return
+                }                
+            }
+        }    
+    };    
+
+
 }])
 	.filter('trust', function ($sce) {
 			return function (val) {
