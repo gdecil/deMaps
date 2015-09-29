@@ -1,5 +1,9 @@
 app
 	.controller('MainController', ['$filter','$scope', 'places', '$location', 'leafletData', function($filter, $scope, places, $location, leafletData){
+    var markers = []
+    var markersSearch = []
+    var markersLocation = []
+
     //form
 	$scope.master = {
         tipo:"Cime", 
@@ -405,9 +409,13 @@ app
 				} else {
 						alert("Problema nella ricerca dell'indirizzo: " + status);
 				}
-    });	
+        });	
 	};
-		
+        
+    $scope.search = function(){
+        $scope.loadSearch('http://photon.komoot.de/api/?q=' + $scope.address.name)        
+    }
+    
 	$scope.collapseAll = function() {
 		var scope = getRootNodesScope();
 		scope.collapseAll();
@@ -419,6 +427,7 @@ app
 	};
 		
 	//markers
+/*
 	$scope.mapMarkers = 
 		[
 			{
@@ -427,6 +436,7 @@ app
 				"message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Grigna_settentrionale'>Grignone</a>",				
 			}
 		]
+*/
     
     //load and save
     $scope.saveDataLocal = function(){
@@ -470,7 +480,6 @@ app
 							'url': "mymaps.json",
 							'dataType': "json",
 							'success': function (data) {
-								var markers = []
 								$scope.list = data;
 								$.each(data, function( index, value ) {
 									var lat = value.items.map(function(a) {return a.lat;});
@@ -507,18 +516,52 @@ app
 												icon: icon,						//tag, home, star, heart
 												markerColor: color												
 											},
-											markers.push(mark);
+											markersLocation.push(mark);
 										});
 									}
 								});
 								
-								$scope.mapMarkers = markers;
+								$scope.mapMarkers = markersLocation;
 								$scope.$apply
 							}
 					});
 					return json;
 			})(); 			
 		}
+    
+    $scope.loadSearch = function(url) {
+			var json = (function () {
+					var json = null;
+					$.ajax({
+							'async': false,
+							'global': false,
+							'url': url,
+							'dataType': "json",
+							'success': function (data) {
+								markersSearch = []
+                                $scope.mapMarkers = []
+                                $.each(data.features, function( index1, value1 ) {
+                                    var mark = {}
+                                    mark.lat = Number(value1.geometry.coordinates[1])
+                                    mark.lng = Number(value1.geometry.coordinates[0])									
+                                    mark.message = value1.properties.name + " " + value1.properties.osm_value
+                                    mark.icon = {
+                                        type: 'awesomeMarker',
+                                        icon: "tag",						//tag, home, star, heart
+                                        markerColor: "blue"												
+                                    },
+                                    markersSearch.push(mark);
+                                });
+                                
+								$scope.listSearch = data.features;
+								$scope.mapMarkers = markersLocation.concat(markersSearch);
+								$scope.$apply
+							}
+					});
+					return json;
+			})(); 			
+		}
+
     $scope.loadTestAjax = function() {
 			var json = (function () {
 					var json = null;
@@ -528,8 +571,23 @@ app
 							'url': "mytest.json",
 							'dataType': "json",
 							'success': function (data) {
-								var markers = []
+								//var markers = []
+                                $.each(data.features, function( index1, value1 ) {
+                                    var mark = {}
+                                    mark.lat = Number(value1.geometry.coordinates[1])
+                                    mark.lng = Number(value1.geometry.coordinates[0])									
+                                    mark.message = value1.properties.name 
+                                    mark.icon = {
+                                        type: 'awesomeMarker',
+                                        icon: "tag",						//tag, home, star, heart
+                                        markerColor: "blue"												
+                                    },
+                                    markers.push(mark);
+                                });
+                                
 								$scope.listSearch = data.features;
+								$scope.mapMarkers = markers;
+								$scope.$apply
 							}
 					});
 					return json;
@@ -547,7 +605,7 @@ app
     };
 
     $scope.loadDataAjax()
-    $scope.loadTestAjax()
+//    $scope.loadTestAjax()
     
     var getLocation = function(){
         var href
@@ -622,22 +680,22 @@ app
         "items": []
         }
           
-        if($scope.mymaps.Partenza!=""){
+        if($scope.mymaps.Partenza!=undefined){
             loc.items.push(Partenza)
         }
-        if($scope.mymaps.Altezza!=""){
+        if($scope.mymaps.Altezza!=undefined){
             loc.items.push(Altezza)
         }
-        if($scope.mymaps.Wikipedia!=""){
+        if($scope.mymaps.Wikipedia!=undefined){
             loc.items.push(Wikipedia)
         }
-        if($scope.mymaps.Descrizione!=""){
+        if($scope.mymaps.Descrizione!=undefined){
             loc.items.push(Descrizione)
         }
-        if($scope.mymaps.Photo!=""){
+        if($scope.mymaps.Photo!=undefined){
             loc.items.push(Photo)
         }
-        if($scope.mymaps.GPSinfo!=""){
+        if($scope.mymaps.GPSinfo!=undefined){
             loc.items.push(GPS)
         }    
         return loc

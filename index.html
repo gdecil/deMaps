@@ -73,15 +73,15 @@
 							<accordion close-others="oneAtATime">
 								<accordion-group heading="Coordinate" panel-class="panel-danger">
 									<ul>
-											<li><input type="number" step="any" ng-model="mapCenter.lat" /> Latitude</li>
-											<li><input type="number" step="any" ng-model="mapCenter.lng" /> Longitude</li>
-											<li><input type="number" step="any" ng-model="mapCenter.zoom" /> Zoom</li>
+											<li>Latitude<input class="form-control" type="number" step="any" ng-model="mapCenter.lat" /> </li>
+											<li>Longitude<input class="form-control" type="number" step="any" ng-model="mapCenter.lng" /> </li>
+											<li>Zoom<input class="form-control" type="number" step="any" ng-model="mapCenter.zoom" /> </li>
 									</ul>
 									Search Address
 									<ul>
-											<li><input type="string" step="any" ng-model="address.name" /></li>
+											<li><input class="form-control" type="string" step="any" ng-model="address.name" /></li>
 									</ul>
-									<a href="" class="btn btn-default pull-left"  ng-click="searchGoogle()">Search</a>                                                                 
+									<a href="" class="btn btn-primary pull-left"  ng-click="search()">Search</a>                                                                 
 										<div class="container">
 											<div class="row">
 												<div class="col-md-12">
@@ -94,6 +94,8 @@
                                                                          
 																		<a data-nodrag >{{item.properties.name}}</a>
 																		<small>{{item.properties.city}}</small>
+																		<small>{{item.properties.country}}</small>
+																		<small>{{item.properties.state}}</small>
 																		<a class="{{item.geometry.coordinates}}" data-nodrag ng-click='changeLocation(item.geometry.coordinates)'>
 																			<span class="glyphicon">
 																				View

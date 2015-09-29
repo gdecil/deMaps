@@ -72,7 +72,7 @@
     <div ui-layout  >      
       <div ui-layout-container> 
         <div ui-layout="{flow : 'column'}" >
-            <div ui-layout-container size="200px" class=" html-back1" >
+            <div ui-layout-container size="600px" class=" html-back1" >
                 <div class="accord">
                     <accordion close-others="oneAtATime">
                         <accordion-group is-open="status.open">
@@ -105,7 +105,7 @@
                                                     <div class="col-lg-6">
                                                         <!-- Nested list template -->
                                                         <script type="text/ng-template" id="items_renderer.html">
-                                                            <div ui-tree-handle>
+                                                            <div ui-tree-handle data-nodrag>
                                                                 <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
                                                                 <a data-nodrag href="{{item.url}}">{{item.title}}</a>
                                                                 <small class ="pull-right">{{item.description}}</small>
