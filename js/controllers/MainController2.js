@@ -50,13 +50,7 @@ app
 					$scope.supportedFields.splice($scope.supportedFields.indexOf(propertyName), 1) :
 					$scope.supportedFields.push(propertyName);
 	};
-	
-	/*places.success(function(data){
-        $scope.geodata = data;
-     $scope.mapMarkers = geodataToMarkers($scope.geodata);
-
-  });*/
-		
+			
 	//centratura mappa form update
 	if($location.$$absUrl.indexOf("c=") > -1){
 		var c = $location.$$absUrl.split("?")
@@ -416,6 +410,20 @@ app
         $scope.loadSearch('http://photon.komoot.de/api/?q=' + $scope.address.name)        
     }
     
+    $scope.clearMarker = function(){
+        $scope.mapMarkers = markersLocation
+        $scope.listSearch = [
+          {
+            "title": "",
+            "description": "",
+            "viewCoord": "hide",
+						"viewGps": "hide",
+            "items": []
+          }
+            
+        ]
+    }
+    
 	$scope.collapseAll = function() {
 		var scope = getRootNodesScope();
 		scope.collapseAll();
@@ -680,24 +688,26 @@ app
         "items": []
         }
           
-        if($scope.mymaps.Partenza!=undefined){
+        if(typeof $scope.mymaps.Partenza != "undefined" & $scope.mymaps.Partenza != "" ){
             loc.items.push(Partenza)
         }
-        if($scope.mymaps.Altezza!=undefined){
+        if(typeof $scope.mymaps.Altezza!=undefined  & $scope.mymaps.Altezza != "" ){
             loc.items.push(Altezza)
         }
-        if($scope.mymaps.Wikipedia!=undefined){
+        if(typeof $scope.mymaps.Wikipedia!=undefined  & $scope.mymaps.Wikipedia != "" ){
             loc.items.push(Wikipedia)
         }
-        if($scope.mymaps.Descrizione!=undefined){
+        if(typeof $scope.mymaps.Descrizione!=undefined  & $scope.mymaps.Descrizione != "" ){
             loc.items.push(Descrizione)
         }
-        if($scope.mymaps.Photo!=undefined){
+        if(typeof $scope.mymaps.Photo!=undefined  & $scope.mymaps.Photo != "" ){
             loc.items.push(Photo)
         }
-        if($scope.mymaps.GPSinfo!=undefined){
+/*
+        if(typeof $scope.mymaps.GPSinfo!=undefined  & $scope.mymaps.GPSinfo != "" ){
             loc.items.push(GPS)
         }    
+*/
         return loc
     }
         

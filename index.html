@@ -81,7 +81,7 @@
 									<ul>
 											<li><input class="form-control" type="string" step="any" ng-model="address.name" /></li>
 									</ul>
-									<a href="" class="btn btn-primary pull-left"  ng-click="search()">Search</a>                                                                 
+									<a href="" class="btn btn-primary pull-left"  ng-click="search()">Search</a>                       									   <a href="" class="btn btn-primary pull-left"  ng-click="clearMarker()">Clear</a>                                                                 
 										<div class="container">
 											<div class="row">
 												<div class="col-md-12">
@@ -107,7 +107,7 @@
 																		</li>
 																	</ol>
 																</script>
-																<div ui-tree="options" id="tree-root">
+																<div ui-tree="options" id="tree-root-search">
 																	<ol ui-tree-nodes ng-model="listSearch" >
 																		<li ng-repeat="item in listSearch" ui-tree-node collapsed="true" ng-include="'items_renderer1.html'"
 																			ng-hide="!treeFilter(item, pattern, supportedFields) && dim"
