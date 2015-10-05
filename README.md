@@ -1,7 +1,9 @@
 # deMaps
 maps web app with 
   1. client: angularjs and leaflet 
-  2. server: node.js, express and mongoDb
+  2. server 
+    1. windows: node.js, express and mongoDb
+    2. file mymaps.json
 
 1. Coordinate
 	1. insert manually latitude longitude and zoom parameters
@@ -36,3 +38,7 @@ maps web app with
 
 6. Photo
     1. visualize in tab photo (Photo checkbox)
+
+7. Insert Data
+    1. in file mymaps.json usando insert.html
+    2. in mongoDb da fare
