@@ -5,17 +5,18 @@ maps web app with
     1. windows: node.js, express and mongoDb
     2. file mymaps.json
 
+COSA FA
 1. Coordinate
 	1. insert manually latitude longitude and zoom parameters
-	2. search address: geocoding
+	2. search address: geocoding with http://photon.komoot.de/
 
 2. Direct Locations		
-	1. View to zoom coordinates
-	2. Partenza open url
-	3. Wikipedia open wikipedia url if exist or other if not exist wikipedia url
-	4. Descrizione open workflowy url
-	5. Photo open personal owncloud url
-	6. GPS checkbox to visualazie track (format WKT,TopoJSON,KML,GPX,CSV,GEOJSON,POLYLINE) thank to omnivore
+	1. View link to zoom coordinates
+	2. Partenza (optional) open url
+	3. Wikipedia (optional) open wikipedia url if exist or other if not exist wikipedia url
+	4. Descrizione (optional) open workflowy url
+	5. Photo (optional) open personal owncloud url
+	6. GPS (optional) checkbox to visualazie track (format WKT,TopoJSON,KML,GPX,CSV,GEOJSON,POLYLINE) thank to omnivore
 	
 3. Layers
 	1. OpenMapSurfer
