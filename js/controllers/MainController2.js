@@ -479,13 +479,13 @@ app
         $('#tabs-2').html(JSON.stringify($scope.list))
     }
 
-    $scope.loadDataAjax = function() {
+    $scope.loadDataAjax = function(url) {
 			var json = (function () {
 					var json = null;
 					$.ajax({
 							'async': false,
 							'global': false,
-							'url': "mymaps.json",
+							'url': url,
 							'dataType': "json",
 							'success': function (data) {
 								$scope.list = data;
@@ -612,7 +612,11 @@ app
       scope.collapseAll();
     };
 
-    $scope.loadDataAjax()
+    //file
+//    $scope.loadDataAjax("mymaps.json")
+    //mongoDb
+//    $scope.loadDataAjax("http://localhost:3000/users/maps")
+    $scope.loadDataAjax("http://127.0.0.1:3000/users/maps")
 //    $scope.loadTestAjax()
     
     var getLocation = function(){

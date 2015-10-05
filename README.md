@@ -1,5 +1,7 @@
 # deMaps
-maps web app with angularjs and leaflet
+maps web app with 
+  1. client: angularjs and leaflet 
+  2. server: node.js, express and mongoDb
 
 1. Coordinate
 	1. insert manually latitude longitude and zoom parameters
