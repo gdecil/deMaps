@@ -2,7 +2,7 @@
 maps web app with 
   1. client: angularjs and leaflet 
   2. server 
-    1. windows: node.js, express and mongoDb
+    1. windows: node.js, express and mongoDb with monk
     2. file mymaps.json
 
 COSA FA

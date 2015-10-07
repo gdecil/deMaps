@@ -7,6 +7,14 @@ var bodyParser = require('body-parser');
 // Database
 var mongo = require('mongodb');
 var monk = require('monk');
+//var DbCheck= new mongo.Db( "deMaps", new mongo.Server( '127.0.0.1', 27017, {}), {}); 
+//DbCheck.open(function(err, db) {
+////  assert.equal(null, err);
+//  console.log(err)
+////  DbCheck.on('close', deMaps.done.bind(deMaps));
+////  DbCheck.close();
+//});
+
 var db = monk('127.0.0.1:27017/deMaps');
 var routes = require('./routes/index');
 var users = require('./routes/users');
