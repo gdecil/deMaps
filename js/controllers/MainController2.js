@@ -1,5 +1,7 @@
 app
 	.controller('MainController', ['$filter','$scope', 'places', '$location', 'leafletData', function($filter, $scope, places, $location, leafletData){
+    var server = "http://127.0.0.1:3000/"
+    var mongoDbMaps = "http://127.0.0.1:3000/users/maps"
     var markers = []
     var markersSearch = []
     var markersLocation = []
@@ -433,20 +435,125 @@ app
 		var scope = getRootNodesScope();
 		scope.expandAll();
 	};
-		
-	//markers
-/*
-	$scope.mapMarkers = 
-		[
-			{
-				"lat" : 45.953333,
-				"lng": 9.387509,
-				"message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Grigna_settentrionale'>Grignone</a>",				
-			}
-		]
-*/
-    
+		    
     //load and save
+    
+    $scope.updateDataMongo = function(){
+        var loc = getLocation();
+        switch ($scope.mymaps.tipo) {
+            case "2. Cime":
+              deleteLocationMongo($scope.mymaps.Nome, 2)
+              saveToMongo(loc, 2)
+                    break;
+            case "1. Rifugi":
+              deleteLocationMongo($scope.mymaps.Nome, 1)
+              saveToMongo(loc, 1)
+                    break;
+            case "3. Alpeggi":
+              deleteLocationMongo($scope.mymaps.Nome, 3)
+              saveToMongo(loc, 3)
+                    break;
+            case "4. Valli":
+              deleteLocationMongo($scope.mymaps.Nome, 4)
+              saveToMongo(loc, 4)
+                    break;
+        }
+        $scope.collapseAll()
+    }
+    
+    $scope.deleteDataMongo = function(){
+      switch ($scope.mymaps.tipo) {
+        case "2. Cime":
+            deleteLocationMongo($scope.mymaps.Nome, 2)
+                break;
+        case "1. Rifugi":
+            deleteLocationMongo($scope.mymaps.Nome, 1)
+                break;
+        case "3. Alpeggi":
+            deleteLocationMongo($scope.mymaps.Nome, 3)
+                break;
+        case "4. Valli":
+            deleteLocationMongo($scope.mymaps.Nome, 4)
+                break;
+      }
+      
+      $scope.loadDataAjax(mongoDbMaps)
+    }
+
+    var deleteLocationMongo = function(loc, root){
+      var locr = {
+        "loc" : loc,
+        "root" : root
+      }
+      $.ajax({
+          type: 'POST',
+          data: JSON.stringify(locr),
+          url: server + 'users/removelocation',
+          contentType: "application/json; charset=utf-8",
+          dataType: "json"
+      }).done(function( response ) {
+          // Check for successful (blank) response
+          if (response.msg === '') {
+            $scope.loadDataAjax(mongoDbMaps)
+             $scope.$apply
+          }
+          else {
+              // If something goes wrong, alert the error message that our service returned
+              alert('Error: ' + response.msg);
+
+          }
+      });      
+    }
+    
+    $scope.saveDataMongo = function(){
+        if (checkExistLocation($scope.mymaps.Nome)){return}
+        var loc = getLocation();
+        switch ($scope.mymaps.tipo) {
+            case "2. Cime":
+                saveToMongo(loc, 2,true)
+                    break;
+            case "1. Rifugi":
+                saveToMongo(loc, 1,true)
+                    break;
+            case "3. Alpeggi":
+                saveToMongo(loc, 3,true)
+                    break;
+            case "4. Valli":
+                saveToMongo(loc, 4,true)
+                    break;
+        }
+        $scope.collapseAll()
+    }
+    
+    var saveToMongo = function(loc, root, flagIns){
+      var locr = {
+        "loc" : loc,
+        "root" : root
+      }
+      $.ajax({
+          type: 'POST',
+          data: JSON.stringify(locr),
+          url: server + 'users/addlocation',
+          contentType: "application/json; charset=utf-8",
+          dataType: "json"
+      }).done(function( response ) {
+          // Check for successful (blank) response
+          if (response.msg === '') {
+            if(flagIns){alert("Location added")}
+            else{alert("Location updated")}
+            
+            $scope.loadDataAjax(mongoDbMaps)
+            $scope.collapseAll()
+            $scope.$apply
+          }
+          else {
+              // If something goes wrong, alert the error message that our service returned
+              alert('Error: ' + response.msg);
+
+          }
+      });      
+    }
+    
     $scope.saveDataLocal = function(){
         if (checkExistLocation($scope.mymaps.Nome)){return}
         var loc = getLocation();
@@ -468,7 +575,7 @@ app
         //alert($scope.mymaps.Nome)
         $('#tabs-2').html(JSON.stringify($scope.list))
     }
-    
+
     $scope.updateDataLocal = function(){
         deleteLocation($scope.mymaps.Nome);     
         $scope.saveDataLocal()
@@ -488,7 +595,10 @@ app
 							'url': url,
 							'dataType': "json",
 							'success': function (data) {
+                                $scope.list = []
+                                $scope.$apply ;
 								$scope.list = data;
+                                $scope.$apply ;
 								$.each(data, function( index, value ) {
 									var lat = value.items.map(function(a) {return a.lat;});
 									var lng = value.items.map(function(a) {return a.lng;});
@@ -616,8 +726,10 @@ app
 //    $scope.loadDataAjax("mymaps.json")
     //mongoDb
 //    $scope.loadDataAjax("http://localhost:3000/users/maps")
-    $scope.loadDataAjax("http://127.0.0.1:3000/users/maps")
-//    $scope.loadTestAjax()
+    $scope.loadDataAjax(mongoDbMaps)
+
+    
+    //    $scope.loadTestAjax()
     
     var getLocation = function(){
         var href
