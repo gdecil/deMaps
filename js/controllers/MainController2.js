@@ -441,6 +441,9 @@ app
 		    
     //load and save
     
+    $scope.createDbMongo = function(){
+    }
+
     $scope.updateDataMongo = function(){
         var loc = getLocation();
         switch ($scope.mymaps.tipo) {
