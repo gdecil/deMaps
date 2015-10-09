@@ -1,8 +1,0 @@
-{
-	lat: number,
-	lng: number,
-	url: "url",
-	caption: "string",
-	thumbnail: "url",
-	video: optional
-}

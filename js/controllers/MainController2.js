@@ -5,7 +5,8 @@ app
     var markers = []
     var markersSearch = []
     var markersLocation = []
-
+    
+      
     //form
 	$scope.master = {
         tipo:"Cime", 
@@ -175,7 +176,8 @@ app
                 switch (type[1]) {
                     case "kml":
                         $scope[type[0]] = omnivore.kml(url).addTo(map);
-                        initialize(url,$scope.mapCenter); //view profile
+                          addProfile();
+//                        initialize(url,$scope.mapCenter); //view profile
                         break;
                     case "gpx":
                         $scope[type[0]] = omnivore.gpx(url).addTo(map);
@@ -203,7 +205,8 @@ app
 		var type = url.split(".")
 		leafletData.getMap().then(function(map) {
 			map.removeLayer($scope[type[0]]);
-			$('#map_canvas').html("").removeAttr( "style" )
+            mapProfile.remove()
+			$('#map_profile').html("").removeAttr( "style" )
 			$('#elevation_chart').html("")
 			mousemarker = null
 		});	

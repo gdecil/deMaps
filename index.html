@@ -15,6 +15,7 @@
     <link href="css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="js/vendor/cluster/MarkerCluster.css" />
     <link rel="stylesheet" href="js/vendor/Leaflet.Photo/Leaflet.Photo.css" />
+    <link rel="stylesheet" href="js/vendor/leaflet/leaflet.elevation-0.0.4.css" />
     <link rel="stylesheet" href="css/map.css" />
 
     <script src="js/vendor/angular.min.js"></script>
@@ -24,10 +25,12 @@
     <script src="js/vendor/angular-ui-tree203.js"></script>
     <script src="js/vendor/angular-ui-utils/highlight.min.js"></script>
     <script src="js/vendor/angular-ui-tree-filter.js"></script>
+    <script src="js/vendor/d3.v3.min.js"></script>
 
     <script src="js/vendor/leaflet/leaflet-src.js"></script>
     <script src="js/vendor/leaflet.awesome-marker/leaflet.awesome-markers.js"></script>
     <script src="js/vendor/leaflet/leaflet-omnivore.js"></script>
+    <script src="js/vendor/leaflet/leaflet.elevation-0.0.4.min.js"></script>
     <script src="js/vendor/topojson/topojson.js"></script>
 
     <script src="js/vendor/google/google.js"></script>
@@ -41,14 +44,14 @@
     <script src="js/controllers/MainController2.js"></script>    
     <script src = 'js/vendor/helpers.js'></script>
     <script src= 'js/services/places.js'></script>
-
+    <script src = 'js/vendor/togeojson.js'></script>
 
     <script type="text/javascript" src="js/vendor/google/jsapi.js"></script>
     <script type="text/javascript" src="js/vendor/google/js?sensor=false&amp;v=3.7"></script>
     <script type="text/javascript" src="js/vendor/google/geoxml3.js"></script>
     <script type="text/javascript" src="js/vendor/google/ProjectedOverlay.js"></script>
 
-    <script src= 'js/profile.js'></script>
+    <script src= 'js/profileLeaflet.js'></script>
 
     <script src= 'js/photo.js'></script>
     <script src= 'js/vendor/reqwest.min.js'></script>
@@ -189,11 +192,11 @@
 								</div>	
 							</div>
 							<div id="tabs-2">
-									<div id="map_canvas">
+									<div class="container-fluid" id="map_profile">
 									</div>
 <!--									<div id="sidebar" style="width:300px;height:450x; overflow:auto"></div>-->
-									<div id="elevation_chart" style="width:800px; height:200px; "></div>
-<!--
+<!--									<div id="elevation_chart" style="width:800px; height:200px; "></div>
+
 									<div id="chart_div" style="width:512px; height:200px"></div>
 -->
 							</div>
