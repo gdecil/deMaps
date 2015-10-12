@@ -15,7 +15,10 @@ var monk = require('monk');
 ////  DbCheck.close();
 //});
 
-var db = monk('127.0.0.1:27017/deMaps');
+//bulit
+//var db = monk('192.168.1.3:27017/deMaps');
+//localhost
+var db = monk('127.0.0.1:27017/deMaps'); 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 

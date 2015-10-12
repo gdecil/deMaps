@@ -36,10 +36,3 @@ html, body, #map_canvas_photo {
 .leaflet-popup-photo p {
 	margin: 5px 0 0 0;
 }
-
-#map_profile {
-	      height:100%;
-	      width:100%;
-	      padding:0px;
-	      margin:0px;
-	   }

@@ -66,6 +66,7 @@ app
 		}		
 	}
 	else {
+      //Grigna parte tutto da lei
 		$scope.mapCenter = 
 				{
 				lat: 45.953333,
@@ -172,33 +173,33 @@ app
 	// layer track e profile e photo		
 	var addLayer = function(url){
         var type = url.split(".")
-            leafletData.getMap().then(function(map) {
-                switch (type[1]) {
-                    case "kml":
-                        $scope[type[0]] = omnivore.kml(url).addTo(map);
-                          addProfile();
+        addProfile(type[0] + ".gpx",$scope.mapCenter);
+        leafletData.getMap().then(function(map) {
+            switch (type[1]) {
+                case "kml":
+                    $scope[type[0]] = omnivore.kml(url).addTo(map);
 //                        initialize(url,$scope.mapCenter); //view profile
+                    break;
+                case "gpx":
+                    $scope[type[0]] = omnivore.gpx(url).addTo(map);
                         break;
-                    case "gpx":
-                        $scope[type[0]] = omnivore.gpx(url).addTo(map);
-                            break;
-                    case "csv":
-                        $scope[type[0]] = omnivore.csv(url).addTo(map);
-                            break;
-                    case "wkt":
-                        $scope[type[0]] = omnivore.wkt(url).addTo(map);
-                            break;
-                    case "topojson":
-                        $scope[type[0]] = omnivore.topojson(url).addTo(map);
-                            break;
-                    case "geojson":
-                        $scope[type[0]] = omnivore.geojson(url).addTo(map);
-                            break;
-                    case "txt":
-                        $scope[type[0]] = omnivore.polyline(url).addTo(map);
-                            break;
-                }
-            });				
+                case "csv":
+                    $scope[type[0]] = omnivore.csv(url).addTo(map);
+                        break;
+                case "wkt":
+                    $scope[type[0]] = omnivore.wkt(url).addTo(map);
+                        break;
+                case "topojson":
+                    $scope[type[0]] = omnivore.topojson(url).addTo(map);
+                        break;
+                case "geojson":
+                    $scope[type[0]] = omnivore.geojson(url).addTo(map);
+                        break;
+                case "txt":
+                    $scope[type[0]] = omnivore.polyline(url).addTo(map);
+                        break;
+            }
+        });				
 	}
 	
 	var removeLayer = function(url){
@@ -442,6 +443,11 @@ app
     //load and save
     
     $scope.createDbMongo = function(){
+      users.insert({ name: 'Tobi', bigdata: {} });
+      
+      collection.insert(document, {w: 1}, function(err, records){
+        console.log("Record added as "+records[0]._id);
+      });
     }
 
     $scope.updateDataMongo = function(){
@@ -804,7 +810,7 @@ app
         "description": $scope.mymaps.Nome,
         "info" : $scope.mymaps.GPSinfo,
         "url": "",
-        "gpsFile": "gps/" + $scope.mymaps.Nome + ".kml",
+        "gpsFile": "gps/" + $scope.mymaps.GPS,
         "viewCoord": "hide",
         "viewGps": "showGps",
         "items": []
@@ -825,11 +831,11 @@ app
         if(typeof $scope.mymaps.Photo!=undefined  & $scope.mymaps.Photo != "" ){
             loc.items.push(Photo)
         }
-/*
-        if(typeof $scope.mymaps.GPSinfo!=undefined  & $scope.mymaps.GPSinfo != "" ){
+
+        if(typeof $scope.mymaps.GPS!=undefined  & $scope.mymaps.GPS != "" ){
             loc.items.push(GPS)
         }    
-*/
+
         return loc
     }
         

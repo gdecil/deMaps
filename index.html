@@ -32,7 +32,8 @@
     <script src="js/vendor/leaflet/leaflet-omnivore.js"></script>
     <script src="js/vendor/leaflet/leaflet.elevation-0.0.4.min.js"></script>
     <script src="js/vendor/topojson/topojson.js"></script>
-
+    <script src="js/vendor/leaflet/gpx.js"></script>
+    
     <script src="js/vendor/google/google.js"></script>
 
     <script src="js/vendor/angular-leaflet-directive.min.js"></script>
@@ -153,7 +154,7 @@
 																				View
 																			</span>
 																		</a>
-																		<input id="chk{{item.description}}" type="checkbox" data-toggle="toggle" class="{{item.viewGps}}" data-nodrag ng-click='viewTrack("chk" + item.description + ":" + item.gpsFile)'>
+																		<input id="chk{{item.description}}" type="checkbox" data-toggle="toggle" class="{{item.viewGps}}" data-nodrag ng-click='viewTrack("chk" + item.description + ":" + item.gpsFile )'>
 																	</div>
 																	<ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
 																		<li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
@@ -191,13 +192,31 @@
 									</div>
 								</div>	
 							</div>
-							<div id="tabs-2">
-									<div class="container-fluid" id="map_profile">
-									</div>
-<!--									<div id="sidebar" style="width:300px;height:450x; overflow:auto"></div>-->
-<!--									<div id="elevation_chart" style="width:800px; height:200px; "></div>
+							<div id="tabs-2" class="gpx">
+                              <header>
+                                <h3>Loading...</h3>
+                                <span class="start"></span>
+                              </header>
 
-									<div id="chart_div" style="width:512px; height:200px"></div>
+                              <article>
+                                <div class="map container-fluid" id="map_profile"></div>
+                              </article>
+
+                              <footer>
+                                <ul class="info">
+                                  <li>Distance:&nbsp;<span class="distance"></span>&nbsp;m</li>
+                                  &mdash; <li>Duration:&nbsp;<span class="duration"></span></li>
+                                  &mdash; <li>Pace:&nbsp;<span class="pace"></span>/m</li>
+                                  &mdash; <li>Avg&nbsp;HR:&nbsp;<span class="avghr"></span>&nbsp;bpm</li>
+                                  &mdash; <li>Elevation:&nbsp;+<span class="elevation-gain"></span>&nbsp;m,
+                                    -<span class="elevation-loss"></span>&nbsp;m
+                                    (net:&nbsp;<span class="elevation-net"></span>&nbsp;m)</li>
+                                </ul>
+                              </footer>
+                                                          
+<!--
+                                <div class="container-fluid" id="map_profile">
+							   </div>
 -->
 							</div>
 							<div id="tabs-3">

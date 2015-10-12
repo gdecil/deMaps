@@ -12,6 +12,28 @@ router.get('/maps', function(req, res) {
     });
 });
 
+router.post('/createNewDb', function(req, res) {
+  var db = req.db;
+  var collection = db.get('maps');
+  var locr = req.body;
+  
+  collection.update(
+    { "id" : parseInt(locr.root) }, 
+    { 
+      $push: { items: locr.loc}
+    },
+    { upsert : true },
+     function(error, result) {
+         if(error) { 
+             console.error(error); return; 
+         }
+        res.send(
+            (error === null) ? { msg: '' } : { msg: error }
+        );
+     }
+  );  
+});
+
 //https://mongodb.github.io/node-mongodb-native/api-generated/collection.html#update
 router.post('/addlocation', function(req, res) {
   var db = req.db;
