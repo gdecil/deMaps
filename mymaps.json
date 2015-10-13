@@ -1,5 +1,6 @@
 [
   {
+    "_id": "56127fd06aa84f3914174c1e",
     "id": 1,
     "title": "1. Rifugi",
     "viewCoord": "hide",
@@ -21,7 +22,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:69"
+            "hashKey": "object:69",
+            "hashKey": "object:104"
           },
           {
             "title": "Wikipedia",
@@ -30,7 +32,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:70"
+            "hashKey": "object:70",
+            "hashKey": "object:105"
           },
           {
             "title": "Photo",
@@ -39,15 +42,158 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:71"
+            "hashKey": "object:71",
+            "hashKey": "object:106"
           }
         ],
+        "hashKey": "object:34",
         "hashKey": "object:34"
       }
     ],
+    "hashKey": "object:14",
     "hashKey": "object:14"
   },
   {
+    "_id": "56127fd06aa84f3914174c21",
+    "id": 4,
+    "title": "4. Valli",
+    "viewCoord": "hide",
+    "viewGps": "hide",
+    "items": [
+      {
+        "title": "Valle del Drogo",
+        "coord": "46.34796:9.3349:15",
+        "lat": "46.34796",
+        "lng": "9.3349",
+        "message": "Valle del Drogo",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [],
+        "hashKey": "object:46",
+        "hashKey": "object:36"
+      }
+    ],
+    "hashKey": "object:17",
+    "hashKey": "object:15"
+  },
+  {
+    "_id": "56127fd06aa84f3914174c20",
+    "id": 3,
+    "title": "3. Alpeggi",
+    "viewCoord": "hide",
+    "viewGps": "hide",
+    "items": [
+      {
+        "title": "Alpe Lendine",
+        "coord": "46.34858:9.33099:15",
+        "lat": "46.34858",
+        "lng": "9.33099",
+        "message": "Alpe Lendine",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [],
+        "hashKey": "object:44",
+        "hashKey": "object:38"
+      },
+      {
+        "title": "Laghetti di Cardeto e Passo della Portula",
+        "coord": "46.011875:9.895208:15",
+        "lat": "46.011875",
+        "lng": "9.895208",
+        "message": "Laghetti di Cardeto e Passo della Portula",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "2120 m",
+            "description": "Laghetti di Cardeto e Passo della Portula",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:181",
+            "hashKey": "object:110"
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Laghetti di Cardeto e Passo della Portula",
+            "url": "https://it.wikipedia.org/wiki/Laghi_di_Cardeto",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:182",
+            "hashKey": "object:111"
+          },
+          {
+            "title": "Descrizione",
+            "description": "Laghetti di Cardeto e Passo della Portula",
+            "url": "https://workflowy.com/#/317bf1733f06",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:183",
+            "hashKey": "object:112"
+          }
+        ],
+        "hashKey": "object:176",
+        "hashKey": "object:39"
+      },
+      {
+        "title": "Altopiano del Pasubio",
+        "coord": "45.778418789239055:11.220130920410156:15",
+        "lat": 45.778418789239055,
+        "lng": 11.220130920410156,
+        "message": "Altopiano del Pasubio",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "circa 2000 m",
+            "description": "Altopiano del Pasubio",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:116"
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Altopiano del Pasubio",
+            "url": "https://it.wikipedia.org/wiki/Pasubio",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:117"
+          },
+          {
+            "title": "Descrizione",
+            "description": "Altopiano del Pasubio",
+            "url": "https://workflowy.com/#/155871e6dab3",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:118"
+          }
+        ],
+        "hashKey": "object:40"
+      },
+      {
+        "title": "lago delle locce",
+        "coord": "46.02176059146292:8.4320068359375:15",
+        "lat": 46.02176059146292,
+        "lng": 8.4320068359375,
+        "message": "lago delle locce",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [],
+        "hashKey": "object:41"
+      }
+    ],
+    "hashKey": "object:16",
+    "hashKey": "object:16"
+  },
+  {
+    "_id": "56127fd06aa84f3914174c1f",
     "id": 2,
     "title": "2. Cime",
     "viewCoord": "hide",
@@ -69,7 +215,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:75"
+            "hashKey": "object:75",
+            "hashKey": "object:122"
           },
           {
             "title": "Altezza",
@@ -78,7 +225,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:76"
+            "hashKey": "object:76",
+            "hashKey": "object:123"
           },
           {
             "title": "Wikipedia",
@@ -87,7 +235,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:77"
+            "hashKey": "object:77",
+            "hashKey": "object:124"
           },
           {
             "title": "Descrizione",
@@ -96,7 +245,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:78"
+            "hashKey": "object:78",
+            "hashKey": "object:125"
           },
           {
             "title": "Photo",
@@ -106,7 +256,8 @@
             "viewCoord": "hide",
             "viewGps": "showPhoto",
             "items": [],
-            "hashKey": "object:79"
+            "hashKey": "object:79",
+            "hashKey": "object:126"
           },
           {
             "title": "GPS",
@@ -117,10 +268,12 @@
             "viewCoord": "hide",
             "viewGps": "showGps",
             "items": [],
-            "hashKey": "object:80"
+            "hashKey": "object:80",
+            "hashKey": "object:127"
           }
         ],
-        "hashKey": "object:36"
+        "hashKey": "object:36",
+        "hashKey": "object:46"
       },
       {
         "title": "Monte Cazzola",
@@ -138,7 +291,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:87"
+            "hashKey": "object:87",
+            "hashKey": "object:134"
           },
           {
             "title": "Descrizione",
@@ -147,7 +301,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:88"
+            "hashKey": "object:88",
+            "hashKey": "object:135"
           },
           {
             "title": "Photo",
@@ -156,10 +311,12 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:89"
+            "hashKey": "object:89",
+            "hashKey": "object:136"
           }
         ],
-        "hashKey": "object:37"
+        "hashKey": "object:37",
+        "hashKey": "object:47"
       },
       {
         "title": "Monte Altissimo",
@@ -178,7 +335,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:93"
+            "hashKey": "object:93",
+            "hashKey": "object:140"
           },
           {
             "title": "Altezza",
@@ -188,7 +346,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:94"
+            "hashKey": "object:94",
+            "hashKey": "object:141"
           },
           {
             "title": "Wikipedia",
@@ -197,7 +356,8 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:95"
+            "hashKey": "object:95",
+            "hashKey": "object:142"
           },
           {
             "title": "Descrizione",
@@ -206,10 +366,12 @@
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:96"
+            "hashKey": "object:96",
+            "hashKey": "object:143"
           }
         ],
-        "hashKey": "object:38"
+        "hashKey": "object:38",
+        "hashKey": "object:48"
       },
       {
         "title": "Benfit",
@@ -229,126 +391,173 @@
             "viewCoord": "hide",
             "viewGps": "showGps",
             "items": [],
-            "hashKey": "object:101"
+            "hashKey": "object:101",
+            "hashKey": "object:148"
           }
         ],
-        "hashKey": "object:39"
+        "hashKey": "object:39",
+        "hashKey": "object:49"
       },
       {
-        "title": "Cima Collecchio Val di Rabbi",
-        "coord": "46.4460563:10.7967389:15",
-        "lat": "46.4460563",
-        "lng": "10.7967389",
-        "message": "Cima Collecchio Val di Rabbi",
+        "title": "Bietti Brioschi Bogani",
+        "coord": "45.953333:9.387509:15",
+        "lat": "45.953333",
+        "lng": "9.387509",
+        "message": "Bietti Brioschi Bogani",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Partenza",
+            "value": "da Esino Lario m 1450",
+            "description": "Bietti Brioschi Bogani",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:150"
+          },
+          {
+            "title": "Altezza",
+            "value": "2410 m",
+            "description": "Bietti Brioschi Bogani",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:151"
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Bietti Brioschi Bogani",
+            "url": "https://it.wikipedia.org/wiki/Grigna_settentrionale",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:152"
+          },
+          {
+            "title": "Descrizione",
+            "description": "Bietti Brioschi Bogani",
+            "url": "https://workflowy.com/#/7c4964938b5b",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:153"
+          },
+          {
+            "title": "Photo",
+            "description": "Bietti Brioschi Bogani",
+            "url": "photo/Bietti Brioschi Bogani.json",
+            "gpsFile": "photo/Bietti Brioschi Bogani.json",
+            "viewCoord": "hide",
+            "viewGps": "showPhoto",
+            "items": [],
+            "hashKey": "object:154"
+          },
+          {
+            "title": "GPS",
+            "description": "Bietti Brioschi Bogani",
+            "info": "",
+            "url": "",
+            "gpsFile": "gps/gps/grignone_dal_caminetto2.gpx",
+            "viewCoord": "hide",
+            "viewGps": "showGps",
+            "items": [],
+            "hashKey": "object:155"
+          }
+        ],
+        "hashKey": "object:50"
+      },
+      {
+        "title": "Mont Glacier",
+        "coord": "45.6314967:7.5393479:15",
+        "lat": 45.6314967,
+        "lng": 7.5393479,
+        "message": "Mont Glacier",
         "viewCoord": "showCoord",
         "viewGps": "hide",
         "items": [
           {
             "title": "Altezza",
-            "value": "2957 m",
-            "description": "Cima Collecchio Val di Rabbi",
+            "value": "3185 m",
+            "description": "Mont Glacier",
             "viewCoord": "hide",
             "viewGps": "hide",
-            "items": []
+            "items": [],
+            "hashKey": "object:162"
           },
           {
             "title": "Wikipedia",
-            "description": "Cima Collecchio Val di Rabbi",
-            "url": "http://www.fototrekkingtrentino.it/rifugio-dorigoni-cima-collecchio.html",
+            "description": "Mont Glacier",
+            "url": "https://it.wikipedia.org/wiki/Mont_Glacier",
             "viewCoord": "hide",
             "viewGps": "hide",
-            "items": []
+            "items": [],
+            "hashKey": "object:163"
           },
           {
             "title": "Descrizione",
-            "description": "Cima Collecchio Val di Rabbi",
-            "url": "https://workflowy.com/#/85ec2173f642",
+            "description": "Mont Glacier",
+            "url": "https://workflowy.com/#/2b00be776cf6",
             "viewCoord": "hide",
             "viewGps": "hide",
-            "items": []
+            "items": [],
+            "hashKey": "object:164"
           }
-        ]
-      }
-    ],
-    "hashKey": "object:15"
-  },
-  {
-    "id": 3,
-    "title": "3. Alpeggi",
-    "viewCoord": "hide",
-    "viewGps": "hide",
-    "items": [
-      {
-        "title": "Alpe Lendine",
-        "coord": "46.34858:9.33099:15",
-        "lat": "46.34858",
-        "lng": "9.33099",
-        "message": "Alpe Lendine",
-        "viewCoord": "showCoord",
-        "viewGps": "hide",
-        "items": [],
-        "hashKey": "object:44"
+        ],
+        "hashKey": "object:51"
       },
       {
-        "title": "Laghetti di Cardeto e Passo della Portula",
-        "coord": "46.011875:9.895208:15",
-        "lat": "46.011875",
-        "lng": "9.895208",
-        "message": "Laghetti di Cardeto e Passo della Portula",
+        "title": "Punta tre vescovi",
+        "coord": "45.72595560293273:7.941226959228516:15",
+        "lat": 45.72595560293273,
+        "lng": 7.941226959228516,
+        "message": "Punta tre vescovi",
         "viewCoord": "showCoord",
         "viewGps": "hide",
         "items": [
           {
             "title": "Altezza",
-            "value": "2120 m",
-            "description": "Laghetti di Cardeto e Passo della Portula",
+            "value": "2.503 m",
+            "description": "Punta tre vescovi",
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:181"
+            "hashKey": "object:168"
           },
           {
             "title": "Wikipedia",
-            "description": "Laghetti di Cardeto e Passo della Portula",
-            "url": "https://it.wikipedia.org/wiki/Laghi_di_Cardeto",
+            "description": "Punta tre vescovi",
+            "url": "https://it.wikipedia.org/wiki/Punta_Tre_Vescovi",
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:182"
+            "hashKey": "object:169"
           },
           {
             "title": "Descrizione",
-            "description": "Laghetti di Cardeto e Passo della Portula",
-            "url": "https://workflowy.com/#/317bf1733f06",
+            "description": "Punta tre vescovi",
+            "url": "https://workflowy.com/#/c2c89573df00",
             "viewCoord": "hide",
             "viewGps": "hide",
             "items": [],
-            "hashKey": "object:183"
+            "hashKey": "object:170"
           }
         ],
-        "hashKey": "object:176"
-      }
-    ],
-    "hashKey": "object:16"
-  },
-  {
-    "id": 4,
-    "title": "4. Valli",
-    "viewCoord": "hide",
-    "viewGps": "hide",
-    "items": [
+        "hashKey": "object:52"
+      },
       {
-        "title": "Valle del Drogo",
-        "coord": "46.34796:9.3349:15",
-        "lat": "46.34796",
-        "lng": "9.3349",
-        "message": "Valle del Drogo",
+        "title": "Cima Della Laurasca",
+        "coord": "46.0581908:8.4757338:15",
+        "lat": 46.0581908,
+        "lng": 8.4757338,
+        "message": "Cima Della Laurasca",
         "viewCoord": "showCoord",
         "viewGps": "hide",
         "items": [],
-        "hashKey": "object:46"
+        "hashKey": "object:53"
       }
     ],
+    "hashKey": "object:15",
     "hashKey": "object:17"
   }
 ]

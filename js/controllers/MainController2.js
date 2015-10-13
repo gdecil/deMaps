@@ -5,8 +5,10 @@ app
     var markers = []
     var markersSearch = []
     var markersLocation = []
-    
-      
+    $scope.location_type= "";
+    $scope.location = {
+            type: '2. Cime'
+          };      
     //form
 	$scope.master = {
         tipo:"Cime", 
@@ -23,6 +25,10 @@ app
     $scope.reset = function() {
         $scope.mymaps = angular.copy($scope.master);
     };
+    $scope.refreshTree = function() {
+      $scope.loadDataAjax(mongoDbMaps)
+    }
+      
     $scope.clear = function() {
         $scope.master = {
             tipo:"", 
@@ -135,7 +141,7 @@ app
                 Photo:PhotoUrl,
                 Photo:PhotoFile,
                 GPSinfo:GPSinfo,
-                GPSFile:GPSFile,
+                GPS:GPSFile,
                 Latitudine:loc[0].lat,
                 Longitudine:loc[0].lng,
                 Messaggio:loc[0].message
@@ -441,6 +447,9 @@ app
 	};
 		    
     //load and save
+    $scope.viewDataMongo = function(){
+      $('#tabs-2').html(JSON.stringify($scope.list))
+    }
     
     $scope.createDbMongo = function(){
       users.insert({ name: 'Tobi', bigdata: {} });
@@ -515,6 +524,25 @@ app
 
           }
       });      
+    }
+    
+    $scope.addToMongoDb= function(){
+      var loc = getLocationMinimal();
+        switch ($scope.location.type) {
+            case "2. Cime":
+                saveToMongo(loc, 2,true)
+                    break;
+            case "1. Rifugi":
+                saveToMongo(loc, 1,true)
+                    break;
+            case "3. Alpeggi":
+                saveToMongo(loc, 3,true)
+                    break;
+            case "4. Valli":
+                saveToMongo(loc, 4,true)
+                    break;
+        }
+        $scope.collapseAll()      
     }
     
     $scope.saveDataMongo = function(){
@@ -839,6 +867,23 @@ app
         return loc
     }
         
+    var getLocationMinimal = function(){
+        var loc =       {
+        "title": $scope.address.name,
+        "coord": $scope.mapCenter.lat  + ":" + $scope.mapCenter.lng + ":15",
+        "lat": $scope.mapCenter.lat,
+        "lng": $scope.mapCenter.lng,
+        "message": "<a target='_blank' href=''>" + $scope.address.name +"</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+
+          ]
+        }          
+
+        return loc
+    }
+
     var checkExistLocation = function(location) {
         for (var i=0; i < $scope.list.length; i++) {
             var objf = $scope.list[i].items.filter(function ( obj ) {
