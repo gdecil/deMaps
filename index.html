@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/leaflet.css" />
     <link href="css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="js/vendor/cluster/MarkerCluster.css" />
+    <link rel="stylesheet" href="js/vendor/cluster/MarkerCluster.Default.css" />
     <link rel="stylesheet" href="js/vendor/Leaflet.Photo/Leaflet.Photo.css" />
     <link rel="stylesheet" href="js/vendor/leaflet/leaflet.elevation-0.0.4.css" />
     <link rel="stylesheet" href="css/map.css" />
@@ -179,7 +180,7 @@
 																				View
 																			</span>
 																		</a>
-																		<input id="chk{{item.description}}" type="checkbox" data-toggle="toggle" class="{{item.viewGps}}" data-nodrag ng-click='viewTrack("chk" + item.description + ":" + item.gpsFile )'>
+																		<input id="chk{{item.description}}" type="checkbox" data-toggle="toggle" class="{{item.viewGps}} {{item.title}}" data-nodrag ng-click='viewTrack("chk" + item.description + ":" + item.gpsFile + ":" + item.title )'>
 																	</div>
 																	<ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
 																		<li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">

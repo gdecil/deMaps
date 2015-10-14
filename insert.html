@@ -120,7 +120,7 @@
                                                                 <input id="chk{{item.description}}" type="checkbox" data-toggle="toggle" class="{{item.viewGps}}" data-nodrag ng-click='viewTrack("chk" + item.description + ":" + item.gpsFile)'>
                                                             </div>
                                                             <ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
-                                                                <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
+                                                                <li ng-repeat="item in item.items track by $id(item.title)" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
                                                                 </li>
                                                             </ol>
                                                         </script>
@@ -170,8 +170,11 @@
                         <input type="text" ng-model="mymaps.Descrizione" size="80">
                             <br>
 
-                        Photo:<br>		
-                        <input type="text" ng-model="mymaps.Photo" size="80">
+                        Photo Own Cloud url:<br>		
+                        <input type="text" ng-model="mymaps.PhotoOwn" size="80">
+                            <br>
+                        Photo Geolocalizzate File {{mymaps.Nome}}.json: (Y/N)<br>		
+                        <input type="text" ng-model="mymaps.PhotoGeo" size="80">
                             <br>
                         GPS:<br>		
                         <input type="text" ng-model="mymaps.GPS" size="80">
@@ -189,16 +192,18 @@
 
                         <br><br>
                         <button ng-click="clear()">Clear</button>
+<!--
                         <button ng-click="saveDataLocal()">Add</button>
                         <button ng-click="updateDataLocal()">Update</button>
                         <button ng-click="deleteDataLocal()">Delete</button>
+-->
                         <br><br>
                         <button ng-click="saveDataMongo()">Add to MongoDb</button>
                         <button ng-click="updateDataMongo()">Update MongoDb</button>
                         <button ng-click="deleteDataMongo()">Delete MongoDb</button>
                         <button ng-click="viewDataMongo()">View in File Db data</button>
                         <br><br>
-                        <button ng-click="createDbMongo()">New Clean Database</button>
+<!--                        <button ng-click="createDbMongo()">New Clean Database</button>-->
                       </form>
 <!--
                       <p>master = {{master}}</p>

@@ -20,7 +20,7 @@ var addProfile = function(urlFile, center){
   $.ajax({
           'async': false,
           'global': false,
-          'url': urlFile,            //"gps/Grignone.gpx",
+          'url': "gps/" + urlFile,            //"gps/Grignone.gpx",
           'success': function (data) {
             var geojson = toGeoJSON.gpx(data)
             var el = L.control.elevation();
@@ -30,7 +30,7 @@ var addProfile = function(urlFile, center){
             }).addTo(mapProfile);
 
             mapProfile.addLayer(service)      
-            display_gpx(document.getElementById('tabs-2'), urlFile)
+            display_gpx(document.getElementById('tabs-2'), "gps/" + urlFile)
 
           }
   });

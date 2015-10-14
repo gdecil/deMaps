@@ -118,8 +118,14 @@ app
                                     Descrizione = value.url;
                                         break;
                                 case "Photo":
-                                    PhotoUrl = value.url;
-                                    PhotoFile = value.gpsFile;
+                                    PhotoOwn = value.url;
+                                    if(value.viewGps=="noshowGps"){
+                                      PhotoGeo = "N";                                      
+                                    }
+                                     else
+                                     {
+                                      PhotoGeo = "Y";                                      
+                                     }
                                         break;
                                 case "GPS":
                                     GPSinfo = value.info;
@@ -138,8 +144,8 @@ app
                 Altezza: Altezza, 
                 Wikipedia: Wikipedia,
                 Descrizione: Descrizione, 
-                Photo:PhotoUrl,
-                Photo:PhotoFile,
+                PhotoOwn:PhotoOwn,
+                PhotoGeo:PhotoGeo,
                 GPSinfo:GPSinfo,
                 GPS:GPSFile,
                 Latitudine:loc[0].lat,
@@ -183,26 +189,26 @@ app
         leafletData.getMap().then(function(map) {
             switch (type[1]) {
                 case "kml":
-                    $scope[type[0]] = omnivore.kml(url).addTo(map);
+                    $scope[type[0]] = omnivore.kml("gps\\" + url).addTo(map);
 //                        initialize(url,$scope.mapCenter); //view profile
                     break;
                 case "gpx":
-                    $scope[type[0]] = omnivore.gpx(url).addTo(map);
+                    $scope[type[0]] = omnivore.gpx("gps\\"+url).addTo(map);
                         break;
                 case "csv":
-                    $scope[type[0]] = omnivore.csv(url).addTo(map);
+                    $scope[type[0]] = omnivore.csv("gps\\"+url).addTo(map);
                         break;
                 case "wkt":
-                    $scope[type[0]] = omnivore.wkt(url).addTo(map);
+                    $scope[type[0]] = omnivore.wkt("gps\\"+url).addTo(map);
                         break;
                 case "topojson":
-                    $scope[type[0]] = omnivore.topojson(url).addTo(map);
+                    $scope[type[0]] = omnivore.topojson("gps\\"+url).addTo(map);
                         break;
                 case "geojson":
-                    $scope[type[0]] = omnivore.geojson(url).addTo(map);
+                    $scope[type[0]] = omnivore.geojson("gps\\"+url).addTo(map);
                         break;
                 case "txt":
-                    $scope[type[0]] = omnivore.polyline(url).addTo(map);
+                    $scope[type[0]] = omnivore.polyline("gps\\"+url).addTo(map);
                         break;
             }
         });				
@@ -220,26 +226,31 @@ app
 	}
 		
 	$scope.viewTrack = function(chkInfo) {		
-        if(chkInfo.indexOf(":gps/")>0){
             var chk = chkInfo.split(":")
-            if($('input#'+ chk[0] +'.showGps').is(':checked'))
-            {
-                addLayer(chk[1])
+            if(chk[2]=="GPS"){
+              if($('input#'+ chk[0] +'.showChk.GPS').is(':checked'))
+              {
+                  addLayer( chk[1])
+              }
+              else {
+                  removeLayer(chk[1])			
+              }                          
             }
-            else {
-                removeLayer(chk[1])			
-            }            
-        }
-        else if(chkInfo.indexOf(":photo/")>0){
-            var chk = chkInfo.split(":")
-            if($('input#'+ chk[0] +'.showPhoto').is(':checked'))
-            {
-                openPhoto(chk[1])
+            if(chk[2]=="Photo"){
+              if($('input#'+ chk[0] +'.showChk.Photo').is(':checked'))
+              {
+                  openPhoto("photo\\" + chk[1])
+              }
+              else {
+                  closePhoto();	
+              }              
             }
-            else {
-                closePhoto();	
-            }
-        }                
+
+//      if(chkInfo.indexOf(":gps/")>0){
+//        }
+//        else if(chkInfo.indexOf(":photo/")>0){
+//            var chk = chkInfo.split(":")
+//        }                
 	}
 	// layer track e profile
 	
@@ -666,6 +677,7 @@ app
 									if(lat.length>0){
 										$.each(lat, function( index1, value1 ) {
 											var mark = {}
+                                            mark.group = 'italy'
 											mark.lat = Number(lat[index1])
 											mark.lng = Number(lng[index1])									
 											mark.message = message[index1]
@@ -766,9 +778,7 @@ app
 //    $scope.loadDataAjax("mymaps.json")
     //mongoDb
 //    $scope.loadDataAjax("http://localhost:3000/users/maps")
-    $scope.loadDataAjax(mongoDbMaps)
-
-    
+    $scope.loadDataAjax(mongoDbMaps)    
     //    $scope.loadTestAjax()
     
     var getLocation = function(){
@@ -827,10 +837,10 @@ app
         var Photo = {
         "title": "Photo",
         "description": $scope.mymaps.Nome,
-        "url": $scope.mymaps.Photo,
+        "url": $scope.mymaps.PhotoOwn,
         "gpsFile": "photo/" + $scope.mymaps.Nome + ".json",
         "viewCoord": "hide",
-        "viewGps": "showPhoto",
+        "viewGps": "hide",   //gestisce il check box
         "items": []
         }
         var GPS={
@@ -838,9 +848,9 @@ app
         "description": $scope.mymaps.Nome,
         "info" : $scope.mymaps.GPSinfo,
         "url": "",
-        "gpsFile": "gps/" + $scope.mymaps.GPS,
+        "gpsFile": $scope.mymaps.GPS,
         "viewCoord": "hide",
-        "viewGps": "showGps",
+        "viewGps": "hide",
         "items": []
         }
           
@@ -856,11 +866,20 @@ app
         if(typeof $scope.mymaps.Descrizione!=undefined  & $scope.mymaps.Descrizione != "" ){
             loc.items.push(Descrizione)
         }
-        if(typeof $scope.mymaps.Photo!=undefined  & $scope.mymaps.Photo != "" ){
-            loc.items.push(Photo)
+        var addPhoto="N"
+        if(typeof $scope.mymaps.PhotoOwn!=undefined  & $scope.mymaps.PhotoOwn != "" ){
+            addPhoto="Y"
+        }
+        if( $scope.mymaps.PhotoGeo.toUpperCase() =="Y" ){
+          addPhoto="Y"
+          Photo.viewGps="showChk"
+        }
+        if(addPhoto=="Y"){
+          loc.items.push(Photo) 
         }
 
         if(typeof $scope.mymaps.GPS!=undefined  & $scope.mymaps.GPS != "" ){
+          GPS.viewGps="showChk"
             loc.items.push(GPS)
         }    
 

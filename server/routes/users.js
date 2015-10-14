@@ -7,7 +7,7 @@ var router = express.Router();
 router.get('/maps', function(req, res) {
     var db = req.db;
     var collection = db.get('maps');
-    collection.find({},{},function(e,docs){
+    collection.find({},{sort: {title: 1, "items.title": 1}},function(e,docs){
         res.json(docs);
     });
 });
