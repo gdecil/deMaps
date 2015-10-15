@@ -1,5 +1,8 @@
 /* Styles go here */
 
+.form-control{
+  color: blue
+}
 
 .html-back{
   background : #eee url("http://placehold.it/400x300/eee/666&text=HTML") no-repeat center;

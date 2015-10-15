@@ -34,12 +34,14 @@
     <script src="js/vendor/leaflet/leaflet.elevation-0.0.4.min.js"></script>
     <script src="js/vendor/topojson/topojson.js"></script>
     <script src="js/vendor/leaflet/gpx.js"></script>
-    
+
     <script src="js/vendor/google/google.js"></script>
 
     <script src="js/vendor/angular-leaflet-directive.min.js"></script>
 
     <script src="js/vendor/jquery-1.9.0.js"></script>
+    <script src="js/vendor/jquery.cookie.js"></script>
+
     <script src="js/vendor/jquery-ui/jquery-ui.js"></script>
 
     <script src="js/app.js"></script>
@@ -59,195 +61,290 @@
     <script src= 'js/vendor/reqwest.min.js'></script>
     <script src= 'js/vendor/cluster/leaflet.markercluster.js'></script>
     <script src= 'js/vendor/Leaflet.Photo/Leaflet.Photo.js'></script>
-		
+
+    <link rel="stylesheet" href="js/vendor/codemirror/lib/codemirror.css">
+
+    <script src="js/vendor/codemirror/lib/codemirror.js"></script>
+    <script src="js/vendor/codemirror/mode/javascript/javascript.js"></script>
+
+    <script src="js/vendor/beautify.js"></script>
+    <script src="js/beauty.js"></script>
   </head>
 
   <body ng-controller="MainController" ng-init="dim=true; highlight=true">
-		
-		<!--<div class="header">
-      <div class="container-fluid">
-        <h1 class="pull-left">deMaps</h1>
-      </div>
-		</div>-->
-		
+
+    <!--<div class="header">
+<div class="container-fluid">
+<h1 class="pull-left">deMaps</h1>
+</div>
+</div>-->
+
     <div ui-layout  >      
       <div ui-layout-container> 
         <div ui-layout="{flow : 'column'}" >
-          <div ui-layout-container size="200px" class=" html-back1" >
-						<div class="accord">
-							<accordion close-others="oneAtATime">
-								<accordion-group heading="Coordinate" panel-class="panel-danger">
-									<ul>
-											<li>Latitude<input class="form-control" type="number" step="any" ng-model="mapCenter.lat" /> </li>
-											<li>Longitude<input class="form-control" type="number" step="any" ng-model="mapCenter.lng" /> </li>
-											<li>Zoom<input class="form-control" type="number" step="any" ng-model="mapCenter.zoom" /> </li>
-									</ul>
-									Search Address
-									<ul>
-											<li><input class="form-control" type="string" step="any" ng-model="address.name" /></li>
-									</ul>
-                                      <a href="" class="btn btn-primary pull-left"  ng-click="search()">Search</a>
-                                      <a href="" class="btn btn-primary pull-left"  ng-click="clearMarker()">Clear</a>
-                                  <br/>
-                                  <br/>
-                                  <div class="input-group">
-                                        <a href="" class="btn btn-primary pull-left"  ng-click="addToMongoDb()">Add Db</a>                
-                                      <div >
-                                        <label>
-                                          <input type="radio" ng-model="location.type" name="optradio" value="2. Cime">
-                                          Cime
-                                        </label><br/>
-                                        <label>
-                                          <input type="radio" ng-model="location.type" name="optradio" value="1. Rifugi">
-                                          Rifugi
-                                        </label><br/>
-                                        <label>
-                                          <input type="radio" ng-model="location.type" name="optradio" value="3. Alpeggi">
-                                          Alpeggi
-                                        </label><br/>                                                
-                                        <label>
-                                          <input type="radio" ng-model="location.type" name="optradio" value="4. Valli">
-                                          Valli   
-                                        </label><br/>                                                
-                                      </div>
-                                  </div>
-										<div class="container">
-											<div class="row">
-												<div class="col-md-12">
-														<div class="row" >
-															<div class="col-lg-6">
-																<!-- Nested list template -->
-																<script type="text/ng-template" id="items_renderer1.html">
-																	<div ui-tree-handle>
-																		<a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
-                                                                         
-																		<a data-nodrag >{{item.properties.name}}</a>
-																		<small>{{item.properties.city}}</small>
-																		<small>{{item.properties.country}}</small>
-																		<small>{{item.properties.state}}</small>
-																		<a class="{{item.geometry.coordinates}}" data-nodrag ng-click='changeLocation(item.geometry.coordinates)'>
-																			<span class="glyphicon">
-																				View
-																			</span>
-																		</a>
-																	</div>
-																	<ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
-																		<li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
-																		</li>
-																	</ol>
-																</script>
-																<div ui-tree="options" id="tree-root-search">
-																	<ol ui-tree-nodes ng-model="listSearch" >
-																		<li ng-repeat="item in listSearch" ui-tree-node collapsed="true" ng-include="'items_renderer1.html'"
-																			ng-hide="!treeFilter(item, pattern, supportedFields) && dim"
-																			ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
-																		</li>
-																	</ol>
-																</div>
-															</div>
-														</div>
-													</div>
-											 </div>
-										</div>																						                                    
-                                </accordion-group>
-								<accordion-group is-open="status.open">
-									<accordion-heading>Direct locations</i>
-									</accordion-heading>
-										<div class="col-md-6">
-											<a href="" class="btn btn-default pull-right" ng-click="collapseAll()">Collapse all</a>
-											<a href="" class="btn btn-default pull-right" ng-click="expandAll()">Expand all</a>			
-											<a href="" class="btn btn-default pull-right" ng-click="refreshTree()">Refresh</a>			
-												<div class="input-group input-group-lg">
-														<span class="input-group-addon">Filter</span>
-														<input type="search" class="form-control" placeholder="Type a part of any nodes name..."  ng-model="pattern">
-												</div>
-										</div>
-										<div class="container">
-											<div class="row">
-												<div class="col-md-12">
-														<div class="row" >
-															<div class="col-lg-6">
-																<!-- Nested list template -->
-																<script type="text/ng-template" id="items_renderer.html">
-																	<div ui-tree-handle>
-																		<a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
-																		<a data-nodrag href="{{item.url}}">{{item.title}}</a>
-																		<small class ="pull-right">{{item.description}}</small>
-																		<small>{{item.info}}</small>
-                                                                        <small>{{item.value}}</small>
-																		<a class="{{item.viewCoord}}" data-nodrag ng-click='changeLocation(item.coord)'>
-																			<span class="glyphicon">
-																				View
-																			</span>
-																		</a>
-																		<input id="chk{{item.description}}" type="checkbox" data-toggle="toggle" class="{{item.viewGps}} {{item.title}}" data-nodrag ng-click='viewTrack("chk" + item.description + ":" + item.gpsFile + ":" + item.title )'>
-																	</div>
-																	<ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
-																		<li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
-																		</li>
-																	</ol>
-																</script>
-																<div ui-tree="options" id="tree-root">
-																	<ol ui-tree-nodes ng-model="list" >
-																		<li ng-repeat="item in list" ui-tree-node collapsed="true" ng-include="'items_renderer.html'"
-																			ng-hide="!treeFilter(item, pattern, supportedFields) && dim"
-																			ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
-																		</li>
-																	</ol>
-																</div>
-															</div>
-														</div>
-													</div>
-											 </div>
-										</div>																								
-								</accordion-group>
-							</accordion>
-						</div>																		
-					</div>
-          <div ui-layout-container class=" js-back" >
-						<div id="tabs">
-							<ul>
-								<li><a href="#tabs-1">Mappe</a></li>
-								<li><a href="#tabs-2">Profili</a></li>
-								<li><a href="#tabs-3">Photo</a></li>
-							</ul>
-							<div id="tabs-1">
-								<div id="mappe">
-									<div class="container-fluid" id="map-canvas">
-										<leaflet center="mapCenter" layers="layers" markers="mapMarkers" />
-									</div>
-								</div>	
-							</div>
-							<div id="tabs-2" class="gpx">
-                              <header>
-                                <h3>Loading...</h3>
-                                <span class="start"></span>
-                              </header>
+          <div ui-layout-container size="200px" class="SX" >
+            <div class="accord">
+              <accordion close-others="oneAtATime">
 
-                              <article>
-                                <div class="map container-fluid" id="map_profile"></div>
-                              </article>
+                <accordion-group heading="Coordinate" panel-class="panel-danger">
+                  <ul>
+                    <li>Latitude<input class="form-control" type="number" step="any" ng-model="mapCenter.lat" /> </li>
+                    <li>Longitude<input class="form-control" type="number" step="any" ng-model="mapCenter.lng" /> </li>
+                    <li>Zoom<input class="form-control" type="number" step="any" ng-model="mapCenter.zoom" /> </li>
+                  </ul>
+                  Search Address
+                  <ul>
+                    <li><input class="form-control" type="string" step="any" ng-model="address.name" /></li>
+                  </ul>
+                  <a href="" class="btn btn-primary pull-left"  ng-click="search()">Search</a>
+                  <a href="" class="btn btn-primary pull-left"  ng-click="clearMarker()">Clear</a>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="row" >
+                          <div class="col-lg-6">
+                            <!-- Nested list template -->
+                            <script type="text/ng-template" id="items_renderer1.html">
+                              <div ui-tree-handle>
+                                <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
 
-                              <footer>
-                                <ul class="info">
-                                  <li>Distance:&nbsp;<span class="distance"></span>&nbsp;m</li>
-                                  &mdash; <li>Duration:&nbsp;<span class="duration"></span></li>
-                                  &mdash; <li>Pace:&nbsp;<span class="pace"></span>/m</li>
-                                  &mdash; <li>Avg&nbsp;HR:&nbsp;<span class="avghr"></span>&nbsp;bpm</li>
-                                  &mdash; <li>Elevation:&nbsp;+<span class="elevation-gain"></span>&nbsp;m,
-                                    -<span class="elevation-loss"></span>&nbsp;m
-                                    (net:&nbsp;<span class="elevation-net"></span>&nbsp;m)</li>
-                                </ul>
-                              </footer>
-							</div>
-							<div id="tabs-3">
-									<div id="map_canvas_photo">
-									</div>
-							</div>
-						</div>						
-					</div>
+                                <a data-nodrag >{{item.properties.name}}</a>
+                                <small>{{item.properties.city}}</small>
+                                <small>{{item.properties.country}}</small>
+                                <small>{{item.properties.state}}</small>
+                                <a class="{{item.geometry.coordinates}}" data-nodrag ng-click='changeLocation(item.geometry.coordinates)'>
+                                  <span class="glyphicon">
+                                    View
+                                  </span>
+                                </a>
+                              </div>
+                              <ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
+                                <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
+                                </li>
+                              </ol>
+                            </script>
+                            <div ui-tree="options" id="tree-root-search">
+                              <ol ui-tree-nodes ng-model="listSearch" >
+                                <li ng-repeat="item in listSearch" ui-tree-node collapsed="true" ng-include="'items_renderer1.html'"
+                                    ng-hide="!treeFilter(item, pattern, supportedFields) && dim"
+                                    ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
+                                </li>
+                              </ol>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                  
+                </accordion-group>
+
+                <accordion-group heading="Manage" panel-class="panel-danger">
+
+                  <a href="" class="btn btn-primary btn-xs"  ng-click="addToMongoDb()">Add Db from Search</a>  
+                  <p>
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" ng-model="location.type" value="1. Rifugi"> Rifugi
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio2" ng-model="location.type" value="2. Cime"> Cime
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio3" ng-model="location.type" value="3. Alpeggi"> Alpeggi
+                    </label>                      
+                    <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio3" ng-model="location.type" value="4. Valli"> Valli
+                    </label>  
+                  </p>
+
+                  <p>
+                    <a href="" class="btn btn-primary btn-xs"  ng-click="clear()">Clear Form</a> 
+                    <a href="" class="btn btn-primary btn-xs"  ng-click="viewDataMongo()">View in File Db data</a> 
+                  </p>
+                  <p>
+                    <a href="" class="btn btn-primary btn-xs"  ng-click="saveDataMongo()">Add to MongoDb</a> 
+                    <a href="" class="btn btn-primary btn-xs"  ng-click="updateDataMongo()">Update MongoDb</a> 
+                    <a href="" class="btn btn-primary  btn-xs"  ng-click="deleteDataMongo()">Delete MongoDb</a> 
+                  </p>
+                  <!--
+<button ng-click="saveDataLocal()">Add</button>
+<button ng-click="updateDataLocal()">Update</button>
+<button ng-click="deleteDataLocal()">Delete</button>
+-->
+
+
+                </accordion-group>
+
+                <accordion-group is-open="status.open">
+                  <accordion-heading>Direct locations</i>
+                  </accordion-heading>
+                <div class="col-md-6">
+                  <a href="" class="btn btn-default pull-right" ng-click="collapseAll()">Collapse all</a>
+                  <a href="" class="btn btn-default pull-right" ng-click="expandAll()">Expand all</a>			
+                  <a href="" class="btn btn-default pull-right" ng-click="refreshTree()">Refresh</a>			
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-addon">Filter</span>
+                    <input type="search" class="form-control" placeholder="Type a part of any nodes name..."  ng-model="pattern">
+                  </div>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="row" >
+                        <div class="col-lg-6">
+                          <!-- Nested list template -->
+                          <script type="text/ng-template" id="items_renderer.html">
+                            <div ui-tree-handle>
+                              <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+                              <a data-nodrag href="{{item.url}}">{{item.title}}</a>
+                              <small class ="pull-right">{{item.description}}</small>
+                              <small>{{item.info}}</small>
+                              <small>{{item.value}}</small>
+                              <a class="{{item.viewCoord}}" data-nodrag ng-click='changeLocation(item.coord + "," + item.title)'>
+                                <span class="glyphicon">
+                                  View
+                                </span>
+                              </a>
+                              <input id="chk{{item.description}}" type="checkbox" data-toggle="toggle" class="{{item.viewGps}} {{item.title}}" data-nodrag ng-click='viewTrack("chk" + item.description + ":" + item.gpsFile + ":" + item.title )'>
+                            </div>
+                            <ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
+                              <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
+                              </li>
+                            </ol>
+                          </script>
+                          <div ui-tree="options" id="tree-root">
+                            <ol ui-tree-nodes ng-model="list" >
+                              <li ng-repeat="item in list" ui-tree-node collapsed="true" ng-include="'items_renderer.html'"
+                                  ng-hide="!treeFilter(item, pattern, supportedFields) && dim"
+                                  ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
+                              </li>
+                            </ol>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>																								
+
+                </accordion-group>
+
+              </accordion>
+          </div>																		
         </div>
-      </div>    
+        <div ui-layout-container class="DX" >
+          <div id="tabs">
+            <ul>
+              <li><a href="#tabs-1">Mappe</a></li>
+              <li><a href="#tabs-2">Profili</a></li>
+              <li><a href="#tabs-3">Photo</a></li>
+              <li><a href="#tabs-4">Manage</a></li>
+              <li><a href="#tabs-5">JSON</a></li>
+            </ul>
+            <div id="tabs-1">
+              <div id="mappe">
+                <div class="container-fluid" id="map-canvas">
+                  <leaflet center="mapCenter" layers="layers" markers="mapMarkers" />
+                </div>
+              </div>	
+            </div>
+            <div id="tabs-2" class="gpx">
+              <header>
+                <h3>h3>
+                <span class="start"></span>
+              </header>
+
+              <article>
+                <div class="map container-fluid" id="map_profile"></div>
+              </article>
+
+              <footer>
+                <ul class="info">
+                  <li>Distance:&nbsp;<span class="distance"></span>&nbsp;m</li>
+                  &mdash; <li>Duration:&nbsp;<span class="duration"></span></li>
+                  &mdash; <li>Pace:&nbsp;<span class="pace"></span>/m</li>
+                  &mdash; <li>Avg&nbsp;HR:&nbsp;<span class="avghr"></span>&nbsp;bpm</li>
+                  &mdash; <li>Elevation:&nbsp;+<span class="elevation-gain"></span>&nbsp;m,
+                  -<span class="elevation-loss"></span>&nbsp;m
+                  (net:&nbsp;<span class="elevation-net"></span>&nbsp;m)</li>
+                </ul>
+              </footer>
+            </div>
+            <div id="tabs-3">
+              <div id="map_canvas_photo">
+              </div>
+            </div>
+            <div id="tabs-4">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label  class="col-sm-2 control-label">Tipo: es Rifugi, Cime, Altopiani, Valli</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="tipoloc" ng-model="mymaps.tipo" placeholder="Tipo locazione">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Nome</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nomeloc" ng-model="mymaps.Nome" placeholder="Nome">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Altezza</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="altezzaloc" ng-model="mymaps.Altezza"  placeholder="h m">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Wikipedia</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="wikiloc"  ng-model="mymaps.Wikipedia"  placeholder="https://wikipedia">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Descrizione</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="descloc" ng-model="mymaps.Descrizione" placeholder="http://workflowy">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Photo Own Cloud url</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nomeloc" ng-model="mymaps.PhotoOwn"  placeholder="http://owncloud">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Photo Geolocalizzate File {{mymaps.Nome}}.json</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="photogeoloc" ng-model="mymaps.PhotoGeo"  placeholder="Y/N">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">GPS</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="gpsloc" ng-model="mymaps.GPS"  placeholder="FileName">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Latitudine</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="latloc" ng-model="mymaps.Latitudine" placeholder="00.000000">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Longitudine</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="lngloc" ng-model="mymaps.Longitudine" placeholder="00.000000">
+                  </div>
+                </div>
+              </form>              
+            </div>
+            <div id="tabs-5">
+              <div style="line-height: 0">
+                <textarea id="source" rows="30" cols="160" placeholder="JSON" ></textarea>
+              </div>
+            </div>
+          </div>						
+        </div>
+      </div>
+    </div>    
     </div>
-	</body>
+  </body>
 </html>
