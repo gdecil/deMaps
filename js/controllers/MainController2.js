@@ -1,10 +1,39 @@
 app
-  .controller('MainController', ['$filter','$scope', 'places', '$location', 'leafletData', function($filter, $scope, places, $location, leafletData){
+  .controller('MainController', ['$filter','$scope','places', '$location', 'leafletData' , function($filter, $scope,  places, $location, leafletData, $uibModal, $log){
     var server = "http://127.0.0.1:3000/"
     var mongoDbMaps = "http://127.0.0.1:3000/users/maps"
     var markers = []
     var markersSearch = []
     var markersLocation = []
+
+
+    $scope.animationsEnabled = true;
+    $scope.open = function (size) {
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'myModalContent.html',
+        controller: 'ModalInstanceCtrl',
+        size: size,
+        keyboard: false,
+        backdrop: false,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+        $scope.selected = selectedItem;
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    };    
+
+
+    $("#tipoloc").prop('disabled', true);
+    $("#nomeloc").prop('disabled', true);
+
     $scope.location_type= "";
     $scope.location = {
       type: '2. Cime'
@@ -87,11 +116,11 @@ app
           {
           lat: Number(centerHash[1]),
           lng: Number(centerHash[0]),
-          zoom: Number(10)
+          zoom: Number(14)
         }	 
         return
       }
-      
+
 
       var viewInfo = centerHash.split(",")
       Partenza = "";
@@ -651,10 +680,12 @@ app
           'dataType': "json",
           'success': function (data) {
             $scope.list = []
+            markersLocation = []
             $scope.$apply ;
             $scope.list = data;
             $scope.$apply ;
             $.each(data, function( index, value ) {
+
               var lat = value.items.map(function(a) {return a.lat;});
               var lng = value.items.map(function(a) {return a.lng;});
               var message = value.items.map(function(a) {return a.message;});
@@ -939,11 +970,26 @@ app
         }
       }    
     };    
-
+    //$scope.open()
   }])
   .filter('trust', function ($sce) {
   return function (val) {
     return $sce.trustAsHtml(val);
   };
 });
-;
+
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});
