@@ -1,5 +1,5 @@
 app
-  .controller('MainController', ['$filter','$scope','places', '$location', 'leafletData' , function($filter, $scope,  places, $location, leafletData, $uibModal, $log){
+  .controller('MainController',  ['$filter','$scope','places', '$location', 'leafletData' , 'ngDialog', function($filter, $scope,  places, $location, leafletData, ngDialog){
     var server = "http://127.0.0.1:3000/"
     var mongoDbMaps = "http://127.0.0.1:3000/users/maps"
     var markers = []
@@ -7,29 +7,26 @@ app
     var markersLocation = []
 
 
-    $scope.animationsEnabled = true;
-    $scope.open = function (size) {
-      var modalInstance = $uibModal.open({
-        animation: $scope.animationsEnabled,
-        templateUrl: 'myModalContent.html',
-        controller: 'ModalInstanceCtrl',
-        size: size,
-        keyboard: false,
-        backdrop: false,
-        resolve: {
-          items: function () {
-            return $scope.items;
-          }
+    $scope.openConfirm = function () {
+      ngDialog.openConfirm({
+        template: 'modalDialogId',
+        className: 'ngdialog-theme-default'
+      }).then(function (userValue) {
+        var chk = userValue.split(":")
+        if(chk[0]=="1" & chk[1]=="1"){
+          $scope.statusManage.isManageDisabled=false;
         }
+        else{
+          $scope.statusManage.isManageDisabled= true;
+        }
+        //        console.log('Modal promise resolved. Value: ', value);
+      }, function (reason) {
+        console.log('Modal promise rejected. Reason: ', reason);
       });
-
-      modalInstance.result.then(function (selectedItem) {
-        $scope.selected = selectedItem;
-      }, function () {
-        $log.info('Modal dismissed at: ' + new Date());
-      });
-    };    
-
+    };
+    $scope.statusManage = {
+      isManageDisabled: true
+    };
 
     $("#tipoloc").prop('disabled', true);
     $("#nomeloc").prop('disabled', true);
@@ -269,7 +266,7 @@ app
       if(chk[2]=="Photo"){
         if($('input#'+ chk[0] +'.showChk.Photo').is(':checked'))
         {
-          openPhoto("photo\\" + chk[1])
+          openPhoto( chk[1])
         }
         else {
           closePhoto();	
@@ -970,7 +967,8 @@ app
         }
       }    
     };    
-    //$scope.open()
+
+    $scope.openConfirm()
   }])
   .filter('trust', function ($sce) {
   return function (val) {
@@ -978,18 +976,21 @@ app
   };
 });
 
-app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+//app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+//
+//  $scope.items = items;
+//  $scope.selected = {
+//    item: $scope.items[0]
+//  };
+//
+//  $scope.ok = function () {
+//    $modalInstance.close($scope.selected.item);
+//  };
+//
+//  $scope.cancel = function () {
+//    $modalInstance.dismiss('cancel');
+//  };
+//});
 
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
-
-  $scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-});
+//, 'ngDialog'
+//, $rootScope, ngDialog, $timeout
