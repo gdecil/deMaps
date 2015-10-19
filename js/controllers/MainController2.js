@@ -709,7 +709,7 @@ app
               if(lat.length>0){
                 $.each(lat, function( index1, value1 ) {
                   var mark = {}
-                  mark.group = 'italy'
+//                  mark.group = 'italy'
                   mark.lat = Number(lat[index1])
                   mark.lng = Number(lng[index1])									
                   mark.message = message[index1]
@@ -975,22 +975,3 @@ app
     return $sce.trustAsHtml(val);
   };
 });
-
-//app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-//
-//  $scope.items = items;
-//  $scope.selected = {
-//    item: $scope.items[0]
-//  };
-//
-//  $scope.ok = function () {
-//    $modalInstance.close($scope.selected.item);
-//  };
-//
-//  $scope.cancel = function () {
-//    $modalInstance.dismiss('cancel');
-//  };
-//});
-
-//, 'ngDialog'
-//, $rootScope, ngDialog, $timeout
