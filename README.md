@@ -42,3 +42,5 @@ COSA FA
 
 7. Photo
     1. visualize in tab photo (Photo checkbox)
+      1. link to Picasa album
+      2. local repository

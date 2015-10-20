@@ -127,6 +127,7 @@ app
       PhotoOwn = "";
       PhotoUrl = "";
       PhotoGeo = "";
+      PhotoPicasa = "";
       PhotoFile = "";
       GPSinfo = "";
       GPSFile = "";
@@ -157,9 +158,14 @@ app
               case "Descrizione":
                 Descrizione = value.url;
                 break;
-              case "Photo":
+              case "PhotoOwncloud":
                 PhotoOwn = value.url;
-                if(value.viewGps=="noshowGps"){
+                break;
+              case "PhotoPicasa":
+                PhotoPicasa = value.url;
+                break;
+              case "PhotoGeoLocal":
+                if(value.viewGps!="showChk"){
                   PhotoGeo = "N";                                      
                 }
                 else
@@ -175,6 +181,8 @@ app
           });                    
         }
       }
+
+
       $scope.clear();
 
       $scope.master = {
@@ -186,6 +194,7 @@ app
         Descrizione: Descrizione, 
         PhotoOwn:PhotoOwn,
         PhotoGeo:PhotoGeo,
+        PhotoGeoPicasa:PhotoPicasa,
         GPSinfo:GPSinfo,
         GPS:GPSFile,
         Latitudine:loc[0].lat,
@@ -263,21 +272,30 @@ app
           removeLayer(chk[1])			
         }                          
       }
-      if(chk[2]=="Photo"){
-        if($('input#'+ chk[0] +'.showChk.Photo').is(':checked'))
+      if(chk.length == 5 & chk[4]=="PhotoPicasa"){
+        if($('input#'+ chk[0] +'.showChk.PhotoPicasa').is(':checked'))
         {
-          openPhoto( chk[1])
+           $('input.showChk.PhotoGeoLocal').prop('checked', false);
+           $('input.showChk.PhotoPicasa').prop('checked', false);
+           $('input#'+ chk[0] +'.showChk.PhotoPicasa').prop('checked', true);
+          openPhoto( chk[3],"picasa")
         }
         else {
           closePhoto();	
         }              
       }
-
-      //      if(chkInfo.indexOf(":gps/")>0){
-      //        }
-      //        else if(chkInfo.indexOf(":photo/")>0){
-      //            var chk = chkInfo.split(":")
-      //        }                
+      if(chk.length == 4 & chk[3]=="PhotoGeoLocal"){
+        if($('input#'+ chk[0] +'.showChk.PhotoGeoLocal').is(':checked'))
+        {
+           $('input.showChk.PhotoPicasa').prop('checked', false);
+           $('input.showChk.PhotoGeoLocal').prop('checked', false);
+           $('input#'+ chk[0] +'.showChk.PhotoGeoLocal').prop('checked', true);
+          openPhoto( chk[1],"local")
+        }
+        else {
+          closePhoto();	
+        }              
+      }
     }
     // layer track e profile
 
@@ -709,7 +727,7 @@ app
               if(lat.length>0){
                 $.each(lat, function( index1, value1 ) {
                   var mark = {}
-//                  mark.group = 'italy'
+                  //                  mark.group = 'italy'
                   mark.lat = Number(lat[index1])
                   mark.lng = Number(lng[index1])									
                   mark.message = message[index1]
@@ -815,6 +833,7 @@ app
 
     var getLocation = function(){
       var href
+
       if($scope.mymaps.Wikipedia!=""){
         href=$scope.mymaps.Wikipedia
       }
@@ -842,6 +861,7 @@ app
         "viewGps": "hide",
         "items": []
       }
+
       var Altezza ={
         "title": "Altezza",
         "value": $scope.mymaps.Altezza,
@@ -850,6 +870,7 @@ app
         "viewGps": "hide",
         "items": []
       }
+
       var Wikipedia ={
         "title": "Wikipedia",
         "description": $scope.mymaps.Nome,
@@ -858,6 +879,7 @@ app
         "viewGps": "hide",
         "items": []
       }
+
       var Descrizione= {
         "title": "Descrizione",
         "description": $scope.mymaps.Nome,
@@ -866,15 +888,45 @@ app
         "viewGps": "hide",
         "items": []
       }
-      var Photo = {
-        "title": "Photo",
-        "description": $scope.mymaps.Nome,
-        "url": $scope.mymaps.PhotoOwn,
-        "gpsFile": "photo/" + $scope.mymaps.Nome + ".json",
-        "viewCoord": "hide",
-        "viewGps": "hide",   //gestisce il check box
-        "items": []
+
+      if($scope.mymaps.PhotoOwn!=""){
+        var Photo = {
+          "title": "PhotoOwncloud",
+          "description": $scope.mymaps.Nome,
+          "url": $scope.mymaps.PhotoOwn,
+          "gpsFile": "",
+          "viewCoord": "hide",
+          "viewGps": "hide",   //gestisce il check box
+          "items": []
+        }
+        loc.items.push(Photo) 
       }
+      if($scope.mymaps.PhotoGeoPicasa!=""){
+        var Photo = {
+          "title": "PhotoPicasa",
+          "description": $scope.mymaps.Nome,
+          "url": $scope.mymaps.PhotoGeoPicasa,
+          "gpsFile": "",
+          "viewCoord": "hide",
+          "viewGps": "showChk",   //gestisce il check box
+          "items": []
+        }
+        loc.items.push(Photo) 
+      }
+      if($scope.mymaps.PhotoGeo!=""){
+        var Photo = {
+          "title": "PhotoGeoLocal",
+          "description": $scope.mymaps.Nome,
+          "url": "",
+          "gpsFile": "photo/" + $scope.mymaps.Nome + ".json",
+          "viewCoord": "hide",
+          "viewGps": "showChk",   //gestisce il check box
+          "items": []
+        }        
+        loc.items.push(Photo) 
+      }
+
+
       var GPS={
         "title": "GPS",
         "description": $scope.mymaps.Nome,
@@ -901,13 +953,6 @@ app
       var addPhoto="N"
       if(typeof $scope.mymaps.PhotoOwn!=undefined  & $scope.mymaps.PhotoOwn != "" ){
         addPhoto="Y"
-      }
-      if( $scope.mymaps.PhotoGeo.toUpperCase() =="Y" ){
-        addPhoto="Y"
-        Photo.viewGps="showChk"
-      }
-      if(addPhoto=="Y"){
-        loc.items.push(Photo) 
       }
 
       if(typeof $scope.mymaps.GPS!=undefined  & $scope.mymaps.GPS != "" ){

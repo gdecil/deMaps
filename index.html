@@ -242,7 +242,7 @@
                                 View
                               </span>
                             </a>
-                            <input id="chk{{item.description}}" type="checkbox" data-toggle="toggle" class="{{item.viewGps}} {{item.title}}" data-nodrag ng-click='viewTrack("chk" + item.description + ":" + item.gpsFile + ":" + item.title )'>
+                            <input id="chk{{item.description}}" type="checkbox" data-toggle="toggle" class="{{item.viewGps}} {{item.title}}" data-nodrag ng-click='viewTrack("chk" + item.description + ":" + item.gpsFile +  ":" + item.url +":" + item.title )'>
                           </div>
                           <ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}" >
                             <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'" data-nodrag collapsed="true" ng-hide="!treeFilter(item, pattern, supportedFields) && dim" ng-class="{'filtered-out':!treeFilter(item, pattern, supportedFields) && !dim}">
@@ -346,6 +346,12 @@
                   <label class="col-sm-2 control-label">Photo Own Cloud url</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" id="nomeloc" ng-model="mymaps.PhotoOwn"  placeholder="http://owncloud">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Photo Geolocalizzate Album Picasa</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="photogeolocpicasa" ng-model="mymaps.PhotoGeoPicasa"  placeholder="https://picasaweb.google.com/data/feed/api/user/">
                   </div>
                 </div>
                 <div class="form-group">

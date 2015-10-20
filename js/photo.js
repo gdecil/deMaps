@@ -1,64 +1,70 @@
-var openPhoto = function (url) {
-    if(mapPhoto==undefined){
-        mapPhoto = L.map('map_canvas_photo', {
-            maxZoom: 17
-        });
-    }
-    else {
-        //mapPhoto.remove();
-        mapPhoto = L.map('map_canvas_photo', {
-            maxZoom: 17
-        });
-    }
-  
-	L.tileLayer('http://openmapsurfer.uni-hd.de/tiles/roads/x={x}&y={y}&z={z}', {
-		attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data {attribution.OpenStreetMap}'
-	}).addTo(mapPhoto);
-	var photoLayer = L.photo.cluster({ spiderfyDistanceMultiplier: 1.2 }).on('click', function (evt) {
-		evt.layer.bindPopup(L.Util.template('<img src="{url}"/></a><p>{caption}</p>', evt.layer.photo), {
-			className: 'leaflet-popup-photo',
-			minWidth: 400
-		}).openPopup();
-	});
-	reqwest({
-		url: 'https://picasaweb.google.com/data/feed/api/user/102236928802705706168/albumid/6207433991476715777?alt=json-in-script',
-		type: 'jsonp',
-		success: function (data) {
-			var photos = [];
-			data = data.feed.entry;
-
-			for (var i = 0; i < data.length; i++) {
-				var photo = data[i];
-				if (photo['georss$where']) {
-					var pos = photo['georss$where']['gml$Point']['gml$pos']['$t'].split(' ');
-					photos.push({
-						lat: pos[0],
-						lng: pos[1],
-						url: photo['media$group']['media$content'][0].url,
-						caption: photo['media$group']['media$description']['$t'],
-						thumbnail: photo['media$group']['media$thumbnail'][0].url,
-						video: (photo['media$group']['media$content'][1] ? photo['media$group']['media$content'][1].url : null) 
-					});
-				};
-			}
-			
-			photoLayer.add(photos).addTo(mapPhoto);
-			mapPhoto.fitBounds(photoLayer.getBounds());
-		}
-      
-//		url: url,
-//		type: 'json',
-//		success: function (data) {
-//			var photos = data;								
-//			photoLayer.add(photos).addTo(mapPhoto);
-//            var bounds = photoLayer.getBounds()
-//			mapPhoto.fitBounds(bounds);
-//		}
-	});
-}	
-
-var closePhoto = function () {
+var openPhoto = function (url, type) {
+  if(mapPhoto==undefined){
+    mapPhoto = L.map('map_canvas_photo', {
+      maxZoom: 17
+    });
+  }
+  else {
     mapPhoto.remove();
+    mapPhoto = L.map('map_canvas_photo', {
+      maxZoom: 17
+    });
+  }
+
+  L.tileLayer('http://openmapsurfer.uni-hd.de/tiles/roads/x={x}&y={y}&z={z}', {
+    attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data {attribution.OpenStreetMap}'
+  }).addTo(mapPhoto);
+  var photoLayer = L.photo.cluster({ spiderfyDistanceMultiplier: 1.2 }).on('click', function (evt) {
+    evt.layer.bindPopup(L.Util.template('<img src="{url}"/></a><p>{caption}</p>', evt.layer.photo), {
+      className: 'leaflet-popup-photo',
+      minWidth: 400
+    }).openPopup();
+  });
+  if(type=="picasa"){
+    reqwest({
+      url: url,
+      //		url: 'https://picasaweb.google.com/data/feed/api/user/102236928802705706168/albumid/6207433991476715777?alt=json-in-script',
+      type: 'jsonp',
+      success: function (data) {
+        var photos = [];
+        data = data.feed.entry;
+
+        for (var i = 0; i < data.length; i++) {
+          var photo = data[i];
+          if (photo['georss$where']) {
+            var pos = photo['georss$where']['gml$Point']['gml$pos']['$t'].split(' ');
+            photos.push({
+              lat: pos[0],
+              lng: pos[1],
+              url: photo['media$group']['media$content'][0].url,
+              caption: photo['media$group']['media$description']['$t'],
+              thumbnail: photo['media$group']['media$thumbnail'][0].url,
+              video: (photo['media$group']['media$content'][1] ? photo['media$group']['media$content'][1].url : null) 
+            });
+          };
+        }
+
+        photoLayer.add(photos).addTo(mapPhoto);
+        mapPhoto.fitBounds(photoLayer.getBounds());
+      }
+
+    })
+  }
+  else {
+    reqwest({
+      url: url,
+      type: 'json',
+      success: function (data) {
+        var photos = data;								
+        photoLayer.add(photos).addTo(mapPhoto);
+        var bounds = photoLayer.getBounds()
+        mapPhoto.fitBounds(bounds);
+      }
+    })
+  }	
+}
+var closePhoto = function () {
+  
 }
 
 //<!DOCTYPE html>
