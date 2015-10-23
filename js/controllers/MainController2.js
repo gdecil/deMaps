@@ -263,7 +263,7 @@ app
 
     $scope.viewTrack = function(chkInfo) {		
       var chk = chkInfo.split(":")
-      if(chk[2]=="GPS"){
+      if(chk[3]=="GPS"){
         if($('input#'+ chk[0] +'.showChk.GPS').is(':checked'))
         {
           addLayer( chk[1])
@@ -275,9 +275,9 @@ app
       if(chk.length == 5 & chk[4]=="PhotoPicasa"){
         if($('input#'+ chk[0] +'.showChk.PhotoPicasa').is(':checked'))
         {
-           $('input.showChk.PhotoGeoLocal').prop('checked', false);
-           $('input.showChk.PhotoPicasa').prop('checked', false);
-           $('input#'+ chk[0] +'.showChk.PhotoPicasa').prop('checked', true);
+          $('input.showChk.PhotoGeoLocal').prop('checked', false);
+          $('input.showChk.PhotoPicasa').prop('checked', false);
+          $('input#'+ chk[0] +'.showChk.PhotoPicasa').prop('checked', true);
           openPhoto( chk[3],"picasa")
         }
         else {
@@ -287,9 +287,9 @@ app
       if(chk.length == 4 & chk[3]=="PhotoGeoLocal"){
         if($('input#'+ chk[0] +'.showChk.PhotoGeoLocal').is(':checked'))
         {
-           $('input.showChk.PhotoPicasa').prop('checked', false);
-           $('input.showChk.PhotoGeoLocal').prop('checked', false);
-           $('input#'+ chk[0] +'.showChk.PhotoGeoLocal').prop('checked', true);
+          $('input.showChk.PhotoPicasa').prop('checked', false);
+          $('input.showChk.PhotoGeoLocal').prop('checked', false);
+          $('input#'+ chk[0] +'.showChk.PhotoGeoLocal').prop('checked', true);
           openPhoto( chk[1],"local")
         }
         else {
@@ -301,154 +301,160 @@ app
 
     //providers
     angular.extend($scope, {
+      events: {
+        markers: {
+          enable: [ 'dragend' ]
+          //logic: 'emit'
+        }
+      },
       layers: {
-        baselayers: {
-          OpenMapSurfer: {
-            name: 'OpenMapSurfer',
-            type: 'xyz',
-            url: 'http://openmapsurfer.uni-hd.de/tiles/{variant}/x={x}&y={y}&z={z}',
-            layerOptions: {
-              maxZoom: 20,
-              variant: 'roads',
-              attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data {attribution.OpenStreetMap}'
-            },
-            variants: {
-              Roads: 'roads',
-              AdminBounds: {
-                options: {
-                  variant: 'adminb',
-                  maxZoom: 19
-                }
-              },
-              Grayscale: {
-                options: {
-                  variant: 'roadsg',
-                  maxZoom: 19
-                }
-              }
-            }
-          },
-          OpenTopoMap: {
-            name: 'OpenTopoMap',
-            url: 'http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-            type: 'xyz'
-          },
-          mapbox_light: {
-            name: 'Mapbox Light',
-            url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
-            type: 'xyz',
-            layerOptions: {
-              apikey: 'pk.eyJ1IjoiYnVmYW51dm9scyIsImEiOiJLSURpX0pnIn0.2_9NrLz1U9bpwMQBhVk97Q',
-              mapid: 'bufanuvols.lia22g09'
-            }
-          },
-          mapbox_terrain: {
-            name: 'Mapbox Terrain',
-            url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
-            type: 'xyz',
-            layerOptions: {
-              apikey: '',
-              mapid: 'gdecil.',													
-              attribution:
-              'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; ' +
-              'Map data {attribution.OpenStreetMap}',
-              subdomains: 'abcd'
-            }
-          },
-          osm: {
-            name: 'OpenStreetMap',
-            url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            type: 'xyz'
-          },
-          osmBlackAndWhite: {
-            name: 'osmBlackAndWhite',
-            url: 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png',
-            type: 'xyz',
-            options: {
-              maxZoom: 18,
-              attribution:
-              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }
-          },											
-          osmDE: {
-            name: 'osmDE',
-            url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
-            type: 'xyz',
-            options: {
-              maxZoom: 18,
-              attribution:
-              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }
-          },											
-          osmDE: {
-            name: 'osmDE',
-            url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
-            type: 'xyz',
-            options: {
-              maxZoom: 18,
-              attribution:
-              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }
-          },
-          EsriWorldTopoMap: {
-            name: 'Esri WorldTopoMap',
-            type: 'xyz',
-            url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-            options: {
-              attribution:
-              '{attribution.Esri} &mdash; ' +
-              'Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
-            }
-          },
-          googleTerrain: {
-            name: 'Google Terrain',
-            layerType: 'TERRAIN',
-            type: 'google'
-          },
-          googleHybrid: {
-            name: 'Google Hybrid',
-            layerType: 'HYBRID',
-            type: 'google'
-          },
-          googleRoadmap: {
-            name: 'Google Streets',
-            layerType: 'ROADMAP',
-            type: 'google'
-          }
-        },
-        overlays: {
-          wms: {
-            name: 'EEUU States (WMS)',
-            type: 'wms',
-            visible: false,
-            url: 'http://suite.opengeo.org/geoserver/usa/wms',
-            layerParams: {
-              layers: 'usa:states',
-              format: 'image/png',
-              transparent: true
-            }
-          },
-          OpenSeaMap: {
-            name: 'OpenSeaMap',
-            type: 'wms',
-            url: 'http://tiles.openseamaOpenSeaMapp.org/seamark/{z}/{x}/{y}.png',
-            options: {
-              attribution: 'Map data: &copy; <a href="http://www.openseamap.org">OpenSeaMap</a> contributors'
-            }
-          },
-          OpenTopoMap: {
-            name: 'OpenTopoMap',
-            type: 'wms',
-            url: '//{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-            options: {
-              maxZoom: 16,
-              attribution: 'Map data: {attribution.OpenStreetMap}, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-            }
-          }
+      baselayers: {
+      OpenMapSurfer: {
+      name: 'OpenMapSurfer',
+      type: 'xyz',
+      url: 'http://openmapsurfer.uni-hd.de/tiles/{variant}/x={x}&y={y}&z={z}',
+      layerOptions: {
+      maxZoom: 20,
+      variant: 'roads',
+      attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data {attribution.OpenStreetMap}'
+    },
+                   variants: {
+                   Roads: 'roads',
+                   AdminBounds: {
+                   options: {
+                   variant: 'adminb',
+                   maxZoom: 19
+                   }
+                   },
+                   Grayscale: {
+                   options: {
+                   variant: 'roadsg',
+                   maxZoom: 19
+                   }
+                   }
+                   }
+                   },
+                   OpenTopoMap: {
+                   name: 'OpenTopoMap',
+                   url: 'http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+                   type: 'xyz'
+                   },
+                   mapbox_light: {
+                   name: 'Mapbox Light',
+                   url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
+                   type: 'xyz',
+                   layerOptions: {
+                   apikey: 'pk.eyJ1IjoiYnVmYW51dm9scyIsImEiOiJLSURpX0pnIn0.2_9NrLz1U9bpwMQBhVk97Q',
+                   mapid: 'bufanuvols.lia22g09'
+                   }
+                   },
+                   mapbox_terrain: {
+                   name: 'Mapbox Terrain',
+                   url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
+                   type: 'xyz',
+                   layerOptions: {
+                   apikey: '',
+                   mapid: 'gdecil.',													
+                   attribution:
+                   'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; ' +
+                   'Map data {attribution.OpenStreetMap}',
+                   subdomains: 'abcd'
+                   }
+                   },
+                   osm: {
+                   name: 'OpenStreetMap',
+                   url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                   type: 'xyz'
+                   },
+                   osmBlackAndWhite: {
+                   name: 'osmBlackAndWhite',
+                   url: 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png',
+                   type: 'xyz',
+                   options: {
+                   maxZoom: 18,
+                   attribution:
+                   '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                   }
+                   },											
+                   osmDE: {
+                   name: 'osmDE',
+                   url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
+                   type: 'xyz',
+                   options: {
+                   maxZoom: 18,
+                   attribution:
+                   '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                   }
+                   },											
+                   osmDE: {
+                   name: 'osmDE',
+                   url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
+                   type: 'xyz',
+                   options: {
+                   maxZoom: 18,
+                   attribution:
+                   '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                   }
+                   },
+                   EsriWorldTopoMap: {
+                   name: 'Esri WorldTopoMap',
+                   type: 'xyz',
+                   url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+                   options: {
+                   attribution:
+                   '{attribution.Esri} &mdash; ' +
+                   'Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+                   }
+                   },
+                   googleTerrain: {
+                   name: 'Google Terrain',
+                   layerType: 'TERRAIN',
+                   type: 'google'
+                   },
+                   googleHybrid: {
+                   name: 'Google Hybrid',
+                   layerType: 'HYBRID',
+                   type: 'google'
+                   },
+                   googleRoadmap: {
+                   name: 'Google Streets',
+                   layerType: 'ROADMAP',
+                   type: 'google'
+                   }
+                   },
+                   overlays: {
+                   wms: {
+                   name: 'EEUU States (WMS)',
+                   type: 'wms',
+                   visible: false,
+                   url: 'http://suite.opengeo.org/geoserver/usa/wms',
+                   layerParams: {
+                   layers: 'usa:states',
+                   format: 'image/png',
+                   transparent: true
+                   }
+                   },
+                   OpenSeaMap: {
+                   name: 'OpenSeaMap',
+                   type: 'wms',
+                   url: 'http://tiles.openseamaOpenSeaMapp.org/seamark/{z}/{x}/{y}.png',
+                   options: {
+                   attribution: 'Map data: &copy; <a href="http://www.openseamap.org">OpenSeaMap</a> contributors'
+                   }
+                   },
+                   OpenTopoMap: {
+                   name: 'OpenTopoMap',
+                   type: 'wms',
+                   url: '//{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+                   options: {
+                   maxZoom: 16,
+                   attribution: 'Map data: {attribution.OpenStreetMap}, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+                   }
+                   }
 
-        }									
-      }		
-    });
+                   }									
+                   }		
+                   });
 
     $scope.searchGoogle = function() {
       var geocoder = new google.maps.Geocoder();
@@ -477,6 +483,31 @@ app
     $scope.search = function(){
       $scope.loadSearch('http://photon.komoot.de/api/?q=' + $scope.address.name)        
     }
+
+    $scope.$on("leafletDirectiveMarker.dragend", function(event, args){
+      $scope.mapCenter.lat = $scope.mapMarkers[args.markerName].lat;
+      $scope.mapCenter.lng = $scope.mapMarkers[args.markerName].lng;
+    });
+
+    $scope.addMarker = function(){
+      markersAdd = []
+      var mark = {}
+      mark.lat = $scope.mapCenter.lat
+      mark.lng = $scope.mapCenter.lng									
+      mark.message = ""
+      mark.draggable= true
+      mark.icon = {
+        type: 'awesomeMarker',
+        icon: "default",						//tag, home, star, heart
+        markerColor: "black"												
+      },
+        markersAdd.push(mark);
+
+      $scope.mapMarkers = markersLocation.concat(markersAdd);
+      $scope.$apply
+
+    }
+    $scope.remMarker = function(){}
 
     $scope.clearMarker = function(){
       $scope.mapMarkers = markersLocation

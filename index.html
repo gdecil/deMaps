@@ -133,6 +133,7 @@
                   </ul>
                   <a href="" class="btn btn-primary pull-left"  ng-click="search()">Search</a>
                   <a href="" class="btn btn-primary pull-left"  ng-click="clearMarker()">Clear</a>
+                  <a href="" class="btn btn-primary pull-left"  ng-click="addMarker()">Add Marker</a>
                   <div class="container">
                     <div class="row">
                       <div class="col-md-12">
@@ -280,13 +281,13 @@
           <div id="tabs-1">
             <div id="mappe">
               <div class="container-fluid" id="map-canvas">
-                <leaflet center="mapCenter" layers="layers" markers="mapMarkers" />
+                <leaflet center="mapCenter" layers="layers" event-broadcast="events" markers="mapMarkers" />
               </div>
             </div>	
           </div>
           <div id="tabs-2" class="gpx">
             <header>
-              <h3>h3>
+              <h3></h3>
                 <span class="start"></span>
                 </header>
 

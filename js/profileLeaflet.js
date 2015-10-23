@@ -55,9 +55,9 @@ var display_gpx = function (elt, url) {
   new L.GPX(url, {
     async: true,
     marker_options: {
-      startIconUrl: 'https://gdecil.mooo.com/deMaps/css/images/pin-icon-start.png',
-      endIconUrl:   'https://gdecil.mooo.com/deMaps/css/images/pin-icon-end.png',
-      shadowUrl:    'https://gdecil.mooo.com/deMaps/css/images/pin-shadow.png',
+      startIconUrl: '/demaps/css/images/pin-icon-start.png',
+      endIconUrl:   '/demaps/css/images/pin-icon-end.png',
+      shadowUrl:    '/demaps/css/images/pin-shadow.png',
     },
   }).on('loaded', function(e) {
     var gpx = e.target;

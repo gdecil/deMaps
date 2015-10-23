@@ -9,6 +9,8 @@ COSA FA
 1. Coordinate
 	1. insert manually latitude longitude and zoom parameters
 	2. search address: geocoding with http://photon.komoot.de/
+    3. add a draggable marker
+    4. clear: all added markers
     
 2. Manage
     1. data in mongoDb as administrator
@@ -18,7 +20,7 @@ COSA FA
 	2. Partenza (optional) open url
 	3. Wikipedia (optional) open wikipedia url if exist or other if not exist wikipedia url
 	4. Descrizione (optional) open workflowy url
-	5. Photo (optional) open personal owncloud url
+	5. Photo (optional) open personal owncloud url and geolocalized
 	6. GPS (optional) checkbox to visualazie track (format WKT,TopoJSON,KML,GPX,CSV,GEOJSON,POLYLINE) thank to omnivore
 	
 4. Layers
@@ -41,6 +43,8 @@ COSA FA
 	1. Add a chart from kml (GPS checkbox)
 
 7. Photo
-    1. visualize in tab photo (Photo checkbox)
-      1. link to Picasa album
-      2. local repository
+    1. link ad un album su internet (only photo)
+    2. visualize in tab photos (Photo checkbox)        
+      1. link to Picasa album with geotag 
+      2. local repository (imagine + thumbnail + file with geotag)
+          
