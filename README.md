@@ -6,6 +6,7 @@ maps web app with
     2. file mymaps.json
 
 COSA FA
+
 1. Coordinate
 	1. insert manually latitude longitude and zoom parameters
 	2. search address: geocoding with http://photon.komoot.de/
