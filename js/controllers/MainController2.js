@@ -1,5 +1,5 @@
 app
-  .controller('MainController',  ['$filter','$scope','places', '$location', 'leafletData' , 'ngDialog', function($filter, $scope,  places, $location, leafletData, ngDialog){
+  .controller('MainController',  ['$filter','$scope','places', '$location', 'leafletData' , 'ngDialog','Upload', '$timeout', function($filter, $scope,  places, $location, leafletData, ngDialog , Upload, $timeout){
     var server = "http://127.0.0.1:3000/"
     var mongoDbMaps = "http://127.0.0.1:3000/users/maps"
     var markers = []
@@ -74,6 +74,63 @@ app
       $scope.reset();
     };
     //form end
+
+    //upload file
+
+    $scope.uploadPic = function(file) {
+      var locr = {
+        "name" : file.name
+      }
+      $.ajax({
+        type: 'POST',
+        data: JSON.stringify(locr),
+        url: server + 'users/checkFile',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+      }).done(function( response ) {
+        if(response==true){
+          alert("File already exists")
+        }
+        else{
+          file.upload = Upload.upload({
+            url: server + 'users/api/uploadFile',
+            data: {file: file, username: "test"},
+          });
+
+          file.upload.then(function (response) {
+            $timeout(function () {
+              file.result = response.data;
+              $scope.master.GPS = "server/uploads/" + file.name
+              $("#gpsloc").val("server/uploads/" + file.name)
+              $scope.apply
+            });
+          }, function (response) {
+            if (response.status > 0)
+              $scope.errorMsg = response.status + ': ' + response.data;
+          }, function (evt) {
+            // Math.min is to fix IE which reports 200% sometimes
+            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+          });          
+        }
+      });      
+    }    
+
+    var checkFile = function(fileName){
+      var locr = {
+        "name" : fileName
+      }
+      $.ajax({
+        type: 'POST',
+        data: JSON.stringify(locr),
+        url: server + 'users/checkFile',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+      }).done(function( response ) {
+        alert(response)
+      });      
+    }
+
+    //upload file end
 
     //tree filter
     $scope.treeFilter = $filter('uiTreeFilter');
@@ -225,26 +282,26 @@ app
       leafletData.getMap().then(function(map) {
         switch (type[1]) {
           case "kml":
-            $scope[type[0]] = omnivore.kml("gps\\" + url).addTo(map);
+            $scope[type[0]] = omnivore.kml( url).addTo(map);
             //                        initialize(url,$scope.mapCenter); //view profile
             break;
           case "gpx":
-            $scope[type[0]] = omnivore.gpx("gps\\"+url).addTo(map);
+            $scope[type[0]] = omnivore.gpx(url).addTo(map);
             break;
           case "csv":
-            $scope[type[0]] = omnivore.csv("gps\\"+url).addTo(map);
+            $scope[type[0]] = omnivore.csv(url).addTo(map);
             break;
           case "wkt":
-            $scope[type[0]] = omnivore.wkt("gps\\"+url).addTo(map);
+            $scope[type[0]] = omnivore.wkt(url).addTo(map);
             break;
           case "topojson":
-            $scope[type[0]] = omnivore.topojson("gps\\"+url).addTo(map);
+            $scope[type[0]] = omnivore.topojson(url).addTo(map);
             break;
           case "geojson":
-            $scope[type[0]] = omnivore.geojson("gps\\"+url).addTo(map);
+            $scope[type[0]] = omnivore.geojson(url).addTo(map);
             break;
           case "txt":
-            $scope[type[0]] = omnivore.polyline("gps\\"+url).addTo(map);
+            $scope[type[0]] = omnivore.polyline(url).addTo(map);
             break;
         }
       });				
@@ -253,6 +310,7 @@ app
     var removeLayer = function(url){
       var type = url.split(".")
       leafletData.getMap().then(function(map) {
+//        var type1 = type[0].split("/")
         map.removeLayer($scope[type[0]]);
         mapProfile.remove()
         $('#map_profile').html("").removeAttr( "style" )
@@ -512,7 +570,7 @@ app
     $scope.remMarker = function(){}
 
     $scope.clearMarker = function(){
-//      angular-ui-tree-empty
+      //      angular-ui-tree-empty
       $scope.mapMarkers = markersLocation
       $scope.listSearch = [
         {
@@ -524,7 +582,7 @@ app
         }
 
       ]
-//      $scope.listSearch = []
+      //      $scope.listSearch = []
       $("#tree-root-search .angular-ui-tree-handle").hide();
       $scope.$apply
     }

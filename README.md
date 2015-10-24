@@ -41,6 +41,7 @@ COSA FA
 
 6. Profile
 	1. Add a chart from kml (GPS checkbox)
+      1. upload file nodejs server (multer)
 
 7. Photo
     1. link ad un album su internet (only photo)

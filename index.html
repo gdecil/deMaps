@@ -30,6 +30,9 @@
     <script src="js/vendor/angular-ui-tree-filter.js"></script>
     <script src="js/vendor/d3.v3.min.js"></script>
     <script src="js/vendor/ngDialog.js"></script>
+    <script src="js/vendor/angular-ui-utils/ng-file-upload-shim.min.js"></script>
+    <script src="js/vendor/angular-ui-utils/ng-file-upload.min.js"></script>
+    
     <script src="js/vendor/leaflet/leaflet-src.js"></script>
     <script src="js/vendor/leaflet.awesome-marker/leaflet.awesome-markers.js"></script>
     <script src="js/vendor/leaflet/leaflet-omnivore.js"></script>
@@ -288,108 +291,138 @@
           <div id="tabs-2" class="gpx">
             <header>
               <h3></h3>
-                <span class="start"></span>
-                </header>
+              <span class="start"></span>
+            </header>
 
-              <article>
-                <div class="map container-fluid" id="map_profile"></div>
-              </article>
+            <article>
+              <div class="map container-fluid" id="map_profile"></div>
+            </article>
 
-              <footer>
-                <ul class="info">
-                  <li>Distance:&nbsp;<span class="distance"></span>&nbsp;m</li>
-                  &mdash; <li>Duration:&nbsp;<span class="duration"></span></li>
-                  &mdash; <li>Pace:&nbsp;<span class="pace"></span>/m</li>
-                  &mdash; <li>Avg&nbsp;HR:&nbsp;<span class="avghr"></span>&nbsp;bpm</li>
-                  &mdash; <li>Elevation:&nbsp;+<span class="elevation-gain"></span>&nbsp;m,
-                  -<span class="elevation-loss"></span>&nbsp;m
-                  (net:&nbsp;<span class="elevation-net"></span>&nbsp;m)</li>
-                </ul>
-              </footer>
-              </div>
-            <div id="tabs-3">
-              <div id="map_canvas_photo">
-              </div>
+            <footer>
+              <ul class="info">
+                <li>Distance:&nbsp;<span class="distance"></span>&nbsp;m</li>
+                &mdash; <li>Duration:&nbsp;<span class="duration"></span></li>
+                &mdash; <li>Pace:&nbsp;<span class="pace"></span>/m</li>
+                &mdash; <li>Avg&nbsp;HR:&nbsp;<span class="avghr"></span>&nbsp;bpm</li>
+                &mdash; <li>Elevation:&nbsp;+<span class="elevation-gain"></span>&nbsp;m,
+                -<span class="elevation-loss"></span>&nbsp;m
+                (net:&nbsp;<span class="elevation-net"></span>&nbsp;m)</li>
+              </ul>
+            </footer>
+          </div>
+          <div id="tabs-3">
+            <div id="map_canvas_photo">
             </div>
-            <div id="tabs-4">
-              <form class="form-horizontal">
-                <div class="form-group">
-                  <label  class="col-sm-2 control-label">Tipo: es Rifugi, Cime, Altopiani, Valli</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="tipoloc" ng-model="mymaps.tipo" placeholder="Tipo locazione">
-                  </div>
+          </div>
+          <div id="tabs-4">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label  class="col-sm-2 control-label">Tipo: es Rifugi, Cime, Altopiani, Valli</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="tipoloc" ng-model="mymaps.tipo" placeholder="Tipo locazione">
                 </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Nome</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nomeloc" ng-model="mymaps.Nome" placeholder="Nome">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Altezza</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="altezzaloc" ng-model="mymaps.Altezza"  placeholder="h m">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Wikipedia</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="wikiloc"  ng-model="mymaps.Wikipedia"  placeholder="https://wikipedia">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Descrizione</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="descloc" ng-model="mymaps.Descrizione" placeholder="http://workflowy">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Photo Own Cloud url</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nomeloc" ng-model="mymaps.PhotoOwn"  placeholder="http://owncloud">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Photo Geolocalizzate Album Picasa</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="photogeolocpicasa" ng-model="mymaps.PhotoGeoPicasa"  placeholder="https://picasaweb.google.com/data/feed/api/user/">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Photo Geolocalizzate File {{mymaps.Nome}}.json</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="photogeoloc" ng-model="mymaps.PhotoGeo"  placeholder="Y/N">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">GPS</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="gpsloc" ng-model="mymaps.GPS"  placeholder="FileName">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Latitudine</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="latloc" ng-model="mymaps.Latitudine" placeholder="00.000000">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Longitudine</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="lngloc" ng-model="mymaps.Longitudine" placeholder="00.000000">
-                  </div>
-                </div>
-              </form>              
-            </div>
-            <div id="tabs-5">
-              <div style="line-height: 0">
-                <textarea id="source" rows="30" cols="160" placeholder="JSON" ></textarea>
               </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Nome</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="nomeloc" ng-model="mymaps.Nome" placeholder="Nome">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Altezza</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="altezzaloc" ng-model="mymaps.Altezza"  placeholder="h m">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Wikipedia</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="wikiloc"  ng-model="mymaps.Wikipedia"  placeholder="https://wikipedia">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Descrizione</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="descloc" ng-model="mymaps.Descrizione" placeholder="http://workflowy">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Photo Own Cloud url</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="nomeloc" ng-model="mymaps.PhotoOwn"  placeholder="http://owncloud">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Photo Geolocalizzate Album Picasa</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="photogeolocpicasa" ng-model="mymaps.PhotoGeoPicasa"  placeholder="https://picasaweb.google.com/data/feed/api/user/">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Photo Geolocalizzate File {{mymaps.Nome}}.json</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="photogeoloc" ng-model="mymaps.PhotoGeo"  placeholder="Y/N">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">GPS</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="gpsloc" ng-model="mymaps.GPS"  placeholder="FileName">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                  
+<!--
+      Username:
+      <input type="text" name="userName" ng-model="username" size="31" required>
+      <i ng-show="myForm.userName.$error.required">*required</i>
+-->
+                  
+                  <input type="file" ngf-select ng-model="picFile" name="fieldName"    
+                         accept="*/*" ngf-max-size="2MB" required>
+                  <i ng-show="myForm.file.$error.required">*required</i><br>
+                  <i ng-show="myForm.file.$error.maxSize">File too large 
+                    {{picFile.size / 1000000|number:1}}MB: max 2M</i>
+                  <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> 
+                  <button class="btn btn-danger btn-xs" ng-click="picFile = null" ng-show="picFile">Remove</button>
+                  <button ng-disabled=false class="btn btn-success btn-xs" ng-click="uploadPic(picFile)">Submit</button>
+                  <span class="progress" ng-show="picFile.progress >= 0">
+                    <div style="width:{{picFile.progress}}%" 
+                         ng-bind="picFile.progress + '%'"></div>
+                  </span>
+                  <span ng-show="picFile.result">Upload Successful</span>
+                  <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                </div>
+              </div>
+
+
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Latitudine</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="latloc" ng-model="mymaps.Latitudine" placeholder="00.000000">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Longitudine</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="lngloc" ng-model="mymaps.Longitudine" placeholder="00.000000">
+                </div>
+              </div>
+            </form>              
+          </div>
+          <div id="tabs-5">
+            <div style="line-height: 0">
+              <textarea id="source" rows="30" cols="160" placeholder="JSON" ></textarea>
             </div>
-          </div>						
-        </div>
+          </div>
+        </div>						
       </div>
-    </div>    
     </div>
-  </body>
+    </div>    
+  </div>
+</body>
 </html>

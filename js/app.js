@@ -1,4 +1,4 @@
-var app = angular.module("NearMeApp", ['leaflet-directive', 'ui.layout','ngAnimate', 'ui.bootstrap', 'ui.tree', 'ui.tree-filter', 'ui.highlight', 'ngDialog']);
+var app = angular.module("NearMeApp", ['leaflet-directive', 'ui.layout','ngAnimate', 'ui.bootstrap', 'ui.tree', 'ui.tree-filter', 'ui.highlight', 'ngDialog', 'ngFileUpload']);
 
 app.config(['ngDialogProvider', function (ngDialogProvider) {
   ngDialogProvider.setDefaults({
