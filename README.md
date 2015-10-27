@@ -50,3 +50,5 @@ COSA FA
       1. link to Picasa album with geotag 
       2. local repository (imagine + thumbnail + file with geotag)
           
+demo
+http://gdecil.mooo.com/deMaps
