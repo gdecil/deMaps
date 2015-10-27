@@ -32,7 +32,7 @@
     <script src="js/vendor/ngDialog.js"></script>
     <script src="js/vendor/angular-ui-utils/ng-file-upload-shim.min.js"></script>
     <script src="js/vendor/angular-ui-utils/ng-file-upload.min.js"></script>
-    
+
     <script src="js/vendor/leaflet/leaflet-src.js"></script>
     <script src="js/vendor/leaflet.awesome-marker/leaflet.awesome-markers.js"></script>
     <script src="js/vendor/leaflet/leaflet-omnivore.js"></script>
@@ -273,6 +273,7 @@
         </div>																		
       </div>
       <div ui-layout-container class="DX" >
+        <!--        Jquery-ui tabs-->
         <div id="tabs">
           <ul>
             <li><a href="#tabs-1">Mappe</a></li>
@@ -290,8 +291,14 @@
           </div>
           <div id="tabs-2" class="gpx">
             <header>
-              <h3></h3>
-              <span class="start"></span>
+              <div class="clearfix"> 
+                <div class="btn-group inline" data-toggle="buttons-checkbox"> 
+                  <h3 class="pull-right inline"> </h3>
+                  <button class="btn btn-danger btn-xs pull-right ui-btn-inline" ng-click="clearProfile()" >Clear</button>
+<!--                  <span class="start"></span>-->
+                </div> 
+              </div> 
+
             </header>
 
             <article>
@@ -374,13 +381,13 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label"></label>
                 <div class="col-sm-10">
-                  
-<!--
-      Username:
-      <input type="text" name="userName" ng-model="username" size="31" required>
-      <i ng-show="myForm.userName.$error.required">*required</i>
+
+                  <!--
+Username:
+<input type="text" name="userName" ng-model="username" size="31" required>
+<i ng-show="myForm.userName.$error.required">*required</i>
 -->
-                  
+
                   <input type="file" ngf-select ng-model="picFile" name="fieldName"    
                          accept="*/*" ngf-max-size="2MB" required>
                   <i ng-show="myForm.file.$error.required">*required</i><br>

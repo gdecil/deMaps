@@ -84,3 +84,5 @@ form .progress {
     background: orange;
     width: 0;
 }
+
+h3 .btn-group { display: inline-block; }

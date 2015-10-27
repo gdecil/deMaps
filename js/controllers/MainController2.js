@@ -6,7 +6,10 @@ app
     var markersSearch = []
     var markersLocation = []
 
+    //tabs jquery-ui
+    var $tabs = $('#tabs').tabs({ selected: 0 }); 
 
+    //gestione authentication
     $scope.openConfirm = function () {
       ngDialog.openConfirm({
         template: 'modalDialogId',
@@ -15,6 +18,8 @@ app
         var chk = userValue.split(":")
         if(chk[0]=="1" & chk[1]=="1"){
           $scope.statusManage.isManageDisabled=false;
+//          $('#tabs').tabs({ enabled: [3,4] }); 
+//          Sscope.apply;
         }
         else{
           $scope.statusManage.isManageDisabled= true;
@@ -310,7 +315,7 @@ app
     var removeLayer = function(url){
       var type = url.split(".")
       leafletData.getMap().then(function(map) {
-//        var type1 = type[0].split("/")
+        //        var type1 = type[0].split("/")
         map.removeLayer($scope[type[0]]);
         mapProfile.remove()
         $('#map_profile').html("").removeAttr( "style" )
@@ -318,39 +323,52 @@ app
         mousemarker = null
       });	
     }
-
+    $scope.clearProfile = function(){
+      $('input.showChk.GPS').prop('checked', false);
+      $('#tabs-2 h3').html("")
+      mapProfile.remove()
+    }
+    
     $scope.viewTrack = function(chkInfo) {		
       var chk = chkInfo.split(":")
       if(chk[3]=="GPS"){
         if($("input[id='"+ chk[0] +"'].showChk.GPS").is(':checked'))
         {
+          $('input.showChk.GPS').prop('checked', false);
+          $("input[id='"+ chk[0] +"'].showChk.GPS").prop('checked', true);
+          $tabs.tabs( "option", "active", 1 ); 
           addLayer( chk[1])
         }
         else {
+//          $tabs.tabs( "option", "active", 0 ); 
           removeLayer(chk[1])			
         }                          
       }
       if(chk.length == 5 & chk[4]=="PhotoPicasa"){
         if($("input[id='"+ chk[0] +"'].showChk.PhotoPicasa").is(':checked'))
         {
+          $tabs.tabs( "option", "active", 2 ); 
           $('input.showChk.PhotoGeoLocal').prop('checked', false);
           $('input.showChk.PhotoPicasa').prop('checked', false);
           $("input[id='"+ chk[0] +"'].showChk.PhotoPicasa").prop('checked', true);
           openPhoto( chk[3],"picasa")
         }
         else {
+          $tabs.tabs( "option", "active", 0 ); 
           closePhoto();	
         }              
       }
       if(chk.length == 4 & chk[3]=="PhotoGeoLocal"){
         if($("input[id='"+ chk[0] +"'].showChk.PhotoGeoLocal").is(':checked'))
         {
+          $tabs.tabs( "option", "active", 2 ); 
           $('input.showChk.PhotoPicasa').prop('checked', false);
           $('input.showChk.PhotoGeoLocal').prop('checked', false);
           $("input[id='"+ chk[0] +"'].showChk.PhotoGeoLocal").prop('checked', true);
           openPhoto( chk[1],"local")
         }
         else {
+          $tabs.tabs( "option", "active", 0 ); 
           closePhoto();	
         }              
       }
