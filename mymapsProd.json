@@ -1,0 +1,824 @@
+[
+  {
+    "_id": "56127fd06aa84f3914174c1e",
+    "id": 1,
+    "title": "1. Rifugi",
+    "viewCoord": "hide",
+    "viewGps": "hide",
+    "items": [
+      {
+        "title": "Rifugio V Alpini Bertarelli G.",
+        "coord": "46.48157:10.53806:15",
+        "lat": "46.48157",
+        "lng": "10.53806",
+        "message": "Rifugio V Alpini Bertarelli G.",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "2877 m",
+            "description": "Rifugio V Alpini Bertarelli G.",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:104"
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Rifugio V Alpini Bertarelli G.",
+            "url": "http://www.rifugioquintoalpini.it/",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:105"
+          },
+          {
+            "title": "Photo",
+            "description": "Rifugio V Alpini Bertarelli G.",
+            "url": "https://2.own",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:106"
+          }
+        ],
+        "hashKey": "object:34"
+      },
+      {
+        "title": "rifugio crosta",
+        "coord": "46.2364959:8.2572335:15",
+        "lat": 46.2364959,
+        "lng": 8.2572335,
+        "message": "<a target='_blank' href='http://www.rifugiocrosta.it/'>rifugio crosta</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Wikipedia",
+            "description": "rifugio crosta",
+            "url": "http://www.rifugiocrosta.it/",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "rifugio crosta",
+            "url": "https://workflowy.com/#/010220f4e11f",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "rifugio Comici",
+        "coord": "46.6284332:12.357951299999996:15",
+        "lat": 46.6284332,
+        "lng": 12.357951299999996,
+        "message": "<a target='_blank' href='http://www.zsigmondyhuette.com/it/benvenuti.html'>rifugio Comici</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "2224 m",
+            "description": "rifugio Comici",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "rifugio Comici",
+            "url": "http://www.zsigmondyhuette.com/it/benvenuti.html",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "rifugio Comici",
+            "url": "https://workflowy.com/#/56ed4f0423a2",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "rifugio Berti",
+        "coord": "46.6049247:12.45113245:15",
+        "lat": 46.6049247,
+        "lng": 12.45113245,
+        "message": "<a target='_blank' href='http://www.rifugioberti.it/'>rifugio Berti</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "1950 m",
+            "description": "rifugio Berti",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "rifugio Berti",
+            "url": "http://www.rifugioberti.it/",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "rifugio Berti",
+            "url": "https://workflowy.com/#/56ed4f0423a2",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "rifugio Lavaredo",
+        "coord": "46.61830655:12.312058134592688:15",
+        "lat": 46.61830655,
+        "lng": 12.312058134592688,
+        "message": "<a target='_blank' href='http://www.rifugiolavaredo.com/home.html'>rifugio Lavaredo</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "2350 m",
+            "description": "rifugio Lavaredo",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "rifugio Lavaredo",
+            "url": "http://www.rifugiolavaredo.com/home.html",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "rifugio Lavaredo",
+            "url": "https://workflowy.com/#/7fad3cecd888",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "rifugio Pian di Cengia",
+        "coord": "46.6316057:12.341302790996007:15",
+        "lat": 46.6316057,
+        "lng": 12.341302790996007,
+        "message": "<a target='_blank' href='http://www.rogger.info/IT-BUELLELEJOCHHUETTE-SEXTEN-SESTO/index.htm'>rifugio Pian di Cengia</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "2528 m",
+            "description": "rifugio Pian di Cengia",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "rifugio Pian di Cengia",
+            "url": "http://www.rogger.info/IT-BUELLELEJOCHHUETTE-SEXTEN-SESTO/index.htm",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "rifugio Pian di Cengia",
+            "url": "https://workflowy.com/#/7722af427b22",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "rifugio Camillo Giussani",
+        "coord": "46.5446625:12.060805093108662:15",
+        "lat": 46.5446625,
+        "lng": 12.060805093108662,
+        "message": "<a target='_blank' href='http://www.rifugiogiussani.com/'>rifugio Camillo Giussani</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "2561 m",
+            "description": "rifugio Camillo Giussani",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "rifugio Camillo Giussani",
+            "url": "http://www.rifugiogiussani.com/",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "rifugio Camillo Giussani",
+            "url": "https://workflowy.com/#/0fd0d8ccf401",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "hashKey": "object:14"
+  },
+  {
+    "_id": "56127fd06aa84f3914174c1f",
+    "id": 2,
+    "title": "2. Cime",
+    "viewCoord": "hide",
+    "viewGps": "hide",
+    "items": [
+      {
+        "title": "Monte Cazzola",
+        "coord": "46.29506:8.23725:15",
+        "lat": "46.29506",
+        "lng": "8.23725",
+        "message": "Monte Cazzola",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Wikipedia",
+            "description": "Monte Cazzola",
+            "url": "http://www.montagnapertutti.it/escursionismo/lepontine/cazzola.php",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:134"
+          },
+          {
+            "title": "Descrizione",
+            "description": "Monte Cazzola",
+            "url": "https://workflowy.com/#/9a2e14a8fa9b",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:135"
+          },
+          {
+            "title": "Photo",
+            "description": "Monte Cazzola",
+            "url": "https://2.own",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:136"
+          }
+        ],
+        "hashKey": "object:47"
+      },
+      {
+        "title": "Monte Altissimo",
+        "coord": "45.81022:10.88873:15",
+        "lat": "45.81022",
+        "lng": "10.88873",
+        "message": "Monte Altissimo",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Partenza",
+            "value": "da San Valentino",
+            "description": "Monte Altissimo",
+            "url": "http://www.rifugioaltissimo.it/it/17/21/al-rifugio-altissimo-partendo-da-san-valentino-di-brentonico-trekking",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:140"
+          },
+          {
+            "title": "Altezza",
+            "value": "1703 m",
+            "description": "Monte Altissimo",
+            "url": "",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:141"
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Monte Altissimo",
+            "url": "https://it.wikipedia.org/wiki/Monte_Altissimo_(Lombardia)#Itinerari_di_salita",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:142"
+          },
+          {
+            "title": "Descrizione",
+            "description": "Monte Altissimo",
+            "url": "https://workflowy.com/#/0f1961eb5921",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:143"
+          }
+        ],
+        "hashKey": "object:48"
+      },
+      {
+        "title": "Mont Glacier",
+        "coord": "45.6314967:7.5393479:15",
+        "lat": 45.6314967,
+        "lng": 7.5393479,
+        "message": "Mont Glacier",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "3185 m",
+            "description": "Mont Glacier",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:162"
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Mont Glacier",
+            "url": "https://it.wikipedia.org/wiki/Mont_Glacier",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:163"
+          },
+          {
+            "title": "Descrizione",
+            "description": "Mont Glacier",
+            "url": "https://workflowy.com/#/2b00be776cf6",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:164"
+          }
+        ],
+        "hashKey": "object:51"
+      },
+      {
+        "title": "Punta tre vescovi",
+        "coord": "45.72595560293273:7.941226959228516:15",
+        "lat": 45.72595560293273,
+        "lng": 7.941226959228516,
+        "message": "Punta tre vescovi",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "2.503 m",
+            "description": "Punta tre vescovi",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:168"
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Punta tre vescovi",
+            "url": "https://it.wikipedia.org/wiki/Punta_Tre_Vescovi",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:169"
+          },
+          {
+            "title": "Descrizione",
+            "description": "Punta tre vescovi",
+            "url": "https://workflowy.com/#/c2c89573df00",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:170"
+          }
+        ],
+        "hashKey": "object:52"
+      },
+      {
+        "title": "Cima Della Laurasca",
+        "coord": "46.0581908:8.4757338:15",
+        "lat": 46.0581908,
+        "lng": 8.4757338,
+        "message": "Cima Della Laurasca",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [],
+        "hashKey": "object:53"
+      },
+      {
+        "title": "Benfit",
+        "coord": "45.96967:9.99045:15",
+        "lat": "45.96967",
+        "lng": "9.99045",
+        "message": "<a target='_blank' href=''>Benfit</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "GPS",
+            "description": "Benfit",
+            "info": " da Spiazzi di Gromo",
+            "url": "",
+            "gpsFile": "server/uploads/spiazzi.kml",
+            "viewCoord": "hide",
+            "viewGps": "showChk",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Grignone",
+        "coord": "45.953357640842135:9.387474060058594:15",
+        "lat": 45.953357640842135,
+        "lng": 9.387474060058594,
+        "message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Grigna_settentrionale'>Grignone</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "PhotoGeoLocal",
+            "description": "Grignone",
+            "url": "",
+            "gpsFile": "photo/Grignone.json",
+            "viewCoord": "hide",
+            "viewGps": "showChk",
+            "items": []
+          },
+          {
+            "title": "Altezza",
+            "value": "2410 m",
+            "description": "Grignone",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Grignone",
+            "url": "https://it.wikipedia.org/wiki/Grigna_settentrionale",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "Grignone",
+            "url": "https://workflowy.com/#/7c4964938b5b",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "GPS",
+            "description": "Grignone",
+            "info": "",
+            "url": "",
+            "gpsFile": "server/uploads/Grignone.kml",
+            "viewCoord": "hide",
+            "viewGps": "showChk",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Bietti Brioschi Bogani",
+        "coord": "45.953333:9.387509:15",
+        "lat": "45.953333",
+        "lng": "9.387509",
+        "message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Grigna_settentrionale'>Bietti Brioschi Bogani</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Partenza",
+            "value": "da Esino Lario m 1450",
+            "description": "Bietti Brioschi Bogani",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Altezza",
+            "value": "2410 m",
+            "description": "Bietti Brioschi Bogani",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Bietti Brioschi Bogani",
+            "url": "https://it.wikipedia.org/wiki/Grigna_settentrionale",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "Bietti Brioschi Bogani",
+            "url": "https://workflowy.com/#/7c4964938b5b",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "GPS",
+            "description": "Bietti Brioschi Bogani",
+            "info": "",
+            "url": "",
+            "gpsFile": "server/uploads/grignone_dal_caminetto2.gpx",
+            "viewCoord": "hide",
+            "viewGps": "showChk",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "hashKey": "object:17"
+  },
+  {
+    "_id": "56127fd06aa84f3914174c20",
+    "id": 3,
+    "title": "3. Alpeggi",
+    "viewCoord": "hide",
+    "viewGps": "hide",
+    "items": [
+      {
+        "title": "Laghetti di Cardeto e Passo della Portula",
+        "coord": "46.011875:9.895208:15",
+        "lat": "46.011875",
+        "lng": "9.895208",
+        "message": "Laghetti di Cardeto e Passo della Portula",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "2120 m",
+            "description": "Laghetti di Cardeto e Passo della Portula",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:110"
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Laghetti di Cardeto e Passo della Portula",
+            "url": "https://it.wikipedia.org/wiki/Laghi_di_Cardeto",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:111"
+          },
+          {
+            "title": "Descrizione",
+            "description": "Laghetti di Cardeto e Passo della Portula",
+            "url": "https://workflowy.com/#/317bf1733f06",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:112"
+          }
+        ],
+        "hashKey": "object:39"
+      },
+      {
+        "title": "Altopiano del Pasubio",
+        "coord": "45.778418789239055:11.220130920410156:15",
+        "lat": 45.778418789239055,
+        "lng": 11.220130920410156,
+        "message": "Altopiano del Pasubio",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "circa 2000 m",
+            "description": "Altopiano del Pasubio",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:116"
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Altopiano del Pasubio",
+            "url": "https://it.wikipedia.org/wiki/Pasubio",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:117"
+          },
+          {
+            "title": "Descrizione",
+            "description": "Altopiano del Pasubio",
+            "url": "https://workflowy.com/#/155871e6dab3",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": [],
+            "hashKey": "object:118"
+          }
+        ],
+        "hashKey": "object:40"
+      },
+      {
+        "title": "lago delle Locce",
+        "coord": "45.94308565:7.914825431880733:15",
+        "lat": 45.94308565,
+        "lng": 7.914825431880733,
+        "message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Macugnaga'>lago delle Locce</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Altezza",
+            "value": "2220 m",
+            "description": "lago delle Locce",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "lago delle Locce",
+            "url": "https://it.wikipedia.org/wiki/Macugnaga",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "lago delle Locce",
+            "url": "https://workflowy.com/#/fa4c601f0c2e",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Alpe Lendine",
+        "coord": "46.34858:9.33099:15",
+        "lat": "46.34858",
+        "lng": "9.33099",
+        "message": "<a target='_blank' href='http://www.ciaspole.net/ciaspole-lendine.htm'>Alpe Lendine</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Wikipedia",
+            "description": "Alpe Lendine",
+            "url": "http://www.ciaspole.net/ciaspole-lendine.htm",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "Alpe Lendine",
+            "url": "https://workflowy.com/#/df648db03f15",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "hashKey": "object:16"
+  },
+  {
+    "_id": "56127fd06aa84f3914174c21",
+    "id": 4,
+    "title": "4. Valli",
+    "viewCoord": "hide",
+    "viewGps": "hide",
+    "items": [
+      {
+        "title": "Valle del Drogo",
+        "coord": "46.34796:9.3349:15",
+        "lat": "46.34796",
+        "lng": "9.3349",
+        "message": "Valle del Drogo",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [],
+        "hashKey": "object:36"
+      },
+      {
+        "title": "val Furva",
+        "coord": "46.470024689385305:10.52215576171875:15",
+        "lat": 46.470024689385305,
+        "lng": 10.52215576171875,
+        "message": "<a target='_blank' href='https://it.wikipedia.org/wiki/Valfurva'>val Furva</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "Wikipedia",
+            "description": "val Furva",
+            "url": "https://it.wikipedia.org/wiki/Valfurva",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "val Furva",
+            "url": "https://workflowy.com/#/7b8a0677731f",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Laos Cambogia",
+        "coord": "16.425547506916736:101.513671875:15",
+        "lat": "16.425547506916736",
+        "lng": "101.513671875",
+        "message": "<a target='_blank' href=''>Laos Cambogia</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "GPS",
+            "description": "Laos Cambogia",
+            "info": "",
+            "url": "",
+            "gpsFile": "server/uploads/Laos dicembre 2014.kml",
+            "viewCoord": "hide",
+            "viewGps": "showChk",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Bocchetta di Prada Sentiero del fiume Valle dell'era",
+        "coord": "45.9706207:9.3627719:15",
+        "lat": 45.9706207,
+        "lng": 9.3627719,
+        "message": "<a target='_blank' href='http://yogalpinismo.altervista.org/2014/20140731fiumecroce/relazione.html'>Bocchetta di Prada Sentiero del fiume Valle dell'era</a>",
+        "viewCoord": "showCoord",
+        "viewGps": "hide",
+        "items": [
+          {
+            "title": "PhotoPicasa",
+            "description": "Bocchetta di Prada Sentiero del fiume Valle dell'era",
+            "url": "https://picasaweb.google.com/data/feed/api/user/102236928802705706168/albumid/6207433991476715777?alt=json-in-script",
+            "gpsFile": "",
+            "viewCoord": "hide",
+            "viewGps": "showChk",
+            "items": []
+          },
+          {
+            "title": "Wikipedia",
+            "description": "Bocchetta di Prada Sentiero del fiume Valle dell'era",
+            "url": "http://yogalpinismo.altervista.org/2014/20140731fiumecroce/relazione.html",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          },
+          {
+            "title": "Descrizione",
+            "description": "Bocchetta di Prada Sentiero del fiume Valle dell'era",
+            "url": "https://workflowy.com/#/dba6e5472aef",
+            "viewCoord": "hide",
+            "viewGps": "hide",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "hashKey": "object:15"
+  }
+]

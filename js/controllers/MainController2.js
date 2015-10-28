@@ -1,7 +1,5 @@
 app
   .controller('MainController',  ['$filter','$scope','places', '$location', 'leafletData' , 'ngDialog','Upload', '$timeout', function($filter, $scope,  places, $location, leafletData, ngDialog , Upload, $timeout){
-    var server = "http://127.0.0.1:3000/"
-    var mongoDbMaps = "http://127.0.0.1:3000/users/maps"
     var markers = []
     var markersSearch = []
     var markersLocation = []

@@ -9,16 +9,6 @@ var multer     		=       require('multer');
 // Database
 var mongo = require('mongodb');
 var monk = require('monk');
-//var DbCheck= new mongo.Db( "deMaps", new mongo.Server( '127.0.0.1', 27017, {}), {}); 
-//DbCheck.open(function(err, db) {
-////  assert.equal(null, err);
-//  console.log(err)
-////  DbCheck.on('close', deMaps.done.bind(deMaps));
-////  DbCheck.close();
-//});
-//bulit
-//var db = monk('192.168.1.3:27017/deMaps');
-//localhost
 var db = monk('127.0.0.1:27017/deMaps');
 // end Database
 
