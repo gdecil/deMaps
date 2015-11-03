@@ -3,7 +3,6 @@ app
     var markers = []
     var markersSearch = []
     var markersLocation = []
-
     //tabs jquery-ui
     var $tabs = $('#tabs').tabs({ selected: 0 }); 
 
@@ -16,8 +15,8 @@ app
         var chk = userValue.split(":")
         if(chk[0]=="1" & chk[1]=="1"){
           $scope.statusManage.isManageDisabled=false;
-//          $('#tabs').tabs({ enabled: [3,4] }); 
-//          Sscope.apply;
+          //          $('#tabs').tabs({ enabled: [3,4] }); 
+          //          Sscope.apply;
         }
         else{
           $scope.statusManage.isManageDisabled= true;
@@ -56,6 +55,11 @@ app
     };
     $scope.refreshTree = function() {
       $scope.loadDataAjax(mongoDbMaps)
+    }
+    $scope.refreshMap = function() {
+      leafletData.getMap('mapMain').then(function(map) {
+        map.invalidateSize()
+      });	
     }
 
     $scope.clear = function() {
@@ -281,8 +285,11 @@ app
     // layer track e profile e photo		
     var addLayer = function(url){
       var type = url.split(".")
+      //aggiunge il profilo in Profili
       addProfile(type[0] + ".gpx",$scope.mapCenter);
-      leafletData.getMap().then(function(map) {
+
+      //aggiunge il tracciato in Mappe
+      leafletData.getMap('mapMain').then(function(map) {
         switch (type[1]) {
           case "kml":
             $scope[type[0]] = omnivore.kml( url).addTo(map);
@@ -312,7 +319,7 @@ app
 
     var removeLayer = function(url){
       var type = url.split(".")
-      leafletData.getMap().then(function(map) {
+      leafletData.getMap('mapMain').then(function(map) {
         //        var type1 = type[0].split("/")
         map.removeLayer($scope[type[0]]);
         mapProfile.remove()
@@ -321,12 +328,13 @@ app
         mousemarker = null
       });	
     }
+    
     $scope.clearProfile = function(){
       $('input.showChk.GPS').prop('checked', false);
       $('#tabs-2 h3').html("")
       mapProfile.remove()
     }
-    
+
     $scope.viewTrack = function(chkInfo) {		
       var chk = chkInfo.split(":")
       if(chk[3]=="GPS"){
@@ -334,11 +342,10 @@ app
         {
           $('input.showChk.GPS').prop('checked', false);
           $("input[id='"+ chk[0] +"'].showChk.GPS").prop('checked', true);
-          $tabs.tabs( "option", "active", 1 ); 
           addLayer( chk[1])
         }
         else {
-//          $tabs.tabs( "option", "active", 0 ); 
+          //          $tabs.tabs( "option", "active", 0 ); 
           removeLayer(chk[1])			
         }                          
       }
@@ -383,6 +390,32 @@ app
       },
       layers: {
         baselayers: {
+          OpenTopoMap: {
+            name: 'OpenTopoMap',
+            url: 'http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',   
+            layerOptions: {
+              minZoom: 1, 
+              maxZoom: 16, 
+              detectRetina: true, 
+              attribution: 'Kartendaten: &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende, <a href="http://viewfinderpanoramas.org">SRTM</a> | Kartendarstellung: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+            },            
+            type: 'xyz'
+          },
+          googleTerrain: {
+            name: 'Google Terrain',
+            layerType: 'TERRAIN',
+            type: 'google'
+          },
+          googleHybrid: {
+            name: 'Google Hybrid',
+            layerType: 'HYBRID',
+            type: 'google'
+          },
+          googleRoadmap: {
+            name: 'Google Streets',
+            layerType: 'ROADMAP',
+            type: 'google'
+          },
           OpenMapSurfer: {
             name: 'OpenMapSurfer',
             type: 'xyz',
@@ -408,18 +441,16 @@ app
               }
             }
           },
-          OpenTopoMap: {
-            name: 'OpenTopoMap',
-            url: 'http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-            type: 'xyz'
-          },
           mapbox_light: {
             name: 'Mapbox Light',
             url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
             type: 'xyz',
             layerOptions: {
               apikey: 'pk.eyJ1IjoiYnVmYW51dm9scyIsImEiOiJLSURpX0pnIn0.2_9NrLz1U9bpwMQBhVk97Q',
-              mapid: 'bufanuvols.lia22g09'
+              mapid: 'bufanuvols.lia22g09',
+              attribution:
+              'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; ' +
+              'Map data {attribution.OpenStreetMap}',
             }
           },
           mapbox_terrain: {
@@ -438,13 +469,18 @@ app
           osm: {
             name: 'OpenStreetMap',
             url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            layerOptions: {
+              maxZoom: 18,
+              attribution:
+              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            },
             type: 'xyz'
           },
           osmBlackAndWhite: {
             name: 'osmBlackAndWhite',
             url: 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png',
             type: 'xyz',
-            options: {
+            layerOptions: {
               maxZoom: 18,
               attribution:
               '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -454,46 +490,21 @@ app
             name: 'osmDE',
             url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
             type: 'xyz',
-            options: {
+            layerOptions: {
               maxZoom: 18,
               attribution:
               '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }
           },											
-          osmDE: {
-            name: 'osmDE',
-            url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
-            type: 'xyz',
-            options: {
-              maxZoom: 18,
-              attribution:
-              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }
-          },
           EsriWorldTopoMap: {
             name: 'Esri WorldTopoMap',
             type: 'xyz',
             url: '//server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-            options: {
+            layerOptions: {
               attribution:
               '{attribution.Esri} &mdash; ' +
               'Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
             }
-          },
-          googleTerrain: {
-            name: 'Google Terrain',
-            layerType: 'TERRAIN',
-            type: 'google'
-          },
-          googleHybrid: {
-            name: 'Google Hybrid',
-            layerType: 'HYBRID',
-            type: 'google'
-          },
-          googleRoadmap: {
-            name: 'Google Streets',
-            layerType: 'ROADMAP',
-            type: 'google'
           }
         },
         overlays: {
@@ -512,7 +523,7 @@ app
             name: 'OpenSeaMap',
             type: 'wms',
             url: 'http://tiles.openseamaOpenSeaMapp.org/seamark/{z}/{x}/{y}.png',
-            options: {
+            layerOptions: {
               attribution: 'Map data: &copy; <a href="http://www.openseamap.org">OpenSeaMap</a> contributors'
             }
           },
@@ -520,7 +531,7 @@ app
             name: 'OpenTopoMap',
             type: 'wms',
             url: '//{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-            options: {
+            layerOptions: {
               maxZoom: 16,
               attribution: 'Map data: {attribution.OpenStreetMap}, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
             }
@@ -619,6 +630,34 @@ app
       the.editor.setValue(JSON.stringify($scope.list,null,2))
       //$('#source').val($scope.list)
       beautify();
+    }
+
+    $scope.restoreBackup = function(){
+      var backup = eval(the.editor.getValue())
+      var locr = {
+        "backup" : backup
+      }
+      $.ajax({
+        type: 'POST',
+        data: JSON.stringify(locr),
+        url: server + 'users/restore',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+      }).done(function( response ) {
+        // Check for successful (blank) response
+        if (response.msg === 'File Restored') {
+          alert("Backup Restored")
+          $scope.loadDataAjax(mongoDbMaps)
+          $scope.collapseAll()
+          $scope.$apply
+        }
+        else {
+          // If something goes wrong, alert the error message that our service returned
+          alert('Error: ' + response.msg);
+
+        }
+      });      
+
     }
 
     $scope.createDbMongo = function(){

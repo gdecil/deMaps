@@ -1,44 +1,41 @@
 var addProfile = function(urlFile, center){
 
-  // mapProfile = L.map('map_profile', center);
-
-  //  mapProfile = L.map('map_profile', {
-  //    center: [lat, lng],
-  //    zoom: zoom
-  //  });
-
-  try {
-    mapProfile = L.map('map_profile', {
-      center: [center.lat, center.lng],
-      zoom: 15
-    });
-  }
-  catch(err) {
-    aaa=1
-  }
-
-
-  //map = new L.Map('map_profile');
-
-  var url = 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg',
-      attr ='Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-      service = new L.TileLayer(url, {subdomains:"1234",attribution: attr});
-
   $.ajax({
     'async': false,
     'global': false,
     'url': urlFile,            //"gps/Grignone.gpx",
     'success': function (data) {
-      var geojson = toGeoJSON.gpx(data)
-      var el = L.control.elevation();
-      el.addTo(mapProfile);
-      var gjl = L.geoJson(geojson,{
-        onEachFeature: el.addData.bind(el)
-      }).addTo(mapProfile);
+      var $tabs = $('#tabs').tabs({ selected: 0 }); 
+      $tabs.tabs( "option", "active", 1 ); 
+      try {
+        mapProfile = L.map('map_profile', {
+          center: [center.lat, center.lng],
+          zoom: 15
+        });
+        var service = new L.TileLayer(urlLayer, {subdomains:"1234",attribution: attrLayer});
 
-      mapProfile.addLayer(service)      
-      display_gpx(document.getElementById('tabs-2'), urlFile)
+        var geojson = toGeoJSON.gpx(data)
+        var el = L.control.elevation();
+        el.addTo(mapProfile);
+        var gjl = L.geoJson(geojson,{
+          onEachFeature: el.addData.bind(el)
+        }).addTo(mapProfile);
 
+        mapProfile.addLayer(service)      
+        display_gpx(document.getElementById('tabs-2'), urlFile)
+      }
+      catch(err) {
+        aaa=1
+      }
+
+
+      //map = new L.Map('map_profile');
+
+      //      var url = 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg',
+      //          attr ='Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      //          service = new L.TileLayer(url, {subdomains:"1234",attribution: attr});
+
+      //      mapPhoto.fitBounds(photoLayer.getBounds());
     }
   });
 

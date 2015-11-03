@@ -40,9 +40,9 @@ COSA FA
 	3. Purple		Cime
 	4. Green 		Valli
 
-6. Profile
-	1. Add a chart from kml (GPS checkbox)
-      1. upload file nodejs server (multer)
+6. Profile/Track: to upload file use nodejs server (multer)
+	1. in Mappe add a track from kml file
+    2. in Profili add a chart from gpx file
 
 7. Photo
     1. link ad un album su internet (only photo)

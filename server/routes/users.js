@@ -51,6 +51,16 @@ router.post('/createNewDb', function(req, res) {
 });
 
 //https://mongodb.github.io/node-mongodb-native/api-generated/collection.html#update
+router.post('/restore', function(req, res) {
+  var db = req.db;
+  var collection = db.get('maps');
+  var locr = req.body;
+
+  collection.remove();
+  collection.insert(locr.backup)
+  res.end("File Restored");
+});
+
 router.post('/addlocation', function(req, res) {
   var db = req.db;
   var collection = db.get('maps');

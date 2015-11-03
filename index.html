@@ -138,6 +138,7 @@
                   <a href="" class="btn btn-primary pull-left"  ng-click="search()">Search</a>
                   <a href="" class="btn btn-primary pull-left"  ng-click="clearMarker()">Clear</a>
                   <a href="" class="btn btn-primary pull-left"  ng-click="addMarker()">Add Marker</a>
+                  <a href="" class="btn btn-primary pull-left"  ng-click="refreshMap()">Refresh Map</a>
                   <div class="container">
                     <div class="row">
                       <div class="col-md-12">
@@ -205,8 +206,9 @@
                   </p>
 
                 <p>
-                  <a href="" class="btn btn-primary btn-xs"  ng-click="clear()">Clear Form</a> 
-                  <a href="" class="btn btn-primary btn-xs"  ng-click="viewDataMongo()">View in File Db data</a> 
+                  <a href="" class="btn btn-primary btn-xs"  ng-click="clear()">Clear Form</a> <br><br>
+                  <a href="" class="btn btn-primary btn-xs"  ng-click="viewDataMongo()">Create Backup File</a> <br><br>
+                  <a href="" class="btn btn-primary btn-xs"  ng-click="restoreBackup()">Restore Backup File</a> 
                 </p>
                 <!--
 <button ng-click="saveDataLocal()">Add</button>
@@ -286,7 +288,7 @@
           <div id="tabs-1">
             <div id="mappe">
               <div class="container-fluid" id="map-canvas">
-                <leaflet center="mapCenter" layers="layers" event-broadcast="events" markers="mapMarkers" />
+                <leaflet id="mapMain" center="mapCenter" layers="layers" event-broadcast="events" markers="mapMarkers" />
               </div>
             </div>	
           </div>
