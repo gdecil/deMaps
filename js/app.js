@@ -35,7 +35,3 @@ var selectTree = function(id){
   document.getElementById("treeFilter").focus();
   $('#treeFilter').val(id)
 }
-$("#treeFilter").change(function() {
-  $('#treeFilter').trigger("keyup");
-});
-
