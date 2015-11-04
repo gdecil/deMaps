@@ -5,6 +5,7 @@ app
     var markersLocation = []
     //tabs jquery-ui
     var $tabs = $('#tabs').tabs({ selected: 0 }); 
+    var noConfirm = false;
 
     //gestione authentication
     $scope.openConfirm = function () {
@@ -152,6 +153,7 @@ app
 
     //centratura mappa form update
     if($location.$$absUrl.indexOf("c=") > -1){
+      noConfirm=true;
       var c = $location.$$absUrl.split("?")
       var coord = c[1].replace("c=", "").split(":")				
       $scope.mapCenter = 
@@ -328,7 +330,7 @@ app
         mousemarker = null
       });	
     }
-    
+
     $scope.clearProfile = function(){
       $('input.showChk.GPS').prop('checked', false);
       $('#tabs-2 h3').html("")
@@ -397,7 +399,7 @@ app
               minZoom: 1, 
               maxZoom: 16, 
               detectRetina: true, 
-              attribution: 'Kartendaten: &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende, <a href="http://viewfinderpanoramas.org">SRTM</a> | Kartendarstellung: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+              attribution: 'Kartendaten: &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende, <a href="https://viewfinderpanoramas.org">SRTM</a> | Kartendarstellung: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
             },            
             type: 'xyz'
           },
@@ -423,7 +425,7 @@ app
             layerOptions: {
               maxZoom: 20,
               variant: 'roads',
-              attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data {attribution.OpenStreetMap}'
+              attribution: 'Imagery from <a href="https://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data {attribution.OpenStreetMap}'
             },
             variants: {
               Roads: 'roads',
@@ -443,36 +445,36 @@ app
           },
           mapbox_light: {
             name: 'Mapbox Light',
-            url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
+            url: 'https://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
             type: 'xyz',
             layerOptions: {
               apikey: 'pk.eyJ1IjoiYnVmYW51dm9scyIsImEiOiJLSURpX0pnIn0.2_9NrLz1U9bpwMQBhVk97Q',
               mapid: 'bufanuvols.lia22g09',
               attribution:
-              'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; ' +
+              'Imagery from <a href="https://mapbox.com/about/maps/">MapBox</a> &mdash; ' +
               'Map data {attribution.OpenStreetMap}',
             }
           },
           mapbox_terrain: {
             name: 'Mapbox Terrain',
-            url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
+            url: 'https://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
             type: 'xyz',
             layerOptions: {
               apikey: '',
               mapid: 'gdecil.',													
               attribution:
-              'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; ' +
+              'Imagery from <a href="https://mapbox.com/about/maps/">MapBox</a> &mdash; ' +
               'Map data {attribution.OpenStreetMap}',
               subdomains: 'abcd'
             }
           },
           osm: {
             name: 'OpenStreetMap',
-            url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             layerOptions: {
               maxZoom: 18,
               attribution:
-              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             },
             type: 'xyz'
           },
@@ -483,7 +485,7 @@ app
             layerOptions: {
               maxZoom: 18,
               attribution:
-              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }
           },											
           osmDE: {
@@ -493,7 +495,7 @@ app
             layerOptions: {
               maxZoom: 18,
               attribution:
-              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }
           },											
           EsriWorldTopoMap: {
@@ -512,7 +514,7 @@ app
             name: 'EEUU States (WMS)',
             type: 'wms',
             visible: false,
-            url: 'http://suite.opengeo.org/geoserver/usa/wms',
+            url: 'https://suite.opengeo.org/geoserver/usa/wms',
             layerParams: {
               layers: 'usa:states',
               format: 'image/png',
@@ -522,18 +524,18 @@ app
           OpenSeaMap: {
             name: 'OpenSeaMap',
             type: 'wms',
-            url: 'http://tiles.openseamaOpenSeaMapp.org/seamark/{z}/{x}/{y}.png',
+            url: 'https://tiles.openseamaOpenSeaMapp.org/seamark/{z}/{x}/{y}.png',
             layerOptions: {
-              attribution: 'Map data: &copy; <a href="http://www.openseamap.org">OpenSeaMap</a> contributors'
+              attribution: 'Map data: &copy; <a href="https://www.openseamap.org">OpenSeaMap</a> contributors'
             }
           },
           OpenTopoMap: {
             name: 'OpenTopoMap',
             type: 'wms',
-            url: '//{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+            url: 'http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
             layerOptions: {
               maxZoom: 16,
-              attribution: 'Map data: {attribution.OpenStreetMap}, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+              attribution: 'Map data: {attribution.OpenStreetMap}, <a href="https://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
             }
           }
 
@@ -564,10 +566,10 @@ app
         }
       });	
     };
-
+    //photon name search
     $scope.search = function(){
       $("#tree-root-search .angular-ui-tree-handle").show()
-      $scope.loadSearch('http://photon.komoot.de/api/?q=' + $scope.address.name)    
+      $scope.loadSearch('https://photon.komoot.de/api/?q=' + $scope.address.name)    
       $scope.$apply
     }
 
@@ -835,6 +837,12 @@ app
       $('#tabs-2').html(JSON.stringify($scope.list))
     }
 
+    $scope.openTree = function(){
+      var usersid =  $(this).attr("id");
+      alert(userid)
+      //post code
+    }
+
     $scope.loadDataAjax = function(url) {
       var json = (function () {
         var json = null;
@@ -846,6 +854,7 @@ app
           'success': function (data) {
             $scope.list = []
             markersLocation = []
+            markerPopup = []
             $scope.$apply ;
             $scope.list = data;
             $scope.$apply ;
@@ -877,8 +886,9 @@ app
               if(lat.length>0){
                 $.each(lat, function( index1, value1 ) {
                   var mark = {}
-                  //                  mark.group = 'italy'
+                  //                  mark.group = 'italy' usato per clusterizzare
                   mark.lat = Number(lat[index1])
+                  mark.title = title[index1]
                   mark.lng = Number(lng[index1])									
                   mark.message = message[index1]
                   mark.icon = {
@@ -887,17 +897,53 @@ app
                     markerColor: color												
                   },
                     markersLocation.push(mark);
+                  markerPopup.push(message[index1]);
                 });
               }
             });
 
-            $scope.mapMarkers = markersLocation;
+            //            $scope.mapMarkers = markersLocation;
             $scope.$apply
+            createPopup(markersLocation)
           }
         });
         return json;
       })(); 			
     }
+
+    var createPopup = function(markerPopup) {
+      $.each(markerPopup, function( index1, v ) {
+        //        showPopup(index1,v.message, v.lat, v.lng)
+        leafletData.getMap('mapMain').then(function(map) {
+          var awMarker = L.AwesomeMarkers.icon({
+            icon: v.icon.icon,
+            markerColor: v.icon.markerColor
+          });
+          var title =  v.title.replace(/ /g,'');
+
+          var mess = v.message + '<br><a href="" onclick="selectTree(\'' + v.title + '\')">select</a>'
+
+          //          var mess = v.message + '<br><a ng-click="openTree(\'' + title +'\')" href="javascript:void(0)" class="treeOpen" id="' + title + '">Open</a>'
+          //          var mess = v.message + '<br><a href="" class="btn btn-primary btn-xs ng-scope" ng-click="clearMarker()">open</a>'
+          L.marker([ v.lat, v.lng],{icon: awMarker}).bindPopup(mess).addTo(map);
+          //        marker.bindPopup(content).openPopup();
+        });
+
+      })
+    }
+    //    var showPopup = function(marker_id, content, lat, lng) {
+    //
+    //      //      var marker = $scope.mapMarkers[marker_id],
+    //      //          content = marker.title,
+    //      latLng = [lat, lng]
+    //      //        popup = L.popup({ className : 'custom-popup' }).setContent(content).setLatLng(latLng);
+    //
+    //      leafletData.getMap('mapMain').then(function(map) {
+    //        L.marker(latLng).bindPopup(content).addTo(map);
+    //        //        marker.bindPopup(content).openPopup();
+    //      });
+    //
+    //    }
 
     $scope.loadSearch = function(url) {
       var json = (function () {
@@ -977,7 +1023,7 @@ app
     //file
     //    $scope.loadDataAjax("mymaps.json")
     //mongoDb
-    //    $scope.loadDataAjax("http://localhost:3000/users/maps")
+    //    $scope.loadDataAjax("https://localhost:3000/users/maps")
     $scope.loadDataAjax(mongoDbMaps)    
     //    $scope.loadTestAjax()
 
@@ -1163,7 +1209,10 @@ app
       }    
     };    
 
-    $scope.openConfirm()
+    if(noConfirm==false){$scope.openConfirm(); }
+    else{$scope.statusManage.isManageDisabled= true;}
+
+
   }])
   .filter('trust', function ($sce) {
   return function (val) {

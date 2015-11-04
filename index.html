@@ -228,7 +228,7 @@
                 <a href="" class="btn btn-default pull-right" ng-click="refreshTree()">Refresh</a>			
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Filter</span>
-                  <input type="search" class="form-control" placeholder="Type a part of any nodes name..."  ng-model="pattern">
+                  <input id="treeFilter" type="search" class="form-control" placeholder="Type a part of any nodes name..."  ng-model="pattern">
                 </div>
               </div>
               <div class="container">
@@ -240,7 +240,7 @@
                         <script type="text/ng-template" id="items_renderer.html">
                           <div ui-tree-handle>
                             <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
-                            <a data-nodrag href="{{item.url}}">{{item.title}}</a>
+                            <a TARGET="_blank" data-nodrag href="{{item.url}}">{{item.title}}</a>
                             <small class ="pull-right">{{item.description}}</small>
                             <small>{{item.info}}</small>
                             <small>{{item.value}}</small>
