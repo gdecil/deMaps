@@ -18,7 +18,7 @@ var upload 	= multer({
 });
 
 /*
- * GET userlist.
+ * GET all locations.
  */
 router.get('/maps', function(req, res) {
   var db = req.db;
@@ -26,6 +26,30 @@ router.get('/maps', function(req, res) {
   collection.find({},{sort: {title: 1, "items.title": 1}},function(e,docs){
     res.json(docs);
   });
+});
+
+/*
+ * GET location.
+ */
+router.post('/find', function(req, res) {
+  var db = req.db;
+  var collection = db.get('maps');
+  var locr = req.body;
+//  res.json('items.$ -_id');
+  if (locr.limit=="subd"){
+    var subD = 'items.$ -_id';
+  }
+  else{
+    var subD = locr.limit;
+  }
+  
+  collection.find(
+    locr.query,
+    subD,
+    function(e,docs){
+      res.json(docs);
+    });
+
 });
 
 router.post('/createNewDb', function(req, res) {
@@ -121,32 +145,32 @@ router.post('/checkFile', function(req, res) {
 });
 
 router.post('/api/uploadFile',function(req,res){  
-      upload(req,res,function(err) {
-        if(err) {
-          return res.end("Error uploading file.");
-        }
-        res.end("File is uploaded");
-      });
-  
-//  var name = req.file.upload.name;
-//  var path = req.file.upload.path;
-//  console.log(path)
-//  console.log(name)
-//  fs.stat(name, function(err, stat) {
-//    if(err == null) {
-//      return res.end("File already exist");
-//    } else if(err.code == 'ENOENT') {
-//      upload(req,res,function(err) {
-//        if(err) {
-//          return res.end("Error uploading file.");
-//        }
-//        res.end("File is uploaded");
-//      });
-//    } else {
-//      console.log('Some other error: ', err.code);
-//      return res.end(err.code);
-//    }
-//  });
+  upload(req,res,function(err) {
+    if(err) {
+      return res.end("Error uploading file.");
+    }
+    res.end("File is uploaded");
+  });
+
+  //  var name = req.file.upload.name;
+  //  var path = req.file.upload.path;
+  //  console.log(path)
+  //  console.log(name)
+  //  fs.stat(name, function(err, stat) {
+  //    if(err == null) {
+  //      return res.end("File already exist");
+  //    } else if(err.code == 'ENOENT') {
+  //      upload(req,res,function(err) {
+  //        if(err) {
+  //          return res.end("Error uploading file.");
+  //        }
+  //        res.end("File is uploaded");
+  //      });
+  //    } else {
+  //      console.log('Some other error: ', err.code);
+  //      return res.end(err.code);
+  //    }
+  //  });
 });
 
 module.exports = router;

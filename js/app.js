@@ -35,3 +35,42 @@ var selectTree = function(id){
   document.getElementById("treeFilter").focus();
   $('#treeFilter').val(id)
 }
+
+var openLocation = function(id){
+  var scope = angular.element($("#modalDialogId")).scope();
+  scope.$apply(function(){
+    scope.openLocation();
+    var locr = {
+      "query" : {"items.title":id},
+      "limit" : "subd"
+    }
+    $.ajax({
+      type: 'POST',
+      data: JSON.stringify(locr),
+      url: server + 'users/find',
+      contentType: "application/json; charset=utf-8",
+      dataType: "json"
+    }).done(function( response ) {
+      $('#nomelocMod').text(response[0].items[0].title)
+      $('#latlocMod').text(response[0].items[0].lat)
+      $('#lnglocMod').text(response[0].items[0].lng)
+      if(response[0].items[0].items.length>0){
+        $.each(response[0].items[0].items, function( index, value ) {
+          switch (value.title) {
+            case "Altezza":
+              $('#altezzalocMod').text(value.value)
+              break;
+            case "Wikipedia":
+              $('#wikilocMod').attr("href", value.url)
+              break;
+            case "Descrizione":
+              $('#desclocMod').attr("href", value.url)
+              break;
+          }
+        })
+      }
+    });      
+
+  })
+  //  $scope.openConfirm();
+}

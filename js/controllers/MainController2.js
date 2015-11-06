@@ -27,6 +27,17 @@ app
         console.log('Modal promise rejected. Reason: ', reason);
       });
     };
+    
+    $scope.openLocation = function () {
+      ngDialog.openConfirm({
+        template: 'modalDialogLocationId',
+        className: 'ngdialog-theme-default'
+      }).then(function (userValue) {
+        }, function (reason) {
+        console.log('Modal promise rejected. Reason: ', reason);
+      });
+    };
+
     $scope.statusManage = {
       isManageDisabled: true
     };
@@ -922,7 +933,7 @@ app
           var title =  v.title.replace(/ /g,'');
 
           var mess = v.message + '<br><a href="" onclick="selectTree(\'' + v.title + '\')">select</a>'
-
+          mess = mess + '<br><a href="" onclick="openLocation(\'' + v.title + '\')">open</a>'
           //          var mess = v.message + '<br><a ng-click="openTree(\'' + title +'\')" href="javascript:void(0)" class="treeOpen" id="' + title + '">Open</a>'
           //          var mess = v.message + '<br><a href="" class="btn btn-primary btn-xs ng-scope" ng-click="clearMarker()">open</a>'
           L.marker([ v.lat, v.lng],{icon: awMarker}).bindPopup(mess).addTo(map);
