@@ -33,7 +33,7 @@ $(function() {
 
 var selectTree = function(id){
   document.getElementById("treeFilter").focus();
-  $('#treeFilter').val(id)
+  $('#treeFilter').val(id.replace(/_/g,'\''))
 }
 
 var openLocation = function(id){
@@ -41,7 +41,7 @@ var openLocation = function(id){
   scope.$apply(function(){
     scope.openLocation();
     var locr = {
-      "query" : {"items.title":id},
+      "query" : {"items.title":id.replace(/_/g,'\'')},
       "limit" : "subd"
     }
     $.ajax({
@@ -54,17 +54,36 @@ var openLocation = function(id){
       $('#nomelocMod').text(response[0].items[0].title)
       $('#latlocMod').text(response[0].items[0].lat)
       $('#lnglocMod').text(response[0].items[0].lng)
+      $('#altezzalocMod1').hide()                
+      $('#wikilocMod1').hide()                
+      $('#desclocMod1').hide()                
+      $('#ownlocMod1').hide()                
       if(response[0].items[0].items.length>0){
         $.each(response[0].items[0].items, function( index, value ) {
           switch (value.title) {
             case "Altezza":
-              $('#altezzalocMod').text(value.value)
+              if(value.value!=""){
+                $('#altezzalocMod1').show()
+                $('#altezzalocMod').text(value.value)
+              }
               break;
             case "Wikipedia":
-              $('#wikilocMod').attr("href", value.url)
+              if(value.url!=""){
+                $('#wikilocMod1').show()
+                $('#wikilocMod').attr("href", value.url)
+              }
               break;
             case "Descrizione":
-              $('#desclocMod').attr("href", value.url)
+              if(value.url!=""){
+                $('#desclocMod1').show()
+                $('#desclocMod').attr("href", value.url)
+              }
+              break;
+            case "PhotoOwncloud":
+              if(value.url!=""){
+                $('#ownlocMod1').show()
+                $('#ownlocMod').attr("href", value.url)
+              }
               break;
           }
         })

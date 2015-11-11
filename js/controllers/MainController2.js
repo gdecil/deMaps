@@ -930,10 +930,10 @@ app
             icon: v.icon.icon,
             markerColor: v.icon.markerColor
           });
-          var title =  v.title.replace(/ /g,'');
+          var title =  v.title.replace(/ /g,'').replace(/\'/g,'_');
 
-          var mess = v.message + '<br><a href="" onclick="selectTree(\'' + v.title + '\')">select</a>'
-          mess = mess + '<br><a href="" onclick="openLocation(\'' + v.title + '\')">open</a>'
+          var mess = v.message + '<br><a href="" onclick="selectTree(\'' + v.title.replace(/\'/g,'_') + '\')">select</a>'
+          mess = mess + '<br><a href="" onclick="openLocation(\'' + v.title.replace(/\'/g,'_') + '\')">open</a>'
           //          var mess = v.message + '<br><a ng-click="openTree(\'' + title +'\')" href="javascript:void(0)" class="treeOpen" id="' + title + '">Open</a>'
           //          var mess = v.message + '<br><a href="" class="btn btn-primary btn-xs ng-scope" ng-click="clearMarker()">open</a>'
           L.marker([ v.lat, v.lng],{icon: awMarker}).bindPopup(mess).addTo(map);

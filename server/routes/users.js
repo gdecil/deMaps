@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer');
 var fs = require('fs');
+var url = require('url');
+var http = require('http');
+var sizeOf = require('image-size');
 
 var upload 	= multer({ 
   dest: './uploads/',
@@ -28,6 +31,26 @@ router.get('/maps', function(req, res) {
   });
 });
 
+router.get('/imageSize', function(req, res) {
+  var url_parts = url.parse(req.url, true);
+  var query = url_parts.query;
+
+  var imgUrl = query;
+  //  res.json(imgUrl);
+  var options = url.parse(imgUrl.photo.replace(/\"/g, "") );
+  //  var options = url.parse("http://4.bp.blogspot.com/-WmAjl7SnWwQ/VLPV2ouRPVI/AAAAAAAAajA/iFiBeGAcR1Q/s1600/foglia%2Bstretta.png");
+  http.get(options, function (response) {
+    var chunks = [];
+    response.on('data', function (chunk) {
+      chunks.push(chunk);
+    }).on('end', function() {
+      var buffer = Buffer.concat(chunks);
+      console.log(sizeOf(buffer));
+      res.json(sizeOf(buffer));
+    });
+  });
+});
+
 /*
  * GET location.
  */
@@ -35,14 +58,14 @@ router.post('/find', function(req, res) {
   var db = req.db;
   var collection = db.get('maps');
   var locr = req.body;
-//  res.json('items.$ -_id');
+  //  res.json('items.$ -_id');
   if (locr.limit=="subd"){
     var subD = 'items.$ -_id';
   }
   else{
     var subD = locr.limit;
   }
-  
+
   collection.find(
     locr.query,
     subD,
