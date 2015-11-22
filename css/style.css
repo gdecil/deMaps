@@ -72,3 +72,7 @@
 .gpx ul.info { list-style: none; margin: 0; padding: 0; font-size: smaller; }
 .gpx ul.info li { color: #666; padding: 2px; display: inline; }
 .gpx ul.info li span { color: black; }
+
+#linklocMod{
+	height: 54px;
+}

@@ -54,6 +54,7 @@ var openLocation = function(id){
       $('#nomelocMod').text(response[0].items[0].title)
       $('#latlocMod').text(response[0].items[0].lat)
       $('#lnglocMod').text(response[0].items[0].lng)
+      $('#linklocMod').text("https://gdecil.mooo.com/deMaps/?c=" + response[0].items[0].lat + ":" + response[0].items[0].lng + ":15")
       $('#altezzalocMod1').hide()                
       $('#wikilocMod1').hide()                
       $('#desclocMod1').hide()                
