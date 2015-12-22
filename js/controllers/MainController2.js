@@ -14,7 +14,7 @@ app
         className: 'ngdialog-theme-default'
       }).then(function (userValue) {
         var chk = userValue.split(":")
-        if(chk[0]=="1" & chk[1]=="1"){
+        if(chk[0]=="1" && chk[1]=="1"){
           $scope.statusManage.isManageDisabled=false;
           //          $('#tabs').tabs({ enabled: [3,4] }); 
           //          Sscope.apply;
@@ -685,20 +685,16 @@ app
       var loc = getLocation();
       switch ($scope.mymaps.tipo) {
         case "2. Cime":
-          deleteLocationMongo($scope.mymaps.Nome, 2)
-          saveToMongo(loc, 2)
+          updateLocationMongo($scope.mymaps.Nome, 2, loc)          
           break;
         case "1. Rifugi":
-          deleteLocationMongo($scope.mymaps.Nome, 1)
-          saveToMongo(loc, 1)
+          updateLocationMongo($scope.mymaps.Nome, 1, loc)
           break;
         case "3. Alpeggi":
-          deleteLocationMongo($scope.mymaps.Nome, 3)
-          saveToMongo(loc, 3)
+          updateLocationMongo($scope.mymaps.Nome, 3, loc)
           break;
         case "4. Valli":
-          deleteLocationMongo($scope.mymaps.Nome, 4)
-          saveToMongo(loc, 4)
+          updateLocationMongo($scope.mymaps.Nome, 4, loc)
           break;
       }
       $scope.collapseAll()
@@ -748,6 +744,31 @@ app
       });      
     }
 
+var updateLocationMongo = function(loc, root, locObj){
+      var locr = {
+        "loc" : loc,
+        "root" : root
+      }
+      $.ajax({
+        type: 'POST',
+        data: JSON.stringify(locr),
+        url: server + 'users/removelocation',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+      }).done(function( response ) {
+          saveToMongo(locObj, root)
+        // Check for successful (blank) response
+        if (response.msg === '') {
+            
+        }
+        else {
+          // If something goes wrong, alert the error message that our service returned
+          alert('Error: ' + response.msg);
+
+        }
+      });      
+    }
+    
     $scope.addToMongoDb= function(){
       var loc = getLocationMinimal();
       switch ($scope.location.type) {
@@ -930,13 +951,15 @@ app
             icon: v.icon.icon,
             markerColor: v.icon.markerColor
           });
-          var title =  v.title.replace(/ /g,'').replace(/\'/g,'_');
+          if (v.title!=undefined){
+            var title =  v.title.replace(/ /g,'').replace(/\'/g,'_');
 
-          var mess = v.message + '<br><a href="" onclick="selectTree(\'' + v.title.replace(/\'/g,'_') + '\')">select</a>'
-          mess = mess + '<br><a href="" onclick="openLocation(\'' + v.title.replace(/\'/g,'_') + '\')">open</a>'
-          //          var mess = v.message + '<br><a ng-click="openTree(\'' + title +'\')" href="javascript:void(0)" class="treeOpen" id="' + title + '">Open</a>'
-          //          var mess = v.message + '<br><a href="" class="btn btn-primary btn-xs ng-scope" ng-click="clearMarker()">open</a>'
-          L.marker([ v.lat, v.lng],{icon: awMarker}).bindPopup(mess).addTo(map);
+            var mess = v.message + '<br><a href="" onclick="selectTree(\'' + v.title.replace(/\'/g,'_') + '\')">select</a>'
+            mess = mess + '<br><a href="" onclick="openLocation(\'' + v.title.replace(/\'/g,'_') + '\')">open</a>'
+            //          var mess = v.message + '<br><a ng-click="openTree(\'' + title +'\')" href="javascript:void(0)" class="treeOpen" id="' + title + '">Open</a>'
+            //          var mess = v.message + '<br><a href="" class="btn btn-primary btn-xs ng-scope" ng-click="clearMarker()">open</a>'
+            L.marker([ v.lat, v.lng],{icon: awMarker}).bindPopup(mess).addTo(map);              
+          }
           //        marker.bindPopup(content).openPopup();
         });
 
