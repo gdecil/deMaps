@@ -7,6 +7,19 @@ app
     var $tabs = $('#tabs').tabs({ selected: 0 }); 
     var noConfirm = false;
 
+    //gestione routing
+    $scope.routingStart = function(){
+      routingInit();
+    }
+    
+    $scope.routingCalc = function(){
+      routingCalc(routing);
+    }
+    $scope.routingClear = function(){
+      mapRouting.remove()
+      routingInit();
+    }
+    
     //gestione authentication
     $scope.openConfirm = function () {
       ngDialog.openConfirm({
@@ -82,7 +95,6 @@ app
         Altezza: "", 
         Wikipedia: "",
         Descrizione: "", 
-        Photo:"",
         Photo:"",
         GPSinfo:"",
         GPSFile:"",
@@ -362,7 +374,7 @@ app
           removeLayer(chk[1])			
         }                          
       }
-      if(chk.length == 5 & chk[4]=="PhotoPicasa"){
+      if(chk.length == 5 && chk[4]=="PhotoPicasa"){
         if($("input[id='"+ chk[0] +"'].showChk.PhotoPicasa").is(':checked'))
         {
           $tabs.tabs( "option", "active", 2 ); 
@@ -376,7 +388,7 @@ app
           closePhoto();	
         }              
       }
-      if(chk.length == 4 & chk[3]=="PhotoGeoLocal"){
+      if(chk.length == 4 && chk[3]=="PhotoGeoLocal"){
         if($("input[id='"+ chk[0] +"'].showChk.PhotoGeoLocal").is(':checked'))
         {
           $tabs.tabs( "option", "active", 2 ); 
@@ -408,7 +420,7 @@ app
             url: 'http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',   
             layerOptions: {
               minZoom: 1, 
-              maxZoom: 16, 
+              maxZoom: 15, 
               detectRetina: true, 
               attribution: 'Kartendaten: &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende, <a href="https://viewfinderpanoramas.org">SRTM</a> | Kartendarstellung: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
             },            
@@ -577,6 +589,7 @@ app
         }
       });	
     };
+    
     //photon name search
     $scope.search = function(){
       $("#tree-root-search .angular-ui-tree-handle").show()
@@ -607,6 +620,7 @@ app
       $scope.$apply
 
     }
+    
     $scope.remMarker = function(){}
 
     $scope.clearMarker = function(){
@@ -744,7 +758,7 @@ app
       });      
     }
 
-var updateLocationMongo = function(loc, root, locObj){
+    var updateLocationMongo = function(loc, root, locObj){
       var locr = {
         "loc" : loc,
         "root" : root
@@ -965,19 +979,6 @@ var updateLocationMongo = function(loc, root, locObj){
 
       })
     }
-    //    var showPopup = function(marker_id, content, lat, lng) {
-    //
-    //      //      var marker = $scope.mapMarkers[marker_id],
-    //      //          content = marker.title,
-    //      latLng = [lat, lng]
-    //      //        popup = L.popup({ className : 'custom-popup' }).setContent(content).setLatLng(latLng);
-    //
-    //      leafletData.getMap('mapMain').then(function(map) {
-    //        L.marker(latLng).bindPopup(content).addTo(map);
-    //        //        marker.bindPopup(content).openPopup();
-    //      });
-    //
-    //    }
 
     $scope.loadSearch = function(url) {
       var json = (function () {
@@ -1054,12 +1055,7 @@ var updateLocationMongo = function(loc, root, locObj){
       scope.collapseAll();
     };
 
-    //file
-    //    $scope.loadDataAjax("mymaps.json")
-    //mongoDb
-    //    $scope.loadDataAjax("https://localhost:3000/users/maps")
     $scope.loadDataAjax(mongoDbMaps)    
-    //    $scope.loadTestAjax()
 
     var getLocation = function(){
       var href
@@ -1168,24 +1164,24 @@ var updateLocationMongo = function(loc, root, locObj){
         "items": []
       }
 
-      if(typeof $scope.mymaps.Partenza != "undefined" & $scope.mymaps.Partenza != "" ){
+      if(typeof $scope.mymaps.Partenza != "undefined" && $scope.mymaps.Partenza != "" ){
         loc.items.push(Partenza)
       }
-      if(typeof $scope.mymaps.Altezza!=undefined  & $scope.mymaps.Altezza != "" ){
+      if(typeof $scope.mymaps.Altezza!=undefined  && $scope.mymaps.Altezza != "" ){
         loc.items.push(Altezza)
       }
-      if(typeof $scope.mymaps.Wikipedia!=undefined  & $scope.mymaps.Wikipedia != "" ){
+      if(typeof $scope.mymaps.Wikipedia!=undefined  && $scope.mymaps.Wikipedia != "" ){
         loc.items.push(Wikipedia)
       }
-      if(typeof $scope.mymaps.Descrizione!=undefined  & $scope.mymaps.Descrizione != "" ){
+      if(typeof $scope.mymaps.Descrizione!=undefined  && $scope.mymaps.Descrizione != "" ){
         loc.items.push(Descrizione)
       }
       var addPhoto="N"
-      if(typeof $scope.mymaps.PhotoOwn!=undefined  & $scope.mymaps.PhotoOwn != "" ){
+      if(typeof $scope.mymaps.PhotoOwn!=undefined && $scope.mymaps.PhotoOwn != "" ){
         addPhoto="Y"
       }
 
-      if(typeof $scope.mymaps.GPS!=undefined  & $scope.mymaps.GPS != "" ){
+      if(typeof $scope.mymaps.GPS!=undefined  && $scope.mymaps.GPS != "" ){
         GPS.viewGps="showChk"
         loc.items.push(GPS)
       }    
@@ -1245,8 +1241,7 @@ var updateLocationMongo = function(loc, root, locObj){
 
     if(noConfirm==false){$scope.openConfirm(); }
     else{$scope.statusManage.isManageDisabled= true;}
-
-
+    
   }])
   .filter('trust', function ($sce) {
   return function (val) {

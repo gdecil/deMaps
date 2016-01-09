@@ -1,3 +1,4 @@
+//Convert KML and GPX to GeoJSON.
 toGeoJSON = (function() {
     'use strict';
 

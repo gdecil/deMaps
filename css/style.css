@@ -73,6 +73,11 @@
 .gpx ul.info li { color: #666; padding: 2px; display: inline; }
 .gpx ul.info li span { color: black; }
 
+#mapRouting {
+  width: auto; 
+  height: 800px;
+}
+
 #linklocMod{
 	height: 54px;
 }

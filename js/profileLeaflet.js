@@ -12,17 +12,25 @@ var addProfile = function(urlFile, center){
           center: [center.lat, center.lng],
           zoom: 15
         });
-        var service = new L.TileLayer(urlLayer, {subdomains:"1234",attribution: attrLayer});
 
-        var geojson = toGeoJSON.gpx(data)
+        //definisce lo sfondo tile layer
+        var service = new L.TileLayer(urlLayer, {subdomains:"1234",attribution: attrLayer});
+        
+        //aggiunge il profilo
         var el = L.control.elevation();
         el.addTo(mapProfile);
+        
+        //aggiunge la traccia
+        var geojson = toGeoJSON.gpx(data)
         var gjl = L.geoJson(geojson,{
           onEachFeature: el.addData.bind(el)
         }).addTo(mapProfile);
 
-        mapProfile.addLayer(service)      
-        display_gpx(document.getElementById('tabs-2'), urlFile)
+        //aggiunge il tile layer
+        mapProfile.addLayer(service)   
+        
+        //aggiunge i dati alla base della finestra
+        display_gpx(document.getElementById('tabs-2'), urlFile, mapProfile)
       }
       catch(err) {
         aaa=1
@@ -41,20 +49,11 @@ var addProfile = function(urlFile, center){
 
 }
 
-var display_gpx = function (elt, url) {
+var display_gpx = function (elt, url, map) {
   if (!elt) return;
-
-  //  var url = elt.getAttribute('data-gpx-source');
-  //  var mapid = elt.getAttribute('data-map-target');
-  //  if (!url || !mapid) return;
 
   function _t(t) { return elt.getElementsByTagName(t)[0]; }
   function _c(c) { return elt.getElementsByClassName(c)[0]; }
-
-  //  var map = L.map(mapid);
-  //  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  //    attribution: 'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>'
-  //  }).addTo(map);
 
   new L.GPX(url, {
     async: true,
@@ -65,7 +64,6 @@ var display_gpx = function (elt, url) {
     },
   }).on('loaded', function(e) {
     var gpx = e.target;
-    //    mapProfile.fitBounds(gpx.getBounds());
 
     _t('h3').textContent = gpx.get_name();
     //          _c('start').textContent = gpx.get_start_time().toDateString() + ', '
@@ -83,5 +81,5 @@ var display_gpx = function (elt, url) {
                                         //          _c('elevation-net').textContent  = gpx.to_ft(gpx.get_elevation_gain()
                                         - gpx.get_elevation_loss()).toFixed(0);
   })
-    .addTo(mapProfile);
+    .addTo(map);
 }
