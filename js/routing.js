@@ -91,7 +91,8 @@ var routingInit = function(){
           }
           return cb(new Error());
         }
-        return cb(null, L.GeoJSON.geometryToLayer(geojson));
+        geoRoutingLayer = L.GeoJSON.geometryToLayer(geojson)
+        return cb(null, geoRoutingLayer);
       });
     }
 
@@ -123,6 +124,10 @@ var reduceHalfSize = function(a){
 }
 
 var routingCalc = function(routing){
+  //var map = mapRouting;
+  
+//  viewProfile(map);
+//  return;
   
   var geoJSON2D = routing.toGeoJSON(false);
   var coord = []
@@ -137,8 +142,7 @@ var routingCalc = function(routing){
   }
   while (a > 300);
 //    return;
-  
-  var map = mapRouting;
+    
 //  var geoJSON3D = routing.toGeoJSON();
   try {        
     //prende l'altitudine da servizio mapquest
@@ -159,10 +163,10 @@ var routingCalc = function(routing){
         geojson = createGeoJSON(data,coord)
         
         var el = L.control.elevation();
-        el.addTo(map);
+        el.addTo(mapRouting);
         var gjl = L.geoJson(geojson,{
             onEachFeature: el.addData.bind(el)
-        }).addTo(map);
+        }).addTo(mapRouting);
       }
     )
     .fail(function(err, x) {
@@ -196,28 +200,39 @@ var createGeoJSON = function(dataElevation, dataCoord){
   
   $.each(dataCoord, function( index, value ) {
     if (dataElevation.elevationProfile[index].height > 0){
-      var a = [dataCoord[index]["1"],dataCoord[index]["0"], dataElevation.elevationProfile[index].height];
+      var a = [dataCoord[index]["0"],dataCoord[index]["1"], dataElevation.elevationProfile[index].height];
       geojson.features[0].geometry.coordinates.push(a);          
     }
   });
   return geojson;
 }
 
-var viewProfile = function(geoJSON2D){
-  
-  //geoString = "{'type':'LineString','properties':{'waypoints':[{'coordinates':[7.065773,45.88461,2039],'_index':0},{'coordinates':[7.065182,45.883211,2013],'_index':3}]},'coordinates':[[7.065773,45.88461,2039],[7.065498,45.884098,2035],[7.065182,45.883211,2013]]}"
-    
-//  geoJSON2D = eval(geoString);
-  
-  geoJSON2D = eval({'type':'LineString','properties':{'waypoints':[{'coordinates':[7.065773,45.88461,2039],'_index':0},{'coordinates':[7.065182,45.883211,2013],'_index':3}]},'coordinates':[[7.065773,45.88461,2039],[7.065498,45.884098,2035],[7.065182,45.883211,2013]]})
+var viewProfile = function(map){
+ 
+//  geoJSON2D = eval({'type':'LineString','properties':{'waypoints':[{'coordinates':[7.065773,45.88461,2039],'_index':0},{'coordinates':[7.065182,45.883211,2013],'_index':3}]},'coordinates':[[7.065773,45.88461,2039],[7.065498,45.884098,2035],[7.065182,45.883211,2013]]})
                                                        
-                                                       
-  //aggiunge il profilo
-  var el = L.control.elevation();
-  el.addTo(mapRouting);
-
+ var geojson = {
+    "name":"NewFeatureType",
+    "type":"FeatureCollection",
+    "features":[
+      {
+        "type":"Feature",
+        "geometry":{
+          "type":"LineString",
+          "coordinates":[[7.065773,45.88461,2039],[7.065498,45.884098,2035],[7.065182,45.883211,2013]]
+        },
+        "properties":null
+      }
+    ]
+  };                                                      
+       var el = L.control.elevation();
+        el.addTo(map);
+        var gjl = L.geoJson(geojson,{
+            onEachFeature: el.addData.bind(el)
+        }).addTo(map);
+  
   //aggiunge i dati alla base della finestra
-  display_gpx(document.getElementById('tabs-6'), togpx(geoJSON2D), mapRouting)
+//  display_gpx(document.getElementById('tabs-6'), togpx(geoJSON2D), mapRouting)
 }  
 
 var testProfile = function(){
