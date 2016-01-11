@@ -1,5 +1,5 @@
 var routingInit = function(){
-  var gk, topo, thunderforest, osm, waymarkedtrails;
+  var gk, topo, thunderforest, osm, waymarkedtrails; 
 
     gk = 'http://opencache.statkart.no/gatekeeper/gk';
     topo = L.tileLayer(gk + '/gk.open_gmaps?layers=topo2&zoom={z}&x={x}&y={y}', {
@@ -37,8 +37,9 @@ var routingInit = function(){
     });
 
     L.control.layers({
-        'Topo (Kartverket)': topo,
+//        'Topo (Kartverket)': topo,
         'Landscape (Thunderforest)': thunderforest,
+        'OpenTopoMap': osmTopo,
         'OpenStreetMap': osm
     }, {
         'Hiking (Waymarked Trails)': waymarkedtrails
@@ -182,6 +183,77 @@ var routingCalc = function(routing){
   }  
 }
 
+var routingReport = function(){
+//            var txt = "<p><strong>Rifugio Walter Bonatti: lng 7.0336398237254905 lat 45.8469128</strong></p><br>"
+//          $('#routeData').prepend(txt)
+
+//  var gpxData = togpx(geojson);
+//  out = calculateDataFromGpx(gpxData);
+//  the.editor.setValue(JSON.stringify(out))
+//  beautify();
+  
+  var waypointsArray = routing.getWaypoints();
+//  the.editor.setValue(JSON.stringify(waypointsArray))
+//  beautify();
+  var elev = {}
+  elev.Elevation_Gain = elevationGain;
+  elev.Elevation_Loss = elevationLoss;
+  elev.Elevation_Net = elevationGain + elevationLoss
+
+  $('#ell').html(elevationLoss.toString());
+  $('#elg').html(elevationGain.toString());
+  $('#eln').html(elev.Elevation_Net.toString());
+  var tmp = [];
+  tmp.push(elev);
+  $.each(waypointsArray, function( index, value ) {
+    var url = "http://photon.komoot.de/reverse?lon="+ value.lng + "&lat=" + value.lat
+    var jqxhr = $.ajax({
+          url: url,
+          dataType: "json"
+        })
+        .done(function(data) {
+//          tmp = tmp.concat(eval(the.editor.getValue()));           
+          data.features[0].properties.coord=data.features[0].geometry.coordinates;
+          tmp=tmp.concat(data.features[0].properties);
+//          tmp= tmp.concat(data.features[0].properties).concat(data.features[0].geometry.coordinates)
+        })
+        .fail(function(err, x) {
+          alert( "error" );
+        })
+        .always(function(data) {
+          var txt = "<strong>" + data.features[0].properties.name +"</strong>" + "  Coord Lng Lat: <strong>" + data.features[0].properties.coord.toString() +"</strong><br>"
+          $('#routeData').prepend(txt)
+          the.editor.setValue(JSON.stringify(tmp))
+          beautify();          
+    //      alert( "complete" );
+        });    
+  });
+}
+
+var calculateDataFromGpx = function(gpxData){
+  var outGpxData = {};
+  
+  new L.GPX(gpxData, {async: true}).on('loaded', function(e) {
+    var gpx = e.target;
+
+    outData.name = gpx.get_name();
+    outData.start = gpx.get_start_time().toDateString() + ', ' + gpx.get_start_time().toLocaleTimeString();
+    outData.distance = gpx.get_distance().toFixed(2);
+    //          _c('distance').textContent = gpx.get_distance_imp().toFixed(2);
+    outData.duration = gpx.get_duration_string(gpx.get_moving_time());
+    outData.pace  = gpx.get_duration_string(gpx.get_moving_pace_imp(), true);
+    outData.avghr  = gpx.get_average_hr();
+    outData.elevation_gain = gpx.get_elevation_gain().toFixed(0);
+    outData.elevation_loss = gpx.get_elevation_loss().toFixed(0);
+    outData.elevation_net  = (gpx.get_elevation_gain()- gpx.get_elevation_loss()).toFixed(0);
+                                        //          _c('elevation-gain').textContent = gpx.to_ft(gpx.get_elevation_gain()).toFixed(0);
+                                        //          _c('elevation-loss').textContent = gpx.to_ft(gpx.get_elevation_loss()).toFixed(0);
+                                        //          _c('elevation-net').textContent  = gpx.to_ft(gpx.get_elevation_gain()
+                                            
+  })
+  return  outGpxData;
+}
+
 var createGeoJSON = function(dataElevation, dataCoord){
   var geojson = {
     "name":"NewFeatureType",
@@ -193,14 +265,28 @@ var createGeoJSON = function(dataElevation, dataCoord){
           "type":"LineString",
           "coordinates":[]
         },
-        "properties":null
+        "properties":"gpdc"
       }
     ]
   };
-  
+  elevationGain = 0;
+  elevationLoss = 0;
   $.each(dataCoord, function( index, value ) {
     if (dataElevation.elevationProfile[index].height > 0){
       var a = [dataCoord[index]["0"],dataCoord[index]["1"], dataElevation.elevationProfile[index].height];
+      var currentElev= dataElevation.elevationProfile[index].height;
+      if(index>0){
+        var oldElev = dataElevation.elevationProfile[index-1].height;    
+        if(currentElev>0 && oldElev >0){
+          var delta = currentElev - oldElev;
+          if (delta > 0){
+            elevationGain = elevationGain + delta;
+          }
+          else{
+            elevationLoss = elevationLoss + delta;
+          }          
+        }
+      }
       geojson.features[0].geometry.coordinates.push(a);          
     }
   });

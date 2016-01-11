@@ -179,7 +179,7 @@
     <div ui-layout  class="ng-cloak">      
       <div ui-layout-container> 
         <div ui-layout="{flow : 'column'}" >
-          <div ui-layout-container size="200px" class="SX" >
+          <div ui-layout-container class="SX" size="200px"  >
             <div class="accord">
               <accordion close-others="oneAtATime">
 
@@ -331,14 +331,23 @@
                 <accordion-group heading="Routing" panel-class="panel-danger">
                   <accordion-heading>Routing</i>
                   </accordion-heading>
-                  <div class="col-md-6">
+                  <div >
                     <p>
                       <a href="" class="btn btn-primary btn-xs pull-left" ng-click="routingStart()">Initialize</a>
-                      <a href="" class="btn btn-primary btn-xs pull-left" ng-click="routingCalc()">Calculate</a>
+                      <a href="" class="btn btn-primary btn-xs pull-left" ng-click="routingCalc()">Calculate</a><br>
                     </p>
                     <br>
                     <p>
                       <a href="" class="btn btn-primary btn-xs pull-left" ng-click="routingClear()">  Clear  </a>
+                      <a href="" class="btn btn-primary btn-xs pull-left" ng-click="routingReport()">  Report  </a>
+                    </p>
+                    <br>
+                    <div id ="routeData">
+                    </div>
+                    <p>
+                      <span class="label label-success">Elevation Loss:  </span><span id="ell" class="label label-success"></span><br>
+                      <span class="label label-danger">Elevation Gain:  </span><span id="elg" class="label label-danger"></span><br>
+                      <span class="label label-info">Elevation Net:  </span><span id="eln" class="label label-info"></span><br>
                     </p>
                   </div>
                 </accordion-group>

@@ -10,14 +10,24 @@ app
     //gestione routing
     $scope.routingStart = function(){
       routingInit();
-    }
-    
+    }    
     $scope.routingCalc = function(){
       routingCalc(routing);
     }
     $scope.routingClear = function(){
+      $scope.clearRoutData();
       mapRouting.remove()
       routingInit();
+    }
+    $scope.routingReport = function(){
+      $scope.clearRoutData();
+      routingReport();
+    }
+    $scope.clearRoutData = function(){
+      $('#ell').html("");
+      $('#elg').html("");
+      $('#eln').html("");
+      $('#routeData').html("");
     }
     
     //gestione authentication
@@ -61,7 +71,8 @@ app
     $scope.location_type= "";
     $scope.location = {
       type: '2. Cime'
-    };      
+    };  
+    
     //form
     $scope.master = {
       tipo:"Cime", 
@@ -86,7 +97,6 @@ app
         map.invalidateSize()
       });	
     }
-
     $scope.clear = function() {
       $scope.master = {
         tipo:"", 
@@ -107,7 +117,6 @@ app
     //form end
 
     //upload file
-
     $scope.uploadPic = function(file) {
       var locr = {
         "name" : file.name
@@ -145,7 +154,6 @@ app
         }
       });      
     }    
-
     var checkFile = function(fileName){
       var locr = {
         "name" : fileName
@@ -160,7 +168,6 @@ app
         alert(response)
       });      
     }
-
     //upload file end
 
     //tree filter
@@ -302,10 +309,7 @@ app
     //end centratura mappa
 
     //geocoding
-    $scope.address =
-      {
-      name: "Milano"
-    }	
+    $scope.address = {name: "Milano"}	
 
     // layer track e profile e photo		
     var addLayer = function(url){
@@ -403,7 +407,7 @@ app
         }              
       }
     }
-    // layer track e profile
+    // end layer track e profile
 
     //providers
     angular.extend($scope, {

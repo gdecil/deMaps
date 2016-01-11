@@ -49,6 +49,11 @@ COSA FA
     2. visualize in tab photos (Photo checkbox)        
       1. link to Picasa album with geotag 
       2. local repository (imagine + thumbnail + file with geotag)
+      
+8. Routing
+    1. Definizione dei percorsi
+    2. Calcolo del profilo altimetrico
+    3. Visualizzazione report 
           
 demo
 http://gdecil.mooo.com/deMaps
