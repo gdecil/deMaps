@@ -90,3 +90,17 @@ h3 .btn-group { display: inline-block; }
 .panel-group {
   width: 700px;
 }
+.panel-body {
+    padding: 5px;
+}
+#routing .btn, #routing .btn-xs {
+    padding: 1px 1px;
+}
+.grid {
+  width: 660px;
+  height: 300px;
+}
+
+.header-filtered {
+  color: blue;
+}

@@ -6,16 +6,16 @@ var url = require('url');
 var http = require('http');
 var sizeOf = require('image-size');
 
-var upload 	= multer({ 
+var upload = multer({
   dest: './uploads/',
-  rename: function (fieldname, filename) {
+  rename: function(fieldname, filename) {
     return filename;
-    //		return filename+Date.now();
+    //    return filename+Date.now();
   },
-  onFileUploadStart: function (file) {
+  onFileUploadStart: function(file) {
     console.log(file.originalname + ' is starting ...');
   },
-  onFileUploadComplete: function (file) {
+  onFileUploadComplete: function(file) {
     console.log(file.fieldname + ' uploaded to  ' + file.path)
   }
 });
@@ -26,22 +26,33 @@ var upload 	= multer({
 router.get('/maps', function(req, res) {
   var db = req.db;
   var collection = db.get('maps');
-  collection.find({},{sort: {title: 1, "items.title": 1}},function(e,docs){
+  collection.find({}, {
+    sort: {
+      title: 1,
+      "items.title": 1
+    }
+  }, function(e, docs) {
     res.json(docs);
   });
 });
-
+router.get('/percorsi', function(req, res) {
+  var db = req.db;
+  var collection = db.get('percorsi');
+  collection.find({}, function(e, docs) {
+    res.json(docs);
+  });
+});
 router.get('/imageSize', function(req, res) {
   var url_parts = url.parse(req.url, true);
   var query = url_parts.query;
 
   var imgUrl = query;
   //  res.json(imgUrl);
-  var options = url.parse(imgUrl.photo.replace(/\"/g, "") );
+  var options = url.parse(imgUrl.photo.replace(/\"/g, ""));
   //  var options = url.parse("http://4.bp.blogspot.com/-WmAjl7SnWwQ/VLPV2ouRPVI/AAAAAAAAajA/iFiBeGAcR1Q/s1600/foglia%2Bstretta.png");
-  http.get(options, function (response) {
+  http.get(options, function(response) {
     var chunks = [];
-    response.on('data', function (chunk) {
+    response.on('data', function(chunk) {
       chunks.push(chunk);
     }).on('end', function() {
       var buffer = Buffer.concat(chunks);
@@ -59,20 +70,18 @@ router.post('/find', function(req, res) {
   var collection = db.get('maps');
   var locr = req.body;
   //  res.json('items.$ -_id');
-  if (locr.limit=="subd"){
+  if (locr.limit == "subd") {
     var subD = 'items.$ -_id';
-  }
-  else{
+  } else {
     var subD = locr.limit;
   }
 
   collection.find(
     locr.query,
     subD,
-    function(e,docs){
+    function(e, docs) {
       res.json(docs);
     });
-
 });
 
 router.post('/createNewDb', function(req, res) {
@@ -80,21 +89,29 @@ router.post('/createNewDb', function(req, res) {
   var collection = db.get('maps');
   var locr = req.body;
 
-  collection.update(
-    { "id" : parseInt(locr.root) }, 
-    { 
-      $push: { items: locr.loc}
+  collection.update({
+      "id": parseInt(locr.root)
+    }, {
+      $push: {
+        items: locr.loc
+      }
+    }, {
+      upsert: true
     },
-    { upsert : true },
     function(error, result) {
-      if(error) { 
-        console.error(error); return; 
+      if (error) {
+        console.error(error);
+        return;
       }
       res.send(
-        (error === null) ? { msg: '' } : { msg: error }
+        (error === null) ? {
+          msg: ''
+        } : {
+          msg: error
+        }
       );
     }
-  );  
+  );
 });
 
 //https://mongodb.github.io/node-mongodb-native/api-generated/collection.html#update
@@ -113,52 +130,107 @@ router.post('/addlocation', function(req, res) {
   var collection = db.get('maps');
   var locr = req.body;
 
-  collection.update(
-    { "id" : parseInt(locr.root) }, 
-    { 
-      $push: { items: locr.loc}
+  collection.update({
+      "id": parseInt(locr.root)
+    }, {
+      $push: {
+        items: locr.loc
+      }
+    }, {
+      upsert: true
     },
-    { upsert : true },
     function(error, result) {
-      if(error) { 
-        console.error(error); return; 
+      if (error) {
+        console.error(error);
+        return;
       }
       res.send(
-        (error === null) ? { msg: '' } : { msg: error }
+        (error === null) ? {
+          msg: ''
+        } : {
+          msg: error
+        }
       );
     }
-  );  
+  );
 });
 
+router.post('/addPercorso', function(req, res) {
+  var db = req.db;
+  var collection = db.get('percorsi');
+  var percorso = req.body;
+
+  collection.insert(
+    percorso,
+    function(error, result) {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      res.send(
+        (error === null) ? {
+          msg: 'ok'
+        } : {
+          msg: error
+        }
+      );
+    }
+  );
+});
+router.post('/removePercorso', function(req, res) {
+  var db = req.db;
+  var perc = db.get('percorsi');
+  var locr = req.body;
+
+  perc.remove({ name: locr.name }, function (err) {
+    if (err == null) {
+      return res.end("ok");
+    }
+    else {
+      throw err;
+    } ;
+  });
+
+});
 //https://mongodb.github.io/node-mongodb-native/api-generated/collection.html#update
 router.post('/removelocation', function(req, res) {
   var db = req.db;
   var col = db.get('maps');
   var locr = req.body;
 
-  col.update(
-    { "id" : parseInt(locr.root) }, 
-    { 
-      $pull: { items: { title: locr.loc }}
+  col.update({
+      "id": parseInt(locr.root)
+    }, {
+      $pull: {
+        items: {
+          title: locr.loc
+        }
+      }
+    }, {
+      remove: true
     },
-    { remove : true },
     function(error, result) {
-      if(error) { 
-        console.error(error); return; 
+      if (error) {
+        console.error(error);
+        return;
       }
       res.send(
-        (error === null) ? { msg: '' } : { msg: error }
+        (error === null) ? {
+          msg: ''
+        } : {
+          msg: error
+        }
       );
     }
-  );  
+  );
 });
 
 router.post('/checkFile', function(req, res) {
   var locr = req.body;
   fs.stat("./uploads/" + locr.name, function(err, stat) {
-    if(err == null) {
+    if (err == null) {
       return res.end("true");
-    } else if(err.code == 'ENOENT') {
+    } else if (err.code == 'ENOENT') {
       return res.end("false");
     } else {
       console.log('Some other error: ', err.code);
@@ -167,9 +239,9 @@ router.post('/checkFile', function(req, res) {
   });
 });
 
-router.post('/api/uploadFile',function(req,res){  
-  upload(req,res,function(err) {
-    if(err) {
+router.post('/api/uploadFile', function(req, res) {
+  upload(req, res, function(err) {
+    if (err) {
       return res.end("Error uploading file.");
     }
     res.end("File is uploaded");
