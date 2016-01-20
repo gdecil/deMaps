@@ -12,7 +12,6 @@ app
 
         //gestione routing
         percorso = {};
-//        percorso.name = "test0";
         percorso.waypointsInfo = [];
         $scope.routingStart = function() {
             routingInit();
@@ -63,157 +62,8 @@ app
             $('#ell').html("");
             $('#elg').html("");
             $('#eln').html("");
-            $('#routeData').html("");
+            $("#routeData ol li").remove();
         };
-        /*        //ui-grid
-                var today = new Date();
-                var nextWeek = new Date();
-                nextWeek.setDate(nextWeek.getDate() + 7);
-                $scope.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
-                    if (col.filters[0].term) {
-                        return 'header-filtered';
-                    } else {
-                        return '';
-                    }
-                };
-
-                $scope.gridOptions = {
-                    enableFiltering: true,
-                    enableRowSelection: true, 
-                    enableRowHeaderSelection: false,
-                    onRegisterApi: function(gridApi) {
-                        $scope.gridApi = gridApi;
-                    },
-                    columnDefs: [
-                        // default
-                        {
-                            field: 'name',
-                            headerCellClass: $scope.highlightFilteredHeader
-                        }
-                    ]
-                };
-
-                $scope.gridOptions.multiSelect = false;
-                $scope.gridOptions.modifierKeysToMultiSelect = false;
-                $scope.gridOptions.noUnselect = true;
-                $scope.gridOptions.onRegisterApi = function( gridApi ) {
-                  $scope.gridApi = gridApi;
-                };*/
-
-        /*        $scope.gridOptions = {
-                    enableFiltering: true,
-                    onRegisterApi: function(gridApi) {
-                        $scope.gridApi = gridApi;
-                    },
-                    columnDefs: [
-                        // default
-                        {
-                            field: 'name',
-                            headerCellClass: $scope.highlightFilteredHeader
-                        },
-                        // pre-populated search field
-                        {
-                            field: 'gender',
-                            filter: {
-                                term: '1',
-                                type: uiGridConstants.filter.SELECT,
-                                selectOptions: [{
-                                    value: '1',
-                                    label: 'male'
-                                }, {
-                                    value: '2',
-                                    label: 'female'
-                                }, {
-                                    value: '3',
-                                    label: 'unknown'
-                                }, {
-                                    value: '4',
-                                    label: 'not stated'
-                                }, {
-                                    value: '5',
-                                    label: 'a really long value that extends things'
-                                }]
-                            },
-                            cellFilter: 'mapGender',
-                            headerCellClass: $scope.highlightFilteredHeader
-                        },
-                        // no filter input
-                        {
-                            field: 'company',
-                            enableFiltering: false,
-                            filter: {
-                                noTerm: true,
-                                condition: function(searchTerm, cellValue) {
-                                    return cellValue.match(/a/);
-                                }
-                            }
-                        },
-                        // specifies one of the built-in conditions
-                        // and a placeholder for the input
-                        {
-                            field: 'email',
-                            filter: {
-                                condition: uiGridConstants.filter.ENDS_WITH,
-                                placeholder: 'ends with'
-                            },
-                            headerCellClass: $scope.highlightFilteredHeader
-                        },
-                        // custom condition function
-                        {
-                            field: 'phone',
-                            filter: {
-                                condition: function(searchTerm, cellValue) {
-                                    var strippedValue = (cellValue + '').replace(/[^\d]/g, '');
-                                    return strippedValue.indexOf(searchTerm) >= 0;
-                                }
-                            },
-                            headerCellClass: $scope.highlightFilteredHeader
-                        },
-                        // multiple filters
-                        {
-                            field: 'age',
-                            filters: [{
-                                condition: uiGridConstants.filter.GREATER_THAN,
-                                placeholder: 'greater than'
-                            }, {
-                                condition: uiGridConstants.filter.LESS_THAN,
-                                placeholder: 'less than'
-                            }],
-                            headerCellClass: $scope.highlightFilteredHeader
-                        },
-                        // date filter
-                        {
-                            field: 'mixedDate',
-                            cellFilter: 'date',
-                            width: '15%',
-                            filter: {
-                                condition: uiGridConstants.filter.LESS_THAN,
-                                placeholder: 'less than',
-                                term: nextWeek
-                            },
-                            headerCellClass: $scope.highlightFilteredHeader
-                        }, {
-                            field: 'mixedDate',
-                            displayName: "Long Date",
-                            cellFilter: 'date:"longDate"',
-                            filterCellFiltered: true,
-                            width: '15%',
-                        }
-                    ]
-                };*/
-
-        /*        $http.get('https://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/data/500_complex.json')
-                    .success(function(data) {
-                        $scope.gridOptions.data = data;
-                        $scope.gridOptions.data[0].age = -5;
-
-                        data.forEach(function addDates(row, index) {
-                            row.mixedDate = new Date();
-                            row.mixedDate.setDate(today.getDate() + (index % 14));
-                            row.gender = row.gender === 'male' ? '1' : '2';
-                        });
-                    });*/
-
         $scope.toggleFiltering = function() {
             $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
             $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
@@ -397,6 +247,9 @@ app
                 lng: 9.387509,
                 zoom: 8
             };
+        }
+        centerMap = function (lat,lng,zoom){
+          mapRouting.setView(new L.LatLng(lat, lng), zoom);
         }
         //form update   
         $scope.changeLocation = function(centerHash) {
@@ -833,38 +686,8 @@ app
             var scope = getRootNodesScope();
             scope.expandAll();
         };
-
-        //load and save
-/*        var savePercorso = function(percorso, flagIns) {
-
-            $.ajax({
-                type: 'POST',
-                data: JSON.stringify(percorso),
-                url: server + 'users/addpercorso',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json"
-            }).done(function(response) {
-                // Check for successful (blank) response
-                if (response.msg === '') {
-                    if (flagIns) {
-                        alert("Route added");
-                    } else {
-                        alert("Route updated");
-                    }
-
-                } else {
-                    // If something goes wrong, alert the error message that our service returned
-                    alert('Error: ' + response.msg);
-
-                }
-            });
-        };
-*/
-
         $scope.viewDataMongo = function() {
-            //      $('#tabs-5').html(JSON.stringify($scope.list,null,2))
             the.editor.setValue(JSON.stringify($scope.list, null, 2));
-            //$('#source').val($scope.list)
             beautify();
         };
 
@@ -892,7 +715,6 @@ app
 
                 }
             });
-
         };
 
         $scope.createDbMongo = function() {
@@ -1470,7 +1292,6 @@ app
             $scope.statusManage.isManageDisabled = true;
         }
     }])
-//    .controller('gridRoutCtrl', ['$scope', '$http', '$interval', 'uiGridConstants', function ($scope, $http, $interval, uiGridConstants) {
     .controller('gridRoutCtrl', ['$scope', 'uiGridConstants', 'percorsiService' , function ($scope, uiGridConstants, percorsiService) {
       function rowTemplate() {
         return '<div ng-click="grid.appScope.rowDblClick(row)" >' +
@@ -1480,7 +1301,6 @@ app
 
       $scope.rowDblClick = function( row) {
         viewPercorso(row.entity);
-//        alert(JSON.stringify(row.entity)); 
       };    
 
       $scope.gridOptions = { 
@@ -1491,10 +1311,7 @@ app
       };
 
       $scope.gridOptions.columnDefs = [
-//        { name: 'id' },
         { name: 'name'}
-//        { name: 'age', displayName: 'Age (not focusable)', allowCellFocus : false },
-//        { name: 'address.city' }
       ];
 
       $scope.gridOptions.multiSelect = false;
@@ -1502,21 +1319,10 @@ app
       $scope.gridOptions.noUnselect = true;
       $scope.gridOptions.onRegisterApi = function( gridApi ) {
         $scope.gridApi = gridApi;
-/*        gridApi.selection.on.rowSelectionChanged($scope,function(row){
-          if (percorsiFound===true) {
-            // per evitare l'evento iniziale
-            percorsiFound=false;
-            return
-          };
-          var msg = 'row selected ' + row.isSelected;
-          viewPercorso(row.entity);
-        });
-*/      };
-
+      };
       function applyRemoteData( newPercorsi ) {
           $scope.gridOptions.data = newPercorsi;
       };
-
       $scope.loadRemoteData = function() {
         percorsiService.getPercorsi()
           .then(
@@ -1527,7 +1333,6 @@ app
           )
         ;
       };
-
       $scope.routingEliminaPercorso = function() {
         var selRow = $scope.gridApi.selection.getSelectedRows();
         percorsiService.delPercorso(selRow[0].name)
@@ -1540,23 +1345,7 @@ app
           )
         ;
       };
-
       $scope.loadRemoteData();
-
-/*      $scope.toggleRowSelection = function() {
-        $scope.gridApi.selection.clearSelectedRows();
-        $scope.gridOptions.enableRowSelection = !$scope.gridOptions.enableRowSelection;
-        $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.OPTIONS);
-      };
-
-      $http.get('https://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/data/500_complex.json')
-        .success(function(data) {
-          percorsiFound = true;
-          $scope.gridOptions.data = data;
-
-          // $interval whilst we wait for the grid to digest the data we just gave it
-          $interval( function() {$scope.gridApi.selection.selectRow($scope.gridOptions.data[0]);}, 0, 1);
-        });*/
     }])
     .filter('trust', function($sce) {
         return function(val) {
