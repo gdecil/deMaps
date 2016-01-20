@@ -10,19 +10,31 @@ app
         });
         var noConfirm = false;
 
+        var definePercorso = function(){
+          var percorso = {};
+          percorso.waypointsInfo = [];
+          percorso.waypointsGeo = [];      
+          return percorso;    
+        }
         //gestione routing
-        percorso = {};
-        percorso.waypointsInfo = [];
+        elevationGain = 0;
+        elevationLoss = 0;
+        percorso = definePercorso();
         $scope.routingStart = function() {
             routingInit();
         };
         $scope.routingCalc = function() {
             routingCalc(routing);
         };
+        waypointCount = 0;
         $scope.routingClear = function() {
-            $scope.clearRoutData();
-            mapRouting.remove();
-            routingInit();
+          percorso = definePercorso();
+          waypointCount = 0;
+          $('#currentPercorso').html("");
+          $("#routeData").html("");
+          $scope.clearRoutData();
+          mapRouting.remove();
+          routingInit();
         };
         $scope.routingReport = function() {
             $scope.clearRoutData();
@@ -35,7 +47,9 @@ app
             routing.draw(false);
         };
         $scope.routingEliminaPercorso = function() {
-          angular.element($('#gridPercorsi')).scope().routingEliminaPercorso();
+          $scope.currentPercorso = $('#currentPercorso')[0].innerText; 
+          $scope.openDeletePercorso();
+          $('#percorsoMod').html($('#currentPercorso')[0].innerText);         
         };
         $scope.routingSalvaPercorso = function(nameValue) {
           percorso.name = nameValue;
@@ -51,12 +65,6 @@ app
         };
         $scope.routingTest = function() {
             $scope.clearRoutData();
-
-            // var waypoints = [];
-            // waypoints.push([45.86240076372395, 7.00253963470459]);
-            // waypoints.push([45.8468581031894, 7.0336103439331055]);
-            // waypoints.push([45.82299764885701, 7.019619941711426]);
-            //          savePercorso(percorso,true);       
         };
         $scope.clearRoutData = function() {
             $('#ell').html("");
@@ -70,6 +78,17 @@ app
         };
 
         //gestione route dialog
+        $scope.openDeletePercorso = function() {
+            ngDialog.openConfirm({
+                template: 'modalDialogDeletePercorso',
+                className: 'ngdialog-theme-default'
+            }).then(function() {
+              angular.element($('#gridPercorsi')).scope().routingEliminaPercorso();
+            }, function(reason) {
+                console.log('Modal promise rejected. Reason: ', reason);
+            });
+        };
+
         $scope.openRouteName = function() {
             ngDialog.openConfirm({
                 template: 'modalDialogNamePercorso',
@@ -104,9 +123,11 @@ app
             ngDialog.openConfirm({
                 template: 'modalDialogLocationId',
                 className: 'ngdialog-theme-default'
-            }).then(function(userValue) {}, function(reason) {
-                console.log('Modal promise rejected. Reason: ', reason);
-            });
+            }).then(function(userValue) {}, 
+              function(reason) {
+                  console.log('Modal promise rejected. Reason: ', reason);
+              }
+            );
         };
 
         $scope.statusManage = {
@@ -1300,6 +1321,7 @@ app
       }
 
       $scope.rowDblClick = function( row) {
+        $('#currentPercorso').html(row.entity.name)
         viewPercorso(row.entity);
       };    
 

@@ -43,10 +43,7 @@ app.service(
         method: "post",
         url: server + 'users/addPercorso',
         data: JSON.stringify(percorso)
-/*        ,params: {
-          action: "post"
-        }
-*/      });
+      });
       return (request.then(handleSuccess, handleError));
     };    
 
@@ -55,15 +52,6 @@ app.service(
           "name": name
       };      
       var request = $http.post(server + 'users/removePercorso', locr);
-/*
-      var request = $http({
-        method: "post",
-        url: server + 'users/removePercorso',
-        data: name
-       ,params: {
-          action: "post"
-        }
-      });*/
       return (request.then(handleSuccess, handleError));
     };
 
@@ -88,12 +76,6 @@ var mapProfile;
 $(function() {
   $("#tabs").tabs();
 });
-
-//$('.treeOpen').on("click",function(){
-//  alert('rrrrr')
-//  var usersid =  $(this).attr("id");
-//  //post code
-//})
 
 var selectTree = function(id) {
   document.getElementById("treeFilter").focus();
@@ -158,5 +140,4 @@ var openLocation = function(id) {
       });
 
     })
-    //  $scope.openConfirm();
 }
