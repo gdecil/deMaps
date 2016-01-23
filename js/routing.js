@@ -168,7 +168,7 @@ var routingCalc = function(routing) {
     throw err;
   }
 }
-var routingReport = function() {
+var routingReport = function(percorsiService, $q) {
   var waypointsArray = routing.getWaypoints();
   percorso.waypointsGeo = [];
   waypointCount = 0;
@@ -192,7 +192,62 @@ var routingReport = function() {
     $("#routeData").append('<div id = "wp' + index + '"></div>');
   });
 
+  // $.each(waypointsArray, function(index, value) {
+  //   percorso.waypoints[index] = [value.lat, value.lng];
+  //   var url = "http://photon.komoot.de/reverse?lon=" + value.lng + "&lat=" + value.lat
+  //   percorsiService.getService(url)
+  //     .then(
+  //       function( data ) {
+  //         data.features[0].properties.coord = data.features[0].geometry.coordinates;
+  //         tmp = tmp.concat(data.features[0].properties);
+  //         percorso.waypointsInfo[index] = data.features[0].properties.name;
+  //         var lat = data.features[0].properties.coord[1];
+  //         var lng = data.features[0].properties.coord[0];
+  //         var nameWp = data.features[0].properties.name;
+  //         if (percorso.waypoints.length - 1 > index) {
+  //           var dist = percorso.waypointsGeo[index].properties.distance;
+  //           var distC = "....Distanza: " + dist;
+  //         } else {
+  //           var distC = "";
+  //         };
+  //         var nWp = index + 1;
+  //         var coordString = '....Lat: <small>' + lat.toFixed(5) + '</small>  Lng: <small>' + lng.toFixed(5) + '</small><br>    ' + distC + '<br>'
+  //         $("#wp" + index).html('<strong>' + nWp + '.</strong>   <button onclick="centerMap(' + lat + ',' + lng + ',15)"> <strong>' + nameWp + '</strong></button><br>' + coordString);
+  //       }
+  //     )
+  //   ;
+  // });
+  var promises = [];
   $.each(waypointsArray, function(index, value) {
+    percorso.waypoints[index] = [value.lat, value.lng];
+    var url = "http://photon.komoot.de/reverse?lon=" + value.lng + "&lat=" + value.lat    
+    promises.push(percorsiService.getService(url));
+  });
+
+  $q.all(promises).then(function success(data){
+        console.log(data); 
+    $.each(data, function(index, value) {
+      value.features[0].properties.coord = value.features[0].geometry.coordinates;
+      tmp = tmp.concat(value.features[0].properties);
+      percorso.waypointsInfo[index] = value.features[0].properties.name;
+      var lat = value.features[0].properties.coord[1];
+      var lng = value.features[0].properties.coord[0];
+      var nameWp = value.features[0].properties.name;
+      if (percorso.waypoints.length - 1 > index) {
+        var dist = percorso.waypointsGeo[index].properties.distance;
+        var distC = "....Distanza: " + dist;
+      } else {
+        var distC = "";
+      };
+      var nWp = index + 1;
+      var coordString = '....Lat: <small>' + lat.toFixed(5) + '</small>  Lng: <small>' + lng.toFixed(5) + '</small><br>    ' + distC + '<br>';
+         $("#wp" + index).html('<strong>' + nWp + '.</strong>   <button onclick="centerMap(' + lat + ',' + lng + ',15)"> <strong>' + nameWp + '</strong></button><br>' + coordString);
+    });
+
+  }), function failure(err){
+        // Can handle this is we want
+  };
+/*  $.each(waypointsArray, function(index, value) {
     percorso.waypoints[index] = [value.lat, value.lng];
     var url = "http://photon.komoot.de/reverse?lon=" + value.lng + "&lat=" + value.lat
     var jqxhr = $.ajax({
@@ -218,9 +273,12 @@ var routingReport = function() {
           var distC = "";
         };
         var nWp = index + 1;
-        $("#wp" + index).html('<strong>' + nWp + '.</strong>   <button onclick="centerMap(' + lat + ',' + lng + ',15)"> <strong>' + nameWp + '</strong></button>' + '     Lat: <small>' + lat.toFixed(5) + '</small>  Lng: <small>' + lng.toFixed(5) + '</small><br>    ' + distC + '<br>');
+        var coordString = '....Lat: <small>' + lat.toFixed(5) + '</small>  Lng: <small>' + lng.toFixed(5) + '</small><br>    ' + distC + '<br>'
+        $("#wp" + index).html('<strong>' + nWp + '.</strong>   <button onclick="centerMap(' + lat + ',' + lng + ',15)"> <strong>' + nameWp + '</strong></button><br>' + coordString);
+
+        // $("#wp" + index).html('<strong>' + nWp + '.</strong>   <button onclick="centerMap(' + lat + ',' + lng + ',15)"> <strong>' + nameWp + '</strong></button>' + '     Lat: <small>' + lat.toFixed(5) + '</small>  Lng: <small>' + lng.toFixed(5) + '</small><br>    ' + distC + '<br>');
       });
-  });
+  });*/
 }
 var calculateDataFromGpx = function(gpxData) {
   var outGpxData = {};
@@ -283,35 +341,6 @@ var createGeoJSON = function(dataElevation, dataCoord) {
   percorso.geojson = geojson;
   return geojson;
 }
-var viewProfile = function(map) {
-
-  //  geoJSON2D = eval({'type':'LineString','properties':{'waypoints':[{'coordinates':[7.065773,45.88461,2039],'_index':0},{'coordinates':[7.065182,45.883211,2013],'_index':3}]},'coordinates':[[7.065773,45.88461,2039],[7.065498,45.884098,2035],[7.065182,45.883211,2013]]})
-
-  var geojson = {
-    "name": "NewFeatureType",
-    "type": "FeatureCollection",
-    "features": [{
-      "type": "Feature",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [7.065773, 45.88461, 2039],
-          [7.065498, 45.884098, 2035],
-          [7.065182, 45.883211, 2013]
-        ]
-      },
-      "properties": null
-    }]
-  };
-  var el = L.control.elevation();
-  el.addTo(map);
-  var gjl = L.geoJson(geojson, {
-    onEachFeature: el.addData.bind(el)
-  }).addTo(map);
-
-  //aggiunge i dati alla base della finestra
-  //  display_gpx(document.getElementById('tabs-6'), togpx(geoJSON2D), mapRouting)
-}
 var viewPercorso = function(percorso) {
   var prev = null;
   for (var i = 0; i < percorso.waypoints.length; i++) {
@@ -350,7 +379,8 @@ var viewPercorso = function(percorso) {
       var distC = "";
     };
     var nWp = i + 1;
-    $("#wp" + i).html('<strong>' + nWp + '.</strong>   <button onclick="centerMap(' + lat + ',' + lng + ',15)"> <strong>' + nameWp + '</strong></button>' + '     Lat: <small>' + lat.toFixed(5) + '</small>  Lng: <small>' + lng.toFixed(5) + '</small><br>    ' + distC + '<br>');
+    var coordString = '....Lat: <small>' + lat.toFixed(5) + '</small>  Lng: <small>' + lng.toFixed(5) + '</small><br>    ' + distC + '<br>'
+    $("#wp" + i).html('<strong>' + nWp + '.</strong>   <button onclick="centerMap(' + lat + ',' + lng + ',15)"> <strong>' + nameWp + '</strong></button><br>' + coordString);
 
 
     // $("#routeData ol").prepend('<li> <button onclick="centerMap(' + percorso.waypoints[i][0] + ',' + percorso.waypoints[i][1] + ',15)"> <strong>' + percorso.waypointsInfo[i] + '</strong></button>' + '     Lat: <small>' + percorso.waypoints[i][0].toFixed(5) + '</small>  Lng: <small>' + percorso.waypoints[i][1].toFixed(5) + '</small></li>');

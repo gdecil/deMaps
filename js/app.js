@@ -18,14 +18,27 @@ app.config(['ngDialogProvider', function(ngDialogProvider) {
   });
 }]);
 
-app.service(
+app
+.service(
   "percorsiService",
   function($http, $q) {
     return ({
+      getService: getService,
       getPercorsi: getPercorsi,
       addPercorso: addPercorso,
       delPercorso: delPercorso
     });
+
+    function getService(url) {
+      var request = $http({
+        method: "get",
+        url: url,
+        params: {
+          action: "get"
+        }
+      });
+      return (request.then(handleSuccess, handleError));
+    };
 
     function getPercorsi() {
       var request = $http({
@@ -68,7 +81,40 @@ app.service(
       return (response.data);
     }
   }
-);
+)
+.directive('helloWorld', function() {
+  return {
+      restrict: 'AE',
+      replace: 'true',
+      template: '<h3><p align="center" style="background-color:{{color}}">deMaps</p></h3>',
+      link: function(scope, elem, attrs) {
+        elem.bind('click', function() {
+          elem.css('background-color', 'yellow');
+          scope.$apply(function() {
+            scope.color = "yellow";
+          });
+        });
+        elem.bind('mouseover', function() {
+          elem.css('cursor', 'pointer');
+        });
+      }      
+  };
+})
+.directive('resizeMap', function () {
+//    alert('test');
+    return {
+      restrict: 'AE',
+      // scope: {},
+      link: function(scope, elem, attrs) {
+        elem.bind('mouseover', function() {
+          var h = elem[0].parentElement.parentElement.parentElement.clientHeight - 35;
+          var w = elem[0].parentElement.parentElement.parentElement.clientWidth - 5;
+          elem.css('height', h + 'px');
+          elem.css('width', w + 'px');
+        });
+      }
+    };
+  });
 
 var mapPhoto;
 var mapProfile;

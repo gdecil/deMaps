@@ -1,6 +1,6 @@
 //"use strict";
 app
-    .controller('MainController', ['$filter', '$scope', 'places', '$location', 'leafletData', 'ngDialog', 'Upload', '$timeout', 'uiGridConstants', '$http', 'percorsiService', function($filter, $scope, places, $location, leafletData, ngDialog, Upload, $timeout, uiGridConstants, $http, percorsiService) {
+    .controller('MainController', ['$filter', '$scope', 'places', '$location', 'leafletData', 'ngDialog', 'Upload', '$timeout', 'uiGridConstants', '$http', '$q', 'percorsiService', function($filter, $scope, places, $location, leafletData, ngDialog, Upload, $timeout, uiGridConstants, $http, $q, percorsiService) {
         var markers = [];
         var markersSearch = [];
         var markersLocation = [];
@@ -23,6 +23,9 @@ app
         $scope.routingStart = function() {
             routingInit();
         };
+        $scope.routingCenter = function() {
+            mapRouting.setView(new L.LatLng($scope.mapCenter.lat, $scope.mapCenter.lng), 14);
+        };
         $scope.routingCalc = function() {
             routingCalc(routing);
         };
@@ -38,7 +41,7 @@ app
         };
         $scope.routingReport = function() {
             $scope.clearRoutData();
-            routingReport();
+            routingReport(percorsiService, $q);
         };
         $scope.routingDraw = function() {
             routing.draw(true);
@@ -1327,6 +1330,7 @@ app
 
       $scope.gridOptions = { 
         enableFiltering: true,
+        jqueryUITheme: true,
         rowTemplate: rowTemplate(),
         enableRowSelection: true, 
         enableRowHeaderSelection: false 

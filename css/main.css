@@ -87,8 +87,9 @@ form .progress {
 
 h3 .btn-group { display: inline-block; }
 
+/*.panel-group width condiziona .grid e #tree-root (-20px)  */
 .panel-group {
-  width: 700px;
+  width: 310px;
 }
 .panel-body {
     padding: 5px;
@@ -96,11 +97,18 @@ h3 .btn-group { display: inline-block; }
 #routing .btn, #routing .btn-xs {
     padding: 1px 1px;
 }
+/*.grid {
+  width: inherit;
+  height: inherit;
+}*/
 .grid {
-  width: 660px;
+  width: 290px;
   height: 300px;
 }
-
 .header-filtered {
   color: blue;
+}
+
+#tree-root {
+  width: 280px;
 }

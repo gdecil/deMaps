@@ -4,7 +4,8 @@
 <head>
     <link rel="icon" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="js/vendor/jquery-ui/themes/smoothness/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="js/vendor/jquery-ui/themes/smoothness/jquery-ui.css"> -->
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/overcast/jquery-ui.css" />
     <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet" />
@@ -28,7 +29,6 @@
     <script src="js/vendor/angular-ui-utils/angular-animate.js"></script>
     -->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.2/ui-bootstrap-tpls.js"></script>-->
-
     <!--<script src="js/vendor/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>-->
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.0.3.js"></script>
     <script type="application/javascript" src="js/vendor/angular-ui-utils/ui-layout.js"></script>
@@ -87,14 +87,12 @@
     <link rel="stylesheet" href="css/ngDialog/ngDialog-theme-default.css">
     <link rel="stylesheet" href="css/ngDialog/ngDialog-theme-plain.css">
     <link rel="stylesheet" href="css/ngDialog/ngDialog-custom-width.css">
-    
     <!--ui-grid-->
     <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
     <script src="http://ui-grid.info/release/ui-grid.js"></script>
     <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">
-
 </head>
 
 <body ng-controller="MainController" ng-init="dim=true; highlight=true">
@@ -208,6 +206,7 @@
         <div ui-layout-container>
             <div ui-layout="{flow : 'column'}">
                 <div ui-layout-container class="SX" size="200px">
+                    <div x-hello-world></div>
                     <div class="accord">
                         <uib-accordion close-others="oneAtATime">
                             <uib-accordion-group heading="Coordinate" panel-class="panel-danger">
@@ -301,10 +300,13 @@
                             <uib-accordion-group heading="Locations" is-open="status.open" panel-class="panel-danger">
                                 <uib-accordion-heading>Locations</i>
                                 </uib-accordion-heading>
-                                <div class="col-md-6">
-                                    <a href="" class="btn btn-primary btn-xs pull-left" ng-click="collapseAll()">Collapse all</a>
-                                    <a href="" class="btn btn-primary btn-xs pull-left" ng-click="expandAll()">Expand all</a>
-                                    <a href="" class="btn btn-primary btn-xs pull-left" ng-click="refreshTree()">Refresh</a>
+                                <div >
+                                    <p>
+                                        <a href="" class="btn btn-primary btn-xs pull-left" ng-click="collapseAll()">Collapse all</a>
+                                        <a href="" class="btn btn-primary btn-xs pull-left" ng-click="expandAll()">Expand all</a>
+                                        <a href="" class="btn btn-primary btn-xs pull-left" ng-click="refreshTree()">Refresh</a>
+                                    </p>
+                                    <br>
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-addon">Filter</span>
                                         <input id="treeFilter" type="search" class="form-control" placeholder="Type a part of any nodes name..." ng-model="pattern">
@@ -350,56 +352,58 @@
                             <uib-accordion-group id="routing" heading="Routing" panel-class="panel-danger">
                                 <uib-accordion-heading>Routing</i>
                                 </uib-accordion-heading>
-                                  <div>
-                                    <label>PERCORSO Attivo:   </label>
+                                <div>
+                                    <label>PERCORSO Attivo: </label>
                                     <label id="currentPercorso"><b></b></label>
-                                  </div>
-                                  <p>
-                                        <button uib-popover="Start" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingStart()">
-                                          <img src="css/images/initialize.jpg" width="18" height="18">
-                                        </button>
-                                        <button uib-popover="Draw" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingDraw()">
-                                          <img src="css/images/trace.png" width="18" height="18">
-                                        </button>
-                                        <button uib-popover="Stop" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingDrawStop()">
-                                          <img src="css/images/stop.jpg" width="18" height="18">
-                                        </button>
-                                        <button uib-popover="Clear" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingClear()">
-                                          <img src="css/images/clear.jpg" width="18" height="18">
-                                        </button>
-                                  </p>
-                                  <br>
-                                  <p>
-                                        <button uib-popover="Calculate" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingCalc()">
-                                          <img src="css/images/calc.jpg" width="18" height="18">
-                                        </button>
-                                        <button uib-popover="Report" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingReport()">
-                                          <img src="css/images/report.jpg" width="18" height="18">
-                                        </button>
-                                        <button uib-popover="Salva Percorso" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="openRouteName()">
-                                          <img src="css/images/save.jpg" width="18" height="18">
-                                        </button>
-                                        <button uib-popover="Elimina Percorso" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingEliminaPercorso()">
-                                          <img src="css/images/delete.png" width="18" height="18">
-                                        </button>
-                                  </p>
-                                  <br>
-                                  <div id="tabs">
-                                      <ul>
-                                          <li><a href="#tabs-1">Percorsi</a></li>
-                                          <li><a href="#tabs-2">Report</a></li>
-                                      </ul>
-                                      <div id="tabs-1">
+                                </div>
+                                <p>
+                                    <button uib-popover="Start" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingStart()">
+                                        <img src="css/images/initialize.jpg" width="18" height="18">
+                                    </button>
+                                    <button uib-popover="Center" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingCenter()">
+                                        <img src="css/images/center.jpg" width="18" height="18">
+                                    </button>
+                                    <button uib-popover="Draw" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingDraw()">
+                                        <img src="css/images/trace.png" width="18" height="18">
+                                    </button>
+                                    <button uib-popover="Stop" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingDrawStop()">
+                                        <img src="css/images/stop.jpg" width="18" height="18">
+                                    </button>
+                                    <button uib-popover="Clear" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingClear()">
+                                        <img src="css/images/clear.jpg" width="18" height="18">
+                                    </button>
+                                </p>
+                                <br>
+                                <p>
+                                    <button uib-popover="Calculate" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingCalc()">
+                                        <img src="css/images/calc.jpg" width="18" height="18">
+                                    </button>
+                                    <button uib-popover="Report" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingReport()">
+                                        <img src="css/images/report.jpg" width="18" height="18">
+                                    </button>
+                                    <button uib-popover="Salva Percorso" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="openRouteName()">
+                                        <img src="css/images/save.jpg" width="18" height="18">
+                                    </button>
+                                    <button uib-popover="Elimina Percorso" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingEliminaPercorso()">
+                                        <img src="css/images/delete.png" width="18" height="18">
+                                    </button>
+                                </p>
+                                <br>
+                                <div id="tabs">
+                                    <ul>
+                                        <li><a href="#tabs-1">Percorsi</a></li>
+                                        <li><a href="#tabs-2">Report</a></li>
+                                    </ul>
+                                    <div id="tabs-1">
                                         <div ng-controller="gridRoutCtrl">
-                                          <div id='gridPercorsi' ui-grid="gridOptions" ui-grid-selection class="grid">
-                                            
-                                          </div>                                          
+                                            <div id='gridPercorsi' ui-grid="gridOptions" ui-grid-selection class="grid">
+                                            </div>
                                         </div>
-                                      </div>
-                                      <div id="tabs-2" >
+                                    </div>
+                                    <div id="tabs-2">
                                         <div id="routeData">
-                                          <ol class="ng-scope">
-                                          </ol>
+                                            <ol class="ng-scope">
+                                            </ol>
                                         </div>
                                         <p>
                                             <span class="label label-success">Elevation Loss:  </span><span id="ell" class="label label-success"></span>
@@ -409,8 +413,8 @@
                                             <span class="label label-info">Elevation Net:  </span><span id="eln" class="label label-info"></span>
                                             <br>
                                         </p>
-                                      </div>
-                                  </div>
+                                    </div>
+                                </div>
                             </uib-accordion-group>
                         </uib-accordion>
                     </div>
@@ -427,7 +431,7 @@
                             <li><a href="#tabs-6">Routing</a></li>
                         </ul>
                         <div id="tabs-1">
-                            <div id="mappe">
+                            <div id="mappe" x-resize-map>
                                 <div class="container-fluid" id="map-canvas">
                                     <leaflet id="mapMain" center="mapCenter" layers="layers" event-broadcast="events" markers="mapMarkers" />
                                 </div>
