@@ -5,7 +5,10 @@ app
         var markersSearch = [];
         var markersLocation = [];
         //tabs jquery-ui
-        var $tabs = $('#tabs').tabs({
+        var $tabs = $('#tabsMappe').tabs({
+            selected: 0
+        });
+        var $tabs1 = $('#tabs').tabs({
             selected: 0
         });
         var noConfirm = false;
@@ -13,25 +16,49 @@ app
         var definePercorso = function(){
           var percorso = {};
           percorso.waypointsInfo = [];
-          percorso.waypointsGeo = [];      
+          percorso.waypointsGeo = []; 
+          percorso.distanzaTotale = 0;    
+          percorso.elevationLoss = 0;
+          percorso.elevationGain = 0;
+          percorso.elevationNet = 0; 
           return percorso;    
         }
         //gestione routing
+        distanzaTotale = 0;
         elevationGain = 0;
         elevationLoss = 0;
         percorso = definePercorso();
-        $scope.routingStart = function() {
+        routeInitialized=false;
+        $scope.routingReset = function() {
             routingInit();
+        };
+        $scope.routingStart = function() {
+          if (!routeInitialized) {
+            $tabs.tabs("option", "active", 5);
+            routingInit();
+            routeInitialized = true;
+          };
         };
         $scope.routingCenter = function() {
             mapRouting.setView(new L.LatLng($scope.mapCenter.lat, $scope.mapCenter.lng), 14);
         };
+        $scope.routingCalcDistTot = function() {
+            routingCalcDistTot();
+        };
         $scope.routingCalc = function() {
             routingCalc(routing);
         };
+        $scope.routingRemoveElev = function() {
+          $('.elevation.leaflet-control').remove();
+          mapRouting.removeLayer(gjl);
+        };        
         waypointCount = 0;
         $scope.routingClear = function() {
+          distanzaTotale = 0;          
+          elevationGain = 0;
+          elevationLoss = 0;                  
           percorso = definePercorso();
+          $('#distTot').html("");
           waypointCount = 0;
           $('#currentPercorso').html("");
           $("#routeData").html("");
@@ -40,8 +67,9 @@ app
           routingInit();
         };
         $scope.routingReport = function() {
-            $scope.clearRoutData();
-            routingReport(percorsiService, $q);
+          distanzaTotale = 0;
+          $scope.clearRoutData();
+          routingReport(percorsiService, $q);
         };
         $scope.routingDraw = function() {
             routing.draw(true);

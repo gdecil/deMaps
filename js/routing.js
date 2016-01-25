@@ -90,12 +90,15 @@ var routingInit = function() {
         }
         return cb(new Error());
       }
+      //      alert("count:" + waypointCount + "; json:" + geojson.properties.distance  );
       percorso.waypointsGeo[waypointCount++] = geojson;
+      distanzaTotale = distanzaTotale + Number(geojson.properties.distance);
+      $('#distTot').html(distanzaTotale.toString());
+      percorso.distanzaTotale = distanzaTotale;
       geoRoutingLayer = L.GeoJSON.geometryToLayer(geojson)
       return cb(null, geoRoutingLayer);
     });
   }
-
   routing = new L.Routing({
     position: 'topleft',
     routing: {
@@ -155,7 +158,7 @@ var routingCalc = function(routing) {
 
         var el = L.control.elevation();
         el.addTo(mapRouting);
-        var gjl = L.geoJson(geojson, {
+        gjl = L.geoJson(geojson, {
           onEachFeature: el.addData.bind(el)
         }).addTo(mapRouting);
       })
@@ -168,12 +171,18 @@ var routingCalc = function(routing) {
     throw err;
   }
 }
+var routingCalcDistTot = function() {
+  distanzaTotale = 0;
+  percorso.distanzaTotale =0;
+  routing.rerouteAllSegments();
+}
 var routingReport = function(percorsiService, $q) {
+  distanzaTotale = 0;
+  percorso.distanzaTotale =0;
   var waypointsArray = routing.getWaypoints();
   percorso.waypointsGeo = [];
   waypointCount = 0;
-  routing.rerouteAllSegments();
-
+  reroute(waypointsArray);
   var elev = {}
   elev.Elevation_Gain = elevationGain;
   elev.Elevation_Loss = elevationLoss;
@@ -192,31 +201,6 @@ var routingReport = function(percorsiService, $q) {
     $("#routeData").append('<div id = "wp' + index + '"></div>');
   });
 
-  // $.each(waypointsArray, function(index, value) {
-  //   percorso.waypoints[index] = [value.lat, value.lng];
-  //   var url = "http://photon.komoot.de/reverse?lon=" + value.lng + "&lat=" + value.lat
-  //   percorsiService.getService(url)
-  //     .then(
-  //       function( data ) {
-  //         data.features[0].properties.coord = data.features[0].geometry.coordinates;
-  //         tmp = tmp.concat(data.features[0].properties);
-  //         percorso.waypointsInfo[index] = data.features[0].properties.name;
-  //         var lat = data.features[0].properties.coord[1];
-  //         var lng = data.features[0].properties.coord[0];
-  //         var nameWp = data.features[0].properties.name;
-  //         if (percorso.waypoints.length - 1 > index) {
-  //           var dist = percorso.waypointsGeo[index].properties.distance;
-  //           var distC = "....Distanza: " + dist;
-  //         } else {
-  //           var distC = "";
-  //         };
-  //         var nWp = index + 1;
-  //         var coordString = '....Lat: <small>' + lat.toFixed(5) + '</small>  Lng: <small>' + lng.toFixed(5) + '</small><br>    ' + distC + '<br>'
-  //         $("#wp" + index).html('<strong>' + nWp + '.</strong>   <button onclick="centerMap(' + lat + ',' + lng + ',15)"> <strong>' + nameWp + '</strong></button><br>' + coordString);
-  //       }
-  //     )
-  //   ;
-  // });
   var promises = [];
   $.each(waypointsArray, function(index, value) {
     percorso.waypoints[index] = [value.lat, value.lng];
@@ -247,38 +231,6 @@ var routingReport = function(percorsiService, $q) {
   }), function failure(err){
         // Can handle this is we want
   };
-/*  $.each(waypointsArray, function(index, value) {
-    percorso.waypoints[index] = [value.lat, value.lng];
-    var url = "http://photon.komoot.de/reverse?lon=" + value.lng + "&lat=" + value.lat
-    var jqxhr = $.ajax({
-        url: url,
-        dataType: "json"
-      })
-      .done(function(data) {
-        data.features[0].properties.coord = data.features[0].geometry.coordinates;
-        tmp = tmp.concat(data.features[0].properties);
-      })
-      .fail(function(err, x) {
-        alert("error");
-      })
-      .always(function(data) {
-        percorso.waypointsInfo[index] = data.features[0].properties.name;
-        var lat = data.features[0].properties.coord[1];
-        var lng = data.features[0].properties.coord[0];
-        var nameWp = data.features[0].properties.name;
-        if (percorso.waypoints.length - 1 > index) {
-          var dist = percorso.waypointsGeo[index].properties.distance;
-          var distC = "....Distanza: " + dist;
-        } else {
-          var distC = "";
-        };
-        var nWp = index + 1;
-        var coordString = '....Lat: <small>' + lat.toFixed(5) + '</small>  Lng: <small>' + lng.toFixed(5) + '</small><br>    ' + distC + '<br>'
-        $("#wp" + index).html('<strong>' + nWp + '.</strong>   <button onclick="centerMap(' + lat + ',' + lng + ',15)"> <strong>' + nameWp + '</strong></button><br>' + coordString);
-
-        // $("#wp" + index).html('<strong>' + nWp + '.</strong>   <button onclick="centerMap(' + lat + ',' + lng + ',15)"> <strong>' + nameWp + '</strong></button>' + '     Lat: <small>' + lat.toFixed(5) + '</small>  Lng: <small>' + lng.toFixed(5) + '</small><br>    ' + distC + '<br>');
-      });
-  });*/
 }
 var calculateDataFromGpx = function(gpxData) {
   var outGpxData = {};
@@ -341,25 +293,44 @@ var createGeoJSON = function(dataElevation, dataCoord) {
   percorso.geojson = geojson;
   return geojson;
 }
+var reroute = function(waypoints){
+  for (var i = 0; i < waypoints.length -1; i++) {
+      (function(i) { // protects i in an immediately called function
+        var m1 = waypoints[i];
+        var m2 = waypoints[i+1];
+        var proxy = 'http://www2.turistforeningen.no/routing.php?url=';
+        var route = 'http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&v=foot&fast=1&layer=mapnik';
+        var params = '&instructions=1&flat=' + m1.lat + '&flon=' + m1.lng + '&tlat=' + m2.lat + '&tlon=' + m2.lng;
+        $.getJSON(proxy + route + params, function(geojson, status) {
+          percorso.waypointsGeo[i] = geojson;
+          distanzaTotale = distanzaTotale + Number(geojson.properties.distance);
+          $('#distTot').html(distanzaTotale.toString());
+          percorso.distanzaTotale = distanzaTotale;
+        });
+      })(i);
+  }    
+};
 var viewPercorso = function(percorso) {
+  distanzaTotale = 0;
+  percorso.distanzaTotale = 0;
   var prev = null;
   for (var i = 0; i < percorso.waypoints.length; i++) {
     var marker = new L.Marker(percorso.waypoints[i]);
     routing.addWaypoint(marker, prev, null, function() {});
     prev = marker;
   }
-  routing.rerouteAllSegments();
+  //routing.rerouteAllSegments();
   routing.draw(false);
   mapRouting.panTo(new L.LatLng(percorso.waypoints[0][0], percorso.waypoints[0][1]));
   var el = L.control.elevation();
   el.addTo(mapRouting);
-  var gjl = L.geoJson(percorso.geojson, {
+  gjl = L.geoJson(percorso.geojson, {
     onEachFeature: el.addData.bind(el)
   }).addTo(mapRouting);
   $('#ell').html(percorso.elevationLoss.toString());
   $('#elg').html(percorso.elevationGain.toString());
   $('#eln').html(percorso.elevationNet.toString());
-
+  $('#distTot').html(percorso.distanzaTotale.toString());
   $.each(percorso.waypoints, function(index, value) {
     $("#routeData").append('<div id = "wp' + index + '"></div>');
   });

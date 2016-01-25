@@ -349,7 +349,7 @@
                                     </div>
                                 </div>
                             </uib-accordion-group>
-                            <uib-accordion-group id="routing" heading="Routing" panel-class="panel-danger">
+                            <uib-accordion-group id="routing" ng-click="routingStart()" heading="Routing" panel-class="panel-danger">
                                 <uib-accordion-heading>Routing</i>
                                 </uib-accordion-heading>
                                 <div>
@@ -357,9 +357,10 @@
                                     <label id="currentPercorso"><b></b></label>
                                 </div>
                                 <p>
-                                    <button uib-popover="Start" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingStart()">
+<!--                                     <button uib-popover="Start" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingReset()">
                                         <img src="css/images/initialize.jpg" width="18" height="18">
                                     </button>
+ -->                                    
                                     <button uib-popover="Center" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingCenter()">
                                         <img src="css/images/center.jpg" width="18" height="18">
                                     </button>
@@ -375,8 +376,14 @@
                                 </p>
                                 <br>
                                 <p>
-                                    <button uib-popover="Calculate" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingCalc()">
+                                    <button uib-popover=" Calc Elev" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingCalc()">
                                         <img src="css/images/calc.jpg" width="18" height="18">
+                                    </button>
+                                    <button uib-popover="Remove Elev" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingRemoveElev()">
+                                        <img src="css/images/remLayer.jpg" width="18" height="18">
+                                    </button>
+                                    <button uib-popover=" Calc Dist Tot" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingCalcDistTot()">
+                                        <img src="css/images/distanza.jpg" width="18" height="18">
                                     </button>
                                     <button uib-popover="Report" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingReport()">
                                         <img src="css/images/report.jpg" width="18" height="18">
@@ -406,6 +413,8 @@
                                             </ol>
                                         </div>
                                         <p>
+                                            <span class="label label-warning">Distanza totale:  </span><span id="distTot" class="label label-warning"></span>
+                                            <br>
                                             <span class="label label-success">Elevation Loss:  </span><span id="ell" class="label label-success"></span>
                                             <br>
                                             <span class="label label-danger">Elevation Gain:  </span><span id="elg" class="label label-danger"></span>
@@ -421,7 +430,7 @@
                 </div>
                 <div ui-layout-container class="DX">
                     <!--        Jquery-ui tabs-->
-                    <div id="tabs">
+                    <div id="tabsMappe">
                         <ul>
                             <li><a href="#tabs-1">Mappe</a></li>
                             <li><a href="#tabs-2">Profili</a></li>
