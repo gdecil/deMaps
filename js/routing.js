@@ -18,6 +18,7 @@ var routingInit = function() {
   });
 
   osmTopo = L.tileLayer('http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    crossOrigin: null,
     maxZoom: 15,
     attribution: 'Kartendaten: &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende, <a href="https://viewfinderpanoramas.org">SRTM</a> | Kartendarstellung: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
   });
@@ -115,6 +116,18 @@ var routingInit = function() {
   });
   mapRouting.addControl(routing);
   routing.draw()
+  mapRouting.on('click', function(e) {
+      //alert(e.latlng);
+  });
+
+
+  osmTopo.on('tileload', function(e) {
+    // var myArr = new Array();
+    // myArr.push("10,25,20");
+    // myArr.push("10,26,21");
+    // myArr[0].split(",")
+    // myArr[10][15][20] =e.HTMLElement  // e.url    
+  });
 }
 var reduceHalfSize = function(a) {
   var b = []
@@ -327,6 +340,8 @@ var viewPercorso = function(percorso) {
   gjl = L.geoJson(percorso.geojson, {
     onEachFeature: el.addData.bind(el)
   }).addTo(mapRouting);
+
+  //aggiunte varie
   $('#ell').html(percorso.elevationLoss.toString());
   $('#elg').html(percorso.elevationGain.toString());
   $('#eln').html(percorso.elevationNet.toString());
@@ -356,4 +371,38 @@ var viewPercorso = function(percorso) {
 
     // $("#routeData ol").prepend('<li> <button onclick="centerMap(' + percorso.waypoints[i][0] + ',' + percorso.waypoints[i][1] + ',15)"> <strong>' + percorso.waypointsInfo[i] + '</strong></button>' + '     Lat: <small>' + percorso.waypoints[i][0].toFixed(5) + '</small>  Lng: <small>' + percorso.waypoints[i][1].toFixed(5) + '</small></li>');
   };
+}
+function readSingleFile(evt) {
+    //Retrieve the first (and only!) File from the FileList object
+    var f = evt; 
+
+    if (f) {
+
+      var r = new FileReader();
+      r.onload = function(e) { 
+        var gpxXml = e.target.result;
+        //        omnivore.gpx.parse(gpxXml).addTo(mapRouting);
+
+        var el = L.control.elevation();
+        el.addTo(mapRouting);
+        var dom = (new DOMParser()).parseFromString(gpxXml, 'text/xml');
+        var geo = toGeoJSON.gpx(dom);
+        lng0=geo.features[0].geometry.coordinates[0][0];
+        lat0=geo.features[0].geometry.coordinates[0][1];
+
+        mapRouting.panTo(new L.LatLng(lat0, lng0));
+        gjl = L.geoJson(geo, {
+          onEachFeature: el.addData.bind(el)
+        }).addTo(mapRouting);
+
+        // new L.GPX(gpx, {async: true}).on('loaded', function(e) {
+        //   mapRouting.fitBounds(e.target.getBounds());
+        // }).addTo(mapRouting);
+      }
+      var fileInputElement = document.getElementById("fileinput");
+      //fr.readAsText(fileInputElement.files[0]);
+      r.readAsText(fileInputElement.files[0]);
+    } else { 
+      alert("Failed to load file");
+    }
 }

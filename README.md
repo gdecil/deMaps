@@ -54,6 +54,7 @@ COSA FA
     1. Definizione dei percorsi
     2. Calcolo del profilo altimetrico
     3. Visualizzazione report 
+    4. Carica gpx
           
 demo
 http://gdecil.mooo.com/deMaps

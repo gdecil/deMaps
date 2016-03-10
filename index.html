@@ -373,6 +373,9 @@
                                     <button uib-popover="Clear" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="routingClear()">
                                         <img src="css/images/clear.jpg" width="18" height="18">
                                     </button>
+                                    <button uib-popover="Import Trace" popover-trigger="mouseenter" type="button" class="btn btn-default btn-xs pull-left" ng-click="loadTraceFile()">
+                                        <img src="css/images/load.jpg" width="18" height="18">
+                                    </button>
                                 </p>
                                 <br>
                                 <p>
@@ -396,6 +399,7 @@
                                     </button>
                                 </p>
                                 <br>
+                                <input type="file" title="Carica traccia" id="fileinput" />
                                 <div id="tabs">
                                     <ul>
                                         <li><a href="#tabs-1">Percorsi</a></li>

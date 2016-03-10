@@ -23,6 +23,7 @@ app
           percorso.elevationNet = 0; 
           return percorso;    
         }
+
         //gestione routing
         distanzaTotale = 0;
         elevationGain = 0;
@@ -130,6 +131,11 @@ app
                 console.log('Modal promise rejected. Reason: ', reason);
             });
         };
+
+        $scope.loadTraceFile = function() {
+          readSingleFile($("#fileinput").val());
+        };
+
         //gestione authentication
         $scope.openConfirm = function() {
             ngDialog.openConfirm({

@@ -187,3 +187,11 @@ var openLocation = function(id) {
 
     })
 }
+
+$("#fileinput").on("change", function () {
+    if ($("#fileinput").val() == "") {
+        return;
+    }
+    readSingleFile($("#fileinput").val())
+    $("#fileinput").val("");
+});
