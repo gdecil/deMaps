@@ -12,6 +12,11 @@ var routingInit = function() {
     attribution: 'tiles &copy; <a target="_blank" href="http://www.thunderforest.com">Thunderforest</a> ' + '(<a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA 2.0</a>)'
   });
 
+  osmsnow = L.tileLayer('http://www.opensnowmap.org/opensnowmap-overlay/{z}/{x}/{y}.png', {
+    maxZoom: 16,
+    attribution: '&#169;<a href="http://www.opensnowmap.org/" target="blank">Opensnowmap</a> <a href="http://www.openstreetmap.org" target="blank">Openstreetmap.org</a> &amp; contributors - Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a></br> MODIS/Terra Snow Cover 8-day by <a href="http://nsidc.org/" target="blank">NSDIC</a> - ASTER GDEM is a product </br> of METI and NASA - SRTM V4 thanks to <a href="http://srtm.csi.cgiar.org" target="_blank">CGIAR-CSI</a> - EU-DEM produced  </br> using Copernicus data and information funded by the European Union.'
+  });
+
   osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: 'tiles &copy; <a target="_blank" href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -41,6 +46,7 @@ var routingInit = function() {
     'OpenTopoMap': osmTopo,
     'OpenStreetMap': osm
   }, {
+    'OSMSnow': osmsnow,
     'Hiking (Waymarked Trails)': waymarkedtrails
   }).addTo(mapRouting);
 
