@@ -188,10 +188,24 @@ var openLocation = function(id) {
     })
 }
 
-$("#fileinput").on("change", function () {
-    if ($("#fileinput").val() == "") {
-        return;
-    }
-    readSingleFile($("#fileinput").val())
-    $("#fileinput").val("");
-});
+// $("#fileinput").on("change", function () {
+//     if ($("#fileinput").val() == "") {
+//         return;
+//     }
+//     readSingleFile($("#fileinput").val())
+//     $("#fileinput").val("");
+// });
+
+
+function downloadText(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}

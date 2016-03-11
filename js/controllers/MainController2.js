@@ -53,6 +53,14 @@ app
           $('.elevation.leaflet-control').remove();
           mapRouting.removeLayer(gjl);
         };        
+        $scope.routingHideShowElev = function() {
+          if ($('.elevation.leaflet-control').css('display')=="none") { 
+            $('.elevation.leaflet-control').show();
+          }
+          else { 
+            $('.elevation.leaflet-control').hide();
+          }
+        };        
         waypointCount = 0;
         $scope.routingClear = function() {
           distanzaTotale = 0;          
@@ -134,6 +142,11 @@ app
 
         $scope.loadTraceFile = function() {
           readSingleFile($("#fileinput").val());
+        };
+
+        $scope.exportTraceFile = function() {
+          var gpx = togpx(percorso.geojson);
+          downloadText("route.gpx", gpx);
         };
 
         //gestione authentication
@@ -1359,6 +1372,7 @@ app
 
       $scope.rowDblClick = function( row) {
         $('#currentPercorso').html(row.entity.name)
+        percorso = row.entity;
         viewPercorso(row.entity);
       };    
 
